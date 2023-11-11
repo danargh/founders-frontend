@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
+import Script from "next/script";
 
 export const metadata: Metadata = {
    title: "The Founders Wedding Invitation",

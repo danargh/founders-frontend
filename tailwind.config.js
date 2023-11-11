@@ -7,9 +7,30 @@ module.exports = {
          JakartaSans: ["Plus Jakarta Sans", "sans-serif"],
       },
       fontSize: {
+         "link-md": [
+            "0.875rem",
+            {
+               lineHeight: "1.25rem",
+               fontWeight: "500",
+            },
+         ],
+         "link-lg": [
+            "1rem",
+            {
+               lineHeight: "1.5rem",
+               fontWeight: "500",
+            },
+         ],
          "label-sm": ["0.75rem", "1rem"],
          "label-md": ["0.875rem", "1.25rem"],
          "label-lg": ["1rem", "1.5rem"],
+         "body-xs": [
+            "0.625rem",
+            {
+               lineHeight: "1rem",
+               fontWeight: "400",
+            },
+         ],
          "body-sm": [
             "0.75rem",
             {
@@ -80,34 +101,11 @@ module.exports = {
                fontWeight: "500",
             },
          ],
-         "display-sm": [
-            "1.5rem",
-            {
-               lineHeight: "2rem",
-               fontWeight: "500",
-            },
-         ],
-         "display-md": [
-            "2rem",
-            {
-               lineHeight: "2.5rem",
-               fontWeight: "500",
-            },
-         ],
-         "display-lg": [
-            "2.25rem",
-            {
-               lineHeight: "2.5rem",
-               fontWeight: "500",
-            },
-         ],
-         "display-xl": [
-            "3.5rem",
-            {
-               lineHeight: "4.25rem",
-               fontWeight: "400",
-            },
-         ],
+         "display-xs": ["1.375rem", "1.875rem"],
+         "display-sm": ["1.75rem", "2.25rem"],
+         "display-md": ["2rem", "2.5rem"],
+         "display-lg": ["2.25rem", "3rem"],
+         "display-xl": ["3.5rem", "4.25rem"],
       },
       colors: {
          primary: {
