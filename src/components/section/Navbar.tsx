@@ -8,46 +8,40 @@ const Navbar: React.FC = () => {
    const [lastScrollY, setLastScrollY] = useState(0);
    const [showMenu, setShowMenu] = useState(false);
 
-   const controlNavbar = () => {
-      if (typeof window !== "undefined") {
-         if (window.scrollY < lastScrollY) {
-            // if scroll down hide the navbar
-            setShowNav(false);
-         } else {
-            // if scroll up show the navbar
-            setShowNav(true);
-         }
+   useEffect(() => {
+      window.addEventListener("scroll", controlNavbar);
+      window.addEventListener("resize", hideMenuWhenResize);
 
-         // remember current page location to use in the next move
-         setLastScrollY(window.scrollY);
+      // cleanup function when unmount
+      return () => {
+         window.removeEventListener("scroll", controlNavbar);
+         window.removeEventListener("resize", hideMenuWhenResize);
+      };
+   }, [lastScrollY]);
+
+   const controlNavbar = () => {
+      if (window.scrollY < lastScrollY) {
+         // if scroll down hide the navbar
+         setShowNav(false);
+      } else {
+         // if scroll up show the navbar
+         setShowNav(true);
       }
+
+      // remember current page location to use in the next move
+      setLastScrollY(window.scrollY);
    };
 
    const hideMenuWhenResize = () => {
-      if (typeof window !== "undefined") {
-         const viewportWidth = window.innerWidth;
-         if (viewportWidth >= 768) {
-            setShowMenu(false);
-         }
+      const viewportWidth = window.innerWidth;
+      if (viewportWidth >= 768) {
+         setShowMenu(false);
       }
    };
 
-   useEffect(() => {
-      if (typeof window !== "undefined") {
-         window.addEventListener("scroll", controlNavbar);
-         window.addEventListener("resize", hideMenuWhenResize);
-
-         // cleanup function
-         return () => {
-            window.removeEventListener("scroll", controlNavbar);
-            window.removeEventListener("resize", hideMenuWhenResize);
-         };
-      }
-   }, [lastScrollY]);
-
    return (
       <>
-         <nav className={`${showNav ? "top-[-82px]" : null} transition-all border-b border-primary-100 bg-[#fff] sticky top-0 z-10`}>
+         <nav className={`${showNav ? "top-[-82px]" : null} transition-all border-b border-primary-100 bg-primary-25 sticky top-0 z-10`}>
             <div className="relative responsive__container flex items-center w-full py-4">
                <h4 className="flex-auto w-[160px] font-bold text-[20px] leading-[28px] font-Lora">POLOKRAMI</h4>
                <button id="nav-button__mobile" className={`${showMenu ? "hidden" : "block"} md:hidden`}>

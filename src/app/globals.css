@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
+
 @layer base {
    @font-face {
       font-family: "Lora";
@@ -28,7 +30,7 @@
       font-display: swap;
    }
    body {
-      @apply font-JakartaSans;
+      @apply font-JakartaSans bg-primary-25;
       position: relative;
    }
 
@@ -87,19 +89,50 @@
    .navbar__mobile--show {
       @apply fixed left-0 right-0 mx-4 p-4 border-primary-200 border rounded-2xl bg-[#fff] z-20 top-[60px] flex flex-col;
    }
+
+   /* label */
+   .label__green {
+      @apply text-label-sm font-semibold text-mossGreenSecondary-900 border border-mossGreenSecondary-900 bg-mossGreenSecondary-200 py-2 px-4 rounded-full;
+   }
+   .label__white {
+      @apply text-label-sm font-semibold text-primary-600 border border-primary-600 bg-primary-25 py-2 px-4 rounded-full;
+   }
+   @media screen and (min-width: 768px) {
+      .label__green {
+         @apply text-label-lg py-[10px] px-5;
+      }
+      .label__white {
+         @apply text-label-lg py-[10px] px-5;
+      }
+   }
 }
 
 /* section 2 */
-.img-section2__box-shadow {
+.img__shadow--blue {
    box-shadow: 0px 0px 0px 12px #d3e5f0;
+   object-fit: cover;
+   border-radius: 24px;
+}
+.img__shadow--green {
+   box-shadow: 0px 0px 0px 12px #e0ebd3;
+   object-fit: cover;
+   border-radius: 24px;
+}
+.img__shadow--violet {
+   box-shadow: 0px 0px 0px 8px #dbd8eb;
+   object-fit: cover;
+   border-radius: 24px;
 }
 
-/* styling vanilla css */
-/* image slider */
-.swiper {
+/* card testimoni carousel */
+.card__carousel {
    width: 100%;
    height: 100%;
    position: relative;
+}
+
+.card__carousel .swiper-wrapper {
+   padding: 12px;
 }
 
 .swiper-slide {
@@ -109,46 +142,23 @@
    align-items: center;
 }
 
-.swiper-slide img {
-   width: 176px;
-   height: 240px;
-   display: block;
-   object-fit: cover;
+.swiper-slide #testimoni-card-bg {
+   width: 100%;
+   height: 400px;
+   background-size: cover;
    border-radius: 16px;
 }
 
-@media screen and (min-width: 1280px) {
-   .swiper-slide img {
-      width: 240px;
-      height: 380px;
-   }
-   .swiper {
-      max-width: 2000px;
-   }
-   .swiper-slide {
-      margin-right: 0;
-   }
-   .swiper:before,
-   .swiper:after {
-      position: absolute;
-      top: 0;
-      width: 300px;
-      height: 100%;
-      content: "";
-      z-index: 2;
-   }
+.bg-color__testimoni {
+   background: rgba(219, 216, 235, 0.72);
+}
 
-   .swiper:before {
-      left: 0;
-      background: linear-gradient(to left, rgba(255, 255, 255, 0), white);
-   }
-
-   .swiper:after {
-      right: 0;
-      background: linear-gradient(to right, rgba(255, 255, 255, 0), white);
+@media screen and (min-width: 768px) {
+   .swiper-slide #testimoni-card-bg {
+      height: 428px;
    }
 }
 
-.image-slider > .swiper-wrapper {
+/* .image-slider > .swiper-wrapper {
    transition-timing-function: linear;
-}
+} */
