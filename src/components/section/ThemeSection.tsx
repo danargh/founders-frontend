@@ -21,9 +21,9 @@ const ThemeSection: React.FC = () => {
    };
 
    return (
-      <section className="responsive__container flex flex-col gap-y-6 md:gap-y-12">
+      <section className="responsive__container flex flex-col gap-y-6 md:gap-y-8 xl:gap-y-12">
          <div className="flex flex-col gap-y-2 justify-center items-center">
-            <h2 className="text-display-xs md:text-display-sm xl:text-display-lg xl:max-w-[560px] text-center font-[500] font-Lora text-primary-950">
+            <h2 className="text-display-xs md:text-display-sm xl:text-display-lg xl:max-w-[720px] text-center font-[500] font-Lora text-primary-950">
                Pilihan Tema yang Banyak, Sesuaikan dengan Keinginanmu
             </h2>
             <p className="text-body-md md:text-body-lg text-primary-800 xl:max-w-[420px] text-center">Polokrami memiliki berbagai macam tema undangan yang dapat disesuaikan dengan keinginanmu.</p>

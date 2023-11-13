@@ -42,3 +42,6 @@ indent_size = 3
 [*.json]
 indent_style = space
 indent_size = 3
+
+[src/app/assets/icons/icons.tsx]
+print_width = 1000

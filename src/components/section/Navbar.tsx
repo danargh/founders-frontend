@@ -72,7 +72,7 @@ const Navbar: React.FC = () => {
                <div className={`${showMenu ? "navbar__mobile--show" : "hidden"} md:flex md:flex-auto items-center justify-between`}>
                   <ul
                      className={`${
-                        showMenu ? "flex flex-col w-full justify-start text-left gap-y-3 border-b border-primary-50 pb-3 mb-3" : "grid-cols-4"
+                        showMenu ? "flex flex-col w-full justify-start text-left gap-y-4 border-b border-primary-50 pb-3 mb-3" : "grid-cols-4"
                      } text-body-md md:text-body-lg grid gap-x-6 text-center`}
                   >
                      <li className="flex items-center justify-start md:justify-center">
