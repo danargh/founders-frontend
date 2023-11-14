@@ -21,6 +21,7 @@ module.exports = {
                fontWeight: "500",
             },
          ],
+         "label-xs": ["0.688rem", "1rem"],
          "label-sm": ["0.75rem", "1rem"],
          "label-md": ["0.875rem", "1.25rem"],
          "label-lg": ["1rem", "1.5rem"],

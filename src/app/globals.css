@@ -70,13 +70,19 @@
 @layer components {
    /* button variants */
    .btn__primary {
-      @apply text-label-sm font-semibold text-primary-25 bg-primary-950 py-4 px-8 rounded-full hover:bg-primary-800 active:bg-primary-950 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow--primary transition-colors;
+      @apply text-label-sm font-[500] text-primary-25 bg-primary-950 py-4 px-8 rounded-full hover:bg-primary-800 active:bg-primary-950 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow--primary transition-colors;
    }
    .btn__secondary {
-      @apply text-label-sm font-semibold text-primary-950 bg-primary-200 py-4 px-8 rounded-full hover:bg-primary-300 active:bg-primary-200 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow transition-colors;
+      @apply text-label-sm font-[600] text-primary-950 bg-primary-200 py-4 px-8 rounded-full hover:bg-primary-300 active:bg-primary-200 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow transition-colors;
+   }
+   .btn__secondary--small {
+      @apply text-label-sm md:text-label-md font-[600] text-primary-950 bg-primary-200 py-3 px-6 rounded-full hover:bg-primary-300 active:bg-primary-200 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow transition-colors;
    }
    .btn__tertiary {
-      @apply text-label-sm font-semibold text-primary-950 border border-primary-200 hover:border-primary-300 py-4 px-8 rounded-full hover:bg-primary-100 active:bg-primary-25 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow transition-colors;
+      @apply text-label-sm font-[600] text-primary-950 border border-primary-200 hover:border-primary-300 py-4 px-8 rounded-full hover:bg-primary-100 active:bg-primary-25 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow transition-colors;
+   }
+   .btn__tertiary--small {
+      @apply text-label-sm md:text-label-md  font-[600] text-primary-950 border border-primary-200 hover:border-primary-300 py-3 px-6 rounded-full hover:bg-primary-100 active:bg-primary-25 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow transition-colors;
    }
    .text__link {
       @apply hover:underline active:underline visited:font-semibold hover:text-primary-600 transition-all;
@@ -94,24 +100,43 @@
    }
 
    /* label variants */
-   .label__green {
-      @apply text-label-sm font-semibold text-mossGreenSecondary-900 border border-mossGreenSecondary-900 bg-mossGreenSecondary-100 py-2 px-4 rounded-full;
+   .label__green--lg {
+      @apply text-label-sm font-semibold text-mossGreenSecondary-900 border border-mossGreenSecondary-900 bg-mossGreenSecondary-100 py-3 px-6 rounded-full;
    }
-   .label__white {
-      @apply text-label-sm font-semibold text-primary-600 border border-primary-600 bg-primary-25 py-2 px-4 rounded-full;
+   .label__white--lg {
+      @apply text-label-sm font-semibold text-primary-600 border border-primary-600 bg-primary-25 py-3 px-6 rounded-full;
    }
-   .label__red {
-      @apply text-label-sm font-semibold text-orangeDarkSecondary-900 border border-orangeDarkSecondary-900 bg-orangeDarkSecondary-100 py-2 px-4 rounded-full;
+   .label__red--lg {
+      @apply text-label-sm font-semibold text-orangeDarkSecondary-900 border border-orangeDarkSecondary-900 bg-orangeDarkSecondary-100 py-3 px-6 rounded-full;
    }
+   .label__green--sm {
+      @apply text-label-xs font-semibold text-mossGreenSecondary-900 border border-mossGreenSecondary-900 bg-mossGreenSecondary-100 py-2 px-4 rounded-full;
+   }
+   .label__white--sm {
+      @apply text-label-xs font-semibold text-primary-600 border border-primary-600 bg-primary-25 py-2 px-4 rounded-full;
+   }
+   .label__red--sm {
+      @apply text-label-xs font-semibold text-orangeDarkSecondary-900 border border-orangeDarkSecondary-900 bg-orangeDarkSecondary-100 py-2 px-4 rounded-full;
+   }
+
    @media screen and (min-width: 768px) {
-      .label__green {
-         @apply text-label-lg py-[10px] px-5;
+      .label__green--lg {
+         @apply text-label-lg py-3 px-6;
       }
-      .label__white {
-         @apply text-label-lg py-[10px] px-5;
+      .label__white--lg {
+         @apply text-label-lg py-3 px-6;
       }
-      .label__red {
-         @apply text-label-lg py-[10px] px-5;
+      .label__red--lg {
+         @apply text-label-lg py-3 px-6;
+      }
+      .label__green--sm {
+         @apply text-label-md py-2 px-4;
+      }
+      .label__white--sm {
+         @apply text-label-md py-2 px-4;
+      }
+      .label__red--sm {
+         @apply text-label-md py-2 px-4;
       }
    }
 

@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Navbar from "@/components/section/Navbar";
-import Carousel from "@/components/ui/TestimoniCarousel";
 import Marque from "@/components/ui/Marque";
 import ThemeSection from "@/components/section/ThemeSection";
 import TestimoniCarousel from "@/components/ui/TestimoniCarousel";
-import { Checklist, Cube, OneStar, ThreeStar, TwoStar } from "@/assets/icons/icons";
+import { Box, Checklist, Cube, OneStar, PlayCircle, ThreeStar, TwoStar } from "@/assets/icons/icons";
+import FaqSection from "@/components/section/FaqSection";
 
 export default function Home() {
    return (
@@ -27,11 +27,13 @@ export default function Home() {
                   </p>
                </div>
                <div className="flex gap-x-4 mt-4">
-                  <button className="btn__primary order-2 md:order-1">Buat undangan</button>
-                  <button className="btn__secondary flex gap-x-2 items-center order-1 md:order-2">
-                     <img src="icons/play-circle.svg" alt="play icon" />
+                  <a href="#" className="btn__primary order-2 md:order-1 flex items-center">
+                     Buat undangan
+                  </a>
+                  <a href="#" className="btn__secondary flex gap-x-2 items-center order-1 md:order-2">
+                     <PlayCircle width="24" height="24" color="#141210" />
                      Cara buat undangan
-                  </button>
+                  </a>
                </div>
             </section>
             <Marque />
@@ -104,7 +106,7 @@ export default function Home() {
                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 xl:gap-8">
                   {Array.from({ length: 12 }).map((_, i) => (
                      <div key={i} className="flex flex-col gap-y-8 p-5 border border-primary-300 rounded-2xl">
-                        <img src="icons/box.svg" width={24} alt="box icon" />
+                        <Box width="24" height="24" color="#292524" />
                         <div className="flex flex-col gap-y-2">
                            <h4 className="text-primary-950 text-heading-2xs xl:text-heading-md">Domain eksklusif</h4>
                            <p className=" text-body-sm md:text-body-md">Menggunakan mekanisme subdomain dan tersedia paket custom domain</p>
@@ -214,7 +216,7 @@ export default function Home() {
                      </a>
                   </div>
                   <div className=" flex-1 flex flex-col items-center  gap-y-6 p-6 border border-orangeDarkSecondary-300 rounded-3xl">
-                     <div className=" label__red">Populer</div>
+                     <div className=" label__red--lg">Terpopuler</div>
                      <div className="flex flex-col gap-y-1 items-center">
                         <TwoStar width="48" height="30" color="#701608" />
                         <span className="text-heading-sm text-orangeDarkSecondary-900">Premium</span>
@@ -252,7 +254,7 @@ export default function Home() {
                         Pilih Starter
                      </a>
                   </div>
-                  <div className=" flex-1 h-fit flex flex-col items-center  gap-y-6 p-6 border border-violet-300 rounded-3xl">
+                  <div className=" flex-1 h-fit flex flex-col items-center  gap-y-6 p-6 border border-violetSecondary-300 rounded-3xl">
                      <div className="flex flex-col gap-y-1 items-center">
                         <ThreeStar width="77" height="30" color="#2B0C66" />
                         <span className="text-heading-sm text-violetSecondary-900">Eksklusif</span>
@@ -292,6 +294,25 @@ export default function Home() {
                   </div>
                </div>
             </section>
+
+            {/* FAQ section */}
+            <FaqSection />
+
+            {/* Ending */}
+            <section className="responsive__container flex flex-col items-center gap-y-5 pt-8">
+               <div className="flex flex-col items-center md:max-w-[720px] gap-y-2">
+                  <h1 className=" text-center text-display-md md:text-display-lg xl:text-display-xl font-Lora max-w-[670px] xl:max-w-[1060px]">Buat Undangan Digitalmu Sekarang</h1>
+                  <p className="text-body-md md:text-body-lg xl:text-body-xl max-w-[520px] xl:max-w-[600px] text-center">
+                     Bergabunglah dengan kami yang telah menjadi dipercaya oleh para pasangan. Dapatkan penawaran khusus untuk pembelian pertama Anda.
+                  </p>
+               </div>
+            </section>
+            <Marque />
+            <div className="p-4">
+               <a href="#" className="btn__primary w-full mx-auto md:w-fit flex items-center">
+                  Buat undangan
+               </a>
+            </div>
          </main>
          <footer></footer>
       </>

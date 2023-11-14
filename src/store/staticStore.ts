@@ -1,6 +1,6 @@
 // testimoni data
 export type TestimoniArrayObject = TestimoniObject[];
-export type TestimoniObject = {
+type TestimoniObject = {
    background: string;
    imgMale: string;
    imgFemale: string;
@@ -90,5 +90,55 @@ export const testimoniData: TestimoniObject[] = [
       date: "Selasa, 31 Oktober 2023",
       quote: "Terimakasih buat Polokrami telah membuatkan undangan pernikahan kita. Bagus banget hasilnya, suka.",
       star: 5,
+   },
+];
+
+// Faq data
+
+export type FaqArrayObject = FaqObject[];
+type FaqObject = {
+   question: string;
+   answer: string;
+};
+export const faqData: FaqObject[] = [
+   {
+      question: "Apa yang perlu saya siapkan untuk membuat undangan online?",
+      answer: "Cukup register, kemudian isi form wizard yang telah kami sediakan, daftarkan tamu spesialmu dan bagiakan undangan.",
+   },
+   {
+      question: "Apa yang perlu saya siapkan untuk membuat undangan online?",
+      answer: "Cukup register, kemudian isi form wizard yang telah kami sediakan, daftarkan tamu spesialmu dan bagiakan undangan.",
+   },
+   {
+      question: "Apa yang perlu saya siapkan untuk membuat undangan online?",
+      answer: "Cukup register, kemudian isi form wizard yang telah kami sediakan, daftarkan tamu spesialmu dan bagiakan undangan.",
+   },
+   {
+      question: "Apa yang perlu saya siapkan untuk membuat undangan online?",
+      answer: "Cukup register, kemudian isi form wizard yang telah kami sediakan, daftarkan tamu spesialmu dan bagiakan undangan.",
+   },
+   {
+      question: "Apa yang perlu saya siapkan untuk membuat undangan online?",
+      answer: "Cukup register, kemudian isi form wizard yang telah kami sediakan, daftarkan tamu spesialmu dan bagiakan undangan.",
+   },
+   {
+      question: "Apa yang perlu saya siapkan untuk membuat undangan online?",
+      answer: "Cukup register, kemudian isi form wizard yang telah kami sediakan, daftarkan tamu spesialmu dan bagiakan undangan.",
+   },
+   {
+      question: "Apa yang perlu saya siapkan untuk membuat undangan online?",
+      answer: "Cukup register, kemudian isi form wizard yang telah kami sediakan, daftarkan tamu spesialmu dan bagiakan undangan.",
+   },
+   {
+      question: "Apa yang perlu saya siapkan untuk membuat undangan online?",
+      answer: "Cukup register, kemudian isi form wizard yang telah kami sediakan, daftarkan tamu spesialmu dan bagiakan undangan.",
+   },
+   {
+      question: "Apa yang perlu saya siapkan untuk membuat undangan online?",
+      answer: "Cukup register, kemudian isi form wizard yang telah kami sediakan, daftarkan tamu spesialmu dan bagiakan undangan.",
+   },
+   {
+      question: "Apa yang perlu saya siapkan untuk membuat undangan online?",
+      answer: "Cukup register, kemudian isi form wizard yang telah kami sediakan, daftarkan tamu spesialmu dan bagiakan undangan.",
    },
 ];
