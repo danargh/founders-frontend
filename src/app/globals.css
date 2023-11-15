@@ -58,16 +58,49 @@
       }
    }
 
-   /* box shadow for button */
+   /* box shadow for button : used in component */
    .btn__shadow {
       box-shadow: 0px 0px 0px 4px #f0eeeb;
    }
    .btn__shadow--primary {
       box-shadow: 0px 0px 0px 4px #d7d3d0;
    }
+   .help-btn__shadow {
+      box-shadow: 4px 4px 24px 0px rgba(5, 79, 49, 0.12), 2px 2px 12px 0px rgba(5, 79, 49, 0.16), 2px 2px 24px 0px rgba(5, 79, 49, 0.2);
+   }
 }
 
 @layer components {
+   /* logo */
+   .logo__primary {
+      @apply text-[14px] leading-[20px] font-bold text-primary-950 font-Lora;
+   }
+   @media screen and (min-width: 768px) {
+      .logo__primary {
+         @apply text-[16x] leading-[24px];
+      }
+   }
+   @media screen and (min-width: 1280px) {
+      .logo__primary {
+         @apply text-[20px] leading-[28px];
+      }
+   }
+
+   /* responsive icon */
+   .responsive__icon {
+      @apply w-4 h-4;
+   }
+   @media screen and (min-width: 768px) {
+      .responsive__icon {
+         @apply w-5 h-5;
+      }
+   }
+   @media screen and (min-width: 1280px) {
+      .responsive__icon {
+         @apply w-6 h-6;
+      }
+   }
+
    /* button variants */
    .btn__primary {
       @apply text-label-sm font-[500] text-primary-25 bg-primary-950 py-4 px-8 rounded-full hover:bg-primary-800 active:bg-primary-950 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow--primary transition-colors;
@@ -84,9 +117,6 @@
    .btn__tertiary--small {
       @apply text-label-sm md:text-label-md  font-[600] text-primary-950 border border-primary-200 hover:border-primary-300 py-3 px-6 rounded-full hover:bg-primary-100 active:bg-primary-25 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow transition-colors;
    }
-   .text__link {
-      @apply hover:underline active:underline visited:font-semibold hover:text-primary-600 transition-all;
-   }
    @media screen and (min-width: 768px) {
       .btn__primary {
          @apply text-label-lg py-3 px-6;
@@ -97,6 +127,11 @@
       .btn__tertiary {
          @apply text-label-lg py-3 px-6;
       }
+   }
+
+   /* link text */
+   .text__link {
+      @apply hover:underline active:underline visited:font-semibold hover:text-primary-600 transition-all;
    }
 
    /* label variants */
@@ -118,7 +153,6 @@
    .label__red--sm {
       @apply text-label-xs font-semibold text-orangeDarkSecondary-900 border border-orangeDarkSecondary-900 bg-orangeDarkSecondary-100 py-2 px-4 rounded-full;
    }
-
    @media screen and (min-width: 768px) {
       .label__green--lg {
          @apply text-label-lg py-3 px-6;
@@ -137,6 +171,16 @@
       }
       .label__red--sm {
          @apply text-label-md py-2 px-4;
+      }
+   }
+
+   /* help button */
+   .help__btn--primary {
+      @apply flex justify-center items-center text-label-sm font-[600] text-primary-25 bg-success-600 py-[10px] px-4 rounded-full hover:bg-success-700 help-btn__shadow transition-colors;
+   }
+   @media screen and (min-width: 768px) {
+      .help__btn--primary {
+         @apply text-label-lg py-3 px-5;
       }
    }
 

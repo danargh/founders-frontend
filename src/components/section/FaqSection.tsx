@@ -22,8 +22,8 @@ const FaqSection: React.FC = () => {
    };
 
    // spliting array of faqData into 2
-   const faqData1 = faqData.slice(0, 4);
-   const faqData2 = faqData.slice(5, 9);
+   const faqData1 = faqData.slice(0, 5);
+   const faqData2 = faqData.slice(5, 10);
    return (
       <section className=" bg-tealSecondary-50">
          <div className="responsive__container py-5 md:py-8 xl:py-12 flex flex-col gap-y-4 md:gap-y-8 xl:gap-y-12">
@@ -37,8 +37,8 @@ const FaqSection: React.FC = () => {
             <div className=" flex flex-col md:flex-row md:gap-x-12 xl:gap-x-16">
                <ul className="flex flex-col flex-1">
                   {faqData1.map(({ question, answer }, index) => (
-                     <li className="flex gap-x-2 items-start border-b border-tealSecondary-200 py-6">
-                        <i className="mt-[2px]" style={{ rotate: openIndex === index ? "90deg" : "none" }}>
+                     <li key={index} className="flex gap-x-2 items-start border-b border-tealSecondary-200 py-6">
+                        <i className="md:mt-[2px]" style={{ rotate: openIndex === index ? "90deg" : "none" }}>
                            <SimpleRightArrow width="24" height="24" />
                         </i>
                         <div className="flex flex-col gap-y-2 cursor-pointer" onClick={() => toggleAccordion(index)}>
@@ -50,8 +50,8 @@ const FaqSection: React.FC = () => {
                </ul>
                <ul ref={faqList2} className="hidden md:flex flex-col flex-1 faq__list2">
                   {faqData2.map(({ question, answer }, index) => (
-                     <li className="flex gap-x-2 items-start border-b border-tealSecondary-200 py-6">
-                        <i className="mt-[2px]" style={{ rotate: openIndex2 === index ? "90deg" : "none" }}>
+                     <li key={index} className="flex gap-x-2 items-start border-b border-tealSecondary-200 py-6">
+                        <i className="md:mt-[2px]" style={{ rotate: openIndex2 === index ? "90deg" : "none" }}>
                            <SimpleRightArrow width="24" height="24" />
                         </i>
                         <div className="flex flex-col gap-y-2 cursor-pointer" onClick={() => toggleAccordion2(index)}>

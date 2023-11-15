@@ -43,7 +43,7 @@ const Navbar: React.FC = () => {
       <>
          <nav className={`${showNav ? "top-[-82px]" : null} transition-all border-b border-primary-100 bg-primary-25 sticky top-0 z-10`}>
             <div className="relative responsive__container flex items-center w-full py-4">
-               <h4 className="flex-auto w-[160px] font-bold text-[20px] leading-[28px] font-Lora">POLOKRAMI</h4>
+               <h4 className="flex-auto w-[160px] logo__primary">POLOKRAMI</h4>
                <button id="nav-button__mobile" className={`${showMenu ? "hidden" : "block"} md:hidden`}>
                   <Image
                      onClick={() => {

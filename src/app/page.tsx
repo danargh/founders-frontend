@@ -5,6 +5,8 @@ import ThemeSection from "@/components/section/ThemeSection";
 import TestimoniCarousel from "@/components/ui/TestimoniCarousel";
 import { Box, Checklist, Cube, OneStar, PlayCircle, ThreeStar, TwoStar } from "@/assets/icons/icons";
 import FaqSection from "@/components/section/FaqSection";
+import Footer from "@/components/section/Footer";
+import { EksklusifPackage, PremiumPackage, StarterPackage } from "@/components/ui/package";
 
 export default function Home() {
    return (
@@ -178,34 +180,31 @@ export default function Home() {
                </a>
                <div className="flex overflow-auto flex-wrap min-[440px]:flex-nowrap items-center w-full gap-y-4 gap-x-6 md:gap-x-8">
                   <div className=" flex-1 h-fit flex flex-col items-center  gap-y-6 p-6 border border-mossGreenSecondary-300 rounded-3xl">
-                     <div className="flex flex-col gap-y-1 items-center">
-                        <OneStar width="20" height="30" color="#2E4210" />
-                        <span className="text-heading-sm text-mossGreenSecondary-900">Starter</span>
-                     </div>
+                     <StarterPackage />
                      <h4 className="text-display-md font-[600] text-primary-950 font-Lora">Gratis</h4>
                      <hr className="w-full border border-primary-100" />
                      <ul className="flex flex-col gap-y-4 text-body-sm md:text-body-md xl:text-body-lg ">
                         <li className="flex gap-x-3 items-start justify-start text-left">
-                           <i className="flex-none">
-                              <Checklist width="24" height="24" color="#292524" />
+                           <i className="flex-none responsive__icon">
+                              <Checklist color="#292524" />
                            </i>
                            Domain Polokrami (namapasangan.polokrami.com)
                         </li>
                         <li className="flex gap-x-3 items-start justify-start text-left">
-                           <i className="flex-none">
-                              <Checklist width="24" height="24" color="#292524" />
+                           <i className="flex-none responsive__icon">
+                              <Checklist color="#292524" />
                            </i>
                            3 Foto & 1 Video
                         </li>
                         <li className="flex gap-x-3 items-start justify-start text-left">
-                           <i className="flex-none">
-                              <Checklist width="24" height="24" color="#292524" />
+                           <i className="flex-none responsive__icon">
+                              <Checklist color="#292524" />
                            </i>
                            Countdown Timer
                         </li>
                         <li className="flex gap-x-3 items-start justify-start text-left">
-                           <i className="flex-none">
-                              <Checklist width="24" height="24" color="#292524" />
+                           <i className="flex-none responsive__icon">
+                              <Checklist color="#292524" />
                            </i>
                            Informasi Acara
                         </li>
@@ -217,34 +216,31 @@ export default function Home() {
                   </div>
                   <div className=" flex-1 flex flex-col items-center  gap-y-6 p-6 border border-orangeDarkSecondary-300 rounded-3xl">
                      <div className=" label__red--lg">Terpopuler</div>
-                     <div className="flex flex-col gap-y-1 items-center">
-                        <TwoStar width="48" height="30" color="#701608" />
-                        <span className="text-heading-sm text-orangeDarkSecondary-900">Premium</span>
-                     </div>
+                     <PremiumPackage />
                      <h4 className="text-display-md font-[600] text-orangeDarkSecondary-900 font-Lora">IDR 99.000</h4>
                      <hr className="w-full border border-primary-100" />
                      <ul className="flex flex-col gap-y-4 text-body-sm md:text-body-md xl:text-body-lg ">
                         <li className="flex gap-x-3 items-start justify-start text-left">
-                           <i className="flex-none">
-                              <Checklist width="24" height="24" color="#292524" />
+                           <i className="flex-none responsive__icon">
+                              <Checklist color="#292524" />
                            </i>
                            Domain Polokrami (namapasangan.polokrami.com)
                         </li>
                         <li className="flex gap-x-3 items-start justify-start text-left">
-                           <i className="flex-none">
-                              <Checklist width="24" height="24" color="#292524" />
+                           <i className="flex-none responsive__icon">
+                              <Checklist color="#292524" />
                            </i>
                            3 Foto & 1 Video
                         </li>
                         <li className="flex gap-x-3 items-start justify-start text-left">
-                           <i className="flex-none">
-                              <Checklist width="24" height="24" color="#292524" />
+                           <i className="flex-none responsive__icon">
+                              <Checklist color="#292524" />
                            </i>
                            Countdown Timer
                         </li>
                         <li className="flex gap-x-3 items-start justify-start text-left">
-                           <i className="flex-none">
-                              <Checklist width="24" height="24" color="#292524" />
+                           <i className="flex-none responsive__icon">
+                              <Checklist color="#292524" />
                            </i>
                            Informasi Acara
                         </li>
@@ -255,34 +251,31 @@ export default function Home() {
                      </a>
                   </div>
                   <div className=" flex-1 h-fit flex flex-col items-center  gap-y-6 p-6 border border-violetSecondary-300 rounded-3xl">
-                     <div className="flex flex-col gap-y-1 items-center">
-                        <ThreeStar width="77" height="30" color="#2B0C66" />
-                        <span className="text-heading-sm text-violetSecondary-900">Eksklusif</span>
-                     </div>
+                     <EksklusifPackage />
                      <h4 className="text-display-md font-[600] text-violetSecondary-900 font-Lora">IDR 199.000</h4>
                      <hr className="w-full border border-primary-100" />
                      <ul className="flex flex-col gap-y-4 text-body-sm md:text-body-md xl:text-body-lg ">
                         <li className="flex gap-x-3 items-start justify-start text-left">
-                           <i className="flex-none">
-                              <Checklist width="24" height="24" color="#292524" />
+                           <i className="flex-none responsive__icon">
+                              <Checklist color="#292524" />
                            </i>
                            Domain Polokrami (namapasangan.polokrami.com)
                         </li>
                         <li className="flex gap-x-3 items-start justify-start text-left">
-                           <i className="flex-none">
-                              <Checklist width="24" height="24" color="#292524" />
+                           <i className="flex-none responsive__icon">
+                              <Checklist color="#292524" />
                            </i>
                            3 Foto & 1 Video
                         </li>
                         <li className="flex gap-x-3 items-start justify-start text-left">
-                           <i className="flex-none">
-                              <Checklist width="24" height="24" color="#292524" />
+                           <i className="flex-none responsive__icon">
+                              <Checklist color="#292524" />
                            </i>
                            Countdown Timer
                         </li>
                         <li className="flex gap-x-3 items-start justify-start text-left">
-                           <i className="flex-none">
-                              <Checklist width="24" height="24" color="#292524" />
+                           <i className="flex-none responsive__icon">
+                              <Checklist color="#292524" />
                            </i>
                            Informasi Acara
                         </li>
@@ -309,12 +302,12 @@ export default function Home() {
             </section>
             <Marque />
             <div className="p-4">
-               <a href="#" className="btn__primary w-full mx-auto md:w-fit flex items-center">
+               <a href="#" className="btn__primary w-full mx-auto md:w-fit flex justify-center items-center">
                   Buat undangan
                </a>
             </div>
          </main>
-         <footer></footer>
+         <Footer />
       </>
    );
 }
