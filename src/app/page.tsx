@@ -3,7 +3,7 @@ import Navbar from "@/components/section/Navbar";
 import Marque from "@/components/ui/Marque";
 import ThemeSection from "@/components/section/ThemeSection";
 import TestimoniCarousel from "@/components/ui/TestimoniCarousel";
-import { Box, Checklist, Cube, OneStar, PlayCircle, Square, ThreeStar, TwoStar } from "@/assets/icons/icons";
+import { Box, Checklist, Cube, PlayCircle, Square } from "@/assets/icons/icons";
 import FaqSection from "@/components/section/FaqSection";
 import Footer from "@/components/section/Footer";
 import { EksklusifPackage, PremiumPackage, StarterPackage } from "@/components/ui/Package";
