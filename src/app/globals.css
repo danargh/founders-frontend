@@ -2,9 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
-
 @layer base {
+   /* font */
    @font-face {
       font-family: "Lora";
       font-style: normal;
@@ -29,6 +28,7 @@
       src: url("../assets/fonts/Plus_Jakarta_Sans/PlusJakartaSans-Italic-VariableFont_wght.ttf") format("truetype");
       font-display: swap;
    }
+
    body {
       @apply font-JakartaSans bg-primary-25;
       position: relative;
@@ -59,14 +59,17 @@
    }
 
    /* box shadow for button : used in component */
-   .btn__shadow {
-      box-shadow: 0px 0px 0px 4px #f0eeeb;
-   }
    .btn__shadow--primary {
       box-shadow: 0px 0px 0px 4px #d7d3d0;
    }
+   .btn__shadow {
+      box-shadow: 0px 0px 0px 4px #f0eeeb;
+   }
    .help-btn__shadow {
-      box-shadow: 4px 4px 24px 0px rgba(5, 79, 49, 0.12), 2px 2px 12px 0px rgba(5, 79, 49, 0.16), 2px 2px 24px 0px rgba(5, 79, 49, 0.2);
+      box-shadow:
+         4px 4px 24px 0px rgba(5, 79, 49, 0.12),
+         2px 2px 12px 0px rgba(5, 79, 49, 0.16),
+         2px 2px 24px 0px rgba(5, 79, 49, 0.2);
    }
 }
 
@@ -75,9 +78,15 @@
    .logo__primary {
       @apply text-[14px] leading-[20px] font-bold text-primary-950 font-Lora;
    }
+   .logo__secondary {
+      @apply text-[16px] leading-[24px] font-bold text-primary-950 font-Lora;
+   }
    @media screen and (min-width: 768px) {
       .logo__primary {
          @apply text-[16x] leading-[24px];
+      }
+      .logo__secondary {
+         @apply text-[20px] leading-[28px];
       }
    }
    @media screen and (min-width: 1280px) {
@@ -90,8 +99,12 @@
    .responsive__icon {
       @apply w-4 h-4;
    }
+   .responsive__icon--sm {
+      @apply w-4 h-4;
+   }
    @media screen and (min-width: 768px) {
-      .responsive__icon {
+      .responsive__icon,
+      .responsive__icon--sm {
          @apply w-5 h-5;
       }
    }
@@ -102,36 +115,55 @@
    }
 
    /* button variants */
-   .btn__primary {
-      @apply text-label-sm font-[500] text-primary-25 bg-primary-950 py-4 px-8 rounded-full hover:bg-primary-800 active:bg-primary-950 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow--primary transition-colors;
+   /* black */
+   .btn__primary--xl {
+      @apply flex justify-center items-center text-label-lg font-medium text-primary-25 bg-primary-950 py-4 px-8 rounded-full hover:bg-primary-800 active:bg-primary-950 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow--primary transition-colors;
    }
+   .btn__primary--lg {
+      @apply flex justify-center items-center text-label-md font-medium text-primary-25 bg-primary-950 py-4 px-8 rounded-full hover:bg-primary-800 active:bg-primary-950 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow--primary transition-colors;
+   }
+   .btn__primary--md {
+      @apply flex justify-center items-center text-label-md font-medium text-primary-25 bg-primary-950 py-3 px-6 rounded-full hover:bg-primary-800 active:bg-primary-950 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow--primary transition-colors;
+   }
+   .btn__primary--sm {
+      @apply flex justify-center items-center text-label-sm font-medium text-primary-25 bg-primary-950 py-3 px-5 rounded-full hover:bg-primary-800 active:bg-primary-950 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow--primary transition-colors;
+   }
+   .btn__secondary--xl {
+      @apply flex justify-center items-center text-label-lg font-medium text-primary-25 bg-primary-950 py-4 px-8 rounded-full hover:bg-primary-800 active:bg-primary-950 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow--primary transition-colors;
+   }
+   .btn__secondary--lg {
+      @apply flex justify-center items-center text-label-md font-medium text-primary-25 bg-primary-950 py-4 px-8 rounded-full hover:bg-primary-800 active:bg-primary-950 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow--primary transition-colors;
+   }
+   .btn__secondary--md {
+      @apply flex justify-center items-center text-label-md font-medium text-primary-25 bg-primary-950 py-3 px-6 rounded-full hover:bg-primary-800 active:bg-primary-950 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow--primary transition-colors;
+   }
+   .btn__secondary--sm {
+      @apply flex justify-center items-center text-label-sm font-medium text-primary-25 bg-primary-950 py-3 px-5 rounded-full hover:bg-primary-800 active:bg-primary-950 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow--primary transition-colors;
+   }
+
    .btn__secondary {
-      @apply text-label-sm font-[600] text-primary-950 bg-primary-200 py-4 px-8 rounded-full hover:bg-primary-300 active:bg-primary-200 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow transition-colors;
-   }
-   .btn__secondary--small {
-      @apply text-label-sm md:text-label-md font-[600] text-primary-950 bg-primary-200 py-3 px-6 rounded-full hover:bg-primary-300 active:bg-primary-200 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow transition-colors;
+      @apply flex justify-center items-center text-label-sm font-medium text-primary-950 bg-primary-200 py-4 px-8 rounded-full hover:bg-primary-300 active:bg-primary-200 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow transition-colors;
    }
    .btn__tertiary {
-      @apply text-label-sm font-[600] text-primary-950 border border-primary-200 hover:border-primary-300 py-4 px-8 rounded-full hover:bg-primary-100 active:bg-primary-25 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow transition-colors;
+      @apply flex justify-center items-center text-label-sm font-medium text-primary-950 border border-primary-200 hover:border-primary-300 py-4 px-8 rounded-full hover:bg-primary-100 active:bg-primary-25 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow transition-colors;
+   }
+   .btn__primary--small {
+      @apply flex justify-center items-center text-label-sm font-medium text-primary-25 bg-primary-950 py-4 px-8 rounded-full hover:bg-primary-800 active:bg-primary-950 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow--primary transition-colors;
+   }
+   .btn__secondary--small {
+      @apply flex justify-center items-center text-label-sm md:text-label-md font-medium text-primary-950 bg-primary-200 py-3 px-6 rounded-full hover:bg-primary-300 active:bg-primary-200 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow transition-colors;
    }
    .btn__tertiary--small {
-      @apply text-label-sm md:text-label-md  font-[600] text-primary-950 border border-primary-200 hover:border-primary-300 py-3 px-6 rounded-full hover:bg-primary-100 active:bg-primary-25 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow transition-colors;
+      @apply flex justify-center items-center text-label-sm md:text-label-md  font-medium text-primary-950 border border-primary-200 hover:border-primary-300 py-3 px-6 rounded-full hover:bg-primary-100 active:bg-primary-25 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow transition-colors;
    }
-   @media screen and (min-width: 768px) {
-      .btn__primary {
-         @apply text-label-lg py-3 px-6;
-      }
-      .btn__secondary {
-         @apply text-label-lg py-3 px-6;
-      }
-      .btn__tertiary {
-         @apply text-label-lg py-3 px-6;
-      }
+   /* green */
+   .btn__primary--green {
+      @apply flex justify-center items-center text-label-sm font-medium text-primary-25 bg-primary-950 py-4 px-8 rounded-full hover:bg-primary-800 active:bg-primary-950 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow--primary transition-colors;
    }
 
    /* link text */
    .text__link {
-      @apply hover:underline active:underline visited:font-semibold hover:text-primary-600 transition-all;
+      @apply hover:underline active:underline active:font-semibold hover:text-primary-600 transition-all;
    }
 
    /* label variants */

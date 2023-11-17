@@ -3,6 +3,8 @@
 import { useState, useRef } from "react";
 import { SimpleRightArrow } from "@/assets/icons/icons";
 import { faqData } from "@/store/staticStore";
+import { LinkButton } from "@/components/ui/Button";
+import { button } from "@/app/variants";
 
 const FaqSection: React.FC = () => {
    const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -32,7 +34,9 @@ const FaqSection: React.FC = () => {
                   <h2 className="text-display-xs md:text-display-sm xl:text-display-lg font-[500] font-Lora text-mossGreenSecondary-900">Pertanyaan yang Sering Ditanyakan </h2>
                   <p className="text-body-md md:text-body-lg text-primary-800">Temukan jawaban untuk pertanyaanmu di sini. Jika masih memiliki pertanyaan, silakan hubungi tim kami.</p>
                </div>
-               <button className="hidden md:flex flex-none w-full md:w-fit btn__primary">Pusat bantuan</button>
+               <LinkButton urlLocation="#" className={`${button({ primary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} hidden md:flex flex-none w-full md:w-fit`}>
+                  Pusat bantuan
+               </LinkButton>
             </div>
             <div className=" flex flex-col md:flex-row md:gap-x-12 xl:gap-x-16">
                <ul className="flex flex-col flex-1">
@@ -42,7 +46,7 @@ const FaqSection: React.FC = () => {
                            <SimpleRightArrow width="24" height="24" />
                         </i>
                         <div className="flex flex-col gap-y-2 cursor-pointer" onClick={() => toggleAccordion(index)}>
-                           <h4 className=" text-heading-2xs md:text-heading-xs xl:text-heading-sm font-[600]">{question}</h4>
+                           <h4 className=" text-heading-2xs md:text-heading-xs xl:text-heading-sm font-[500]">{question}</h4>
                            {index === openIndex && <p className="transition-all text-body-sm md:text-body-md xl:text-body-lg">{answer}</p>}
                         </div>
                      </li>
@@ -63,8 +67,12 @@ const FaqSection: React.FC = () => {
                </ul>
             </div>
             <div onClick={() => Faq2Toggle()} className="flex gap-x-3">
-               <button className="flex justify-center items-center md:hidden w-full btn__secondary btn__showAll">Lihat semua FAQ</button>
-               <button className="flex justify-center items-center md:hidden w-full btn__primary">Pusat bantuan</button>
+               <LinkButton urlLocation="#" className={`${button({ secondary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} md:hidden w-full btn__showAll`}>
+                  Lihat semua FAQ
+               </LinkButton>
+               <LinkButton urlLocation="#" className={`${button({ primary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} md:hidden w-full btn__showAll`}>
+                  Pusat bantuan
+               </LinkButton>
             </div>
          </div>
       </section>

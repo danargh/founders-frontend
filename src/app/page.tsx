@@ -3,16 +3,18 @@ import Navbar from "@/components/section/Navbar";
 import Marque from "@/components/ui/Marque";
 import ThemeSection from "@/components/section/ThemeSection";
 import TestimoniCarousel from "@/components/ui/TestimoniCarousel";
-import { Box, Checklist, Cube, OneStar, PlayCircle, ThreeStar, TwoStar } from "@/assets/icons/icons";
+import { Box, Checklist, Cube, OneStar, PlayCircle, Square, ThreeStar, TwoStar } from "@/assets/icons/icons";
 import FaqSection from "@/components/section/FaqSection";
 import Footer from "@/components/section/Footer";
-import { EksklusifPackage, PremiumPackage, StarterPackage } from "@/components/ui/package";
+import { EksklusifPackage, PremiumPackage, StarterPackage } from "@/components/ui/Package";
+import { LinkButton } from "@/components/ui/Button";
+import { button } from "@/app/variants";
 
 export default function Home() {
    return (
       <>
          <Navbar />
-         <main className="flex flex-col gap-y-8 md:gap-y-14 xl:gap-y-20">
+         <main className="flex font flex-col gap-y-8 md:gap-y-14 xl:gap-y-20">
             {/* hero */}
             <section className="responsive__container flex flex-col items-center gap-y-5 pt-8">
                <div className="text-[10px] leading-[16px] md:text-label-sm font-semibold rounded-full text-orangeDarkSecondary-900 bg-orangeDarkSecondary-200 py-1 px-[10px] md:py-2 md:px-4">
@@ -29,13 +31,13 @@ export default function Home() {
                   </p>
                </div>
                <div className="flex gap-x-4 mt-4">
-                  <a href="#" className="btn__primary order-2 md:order-1 flex items-center">
+                  <LinkButton urlLocation="#" className={`${button({ primary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} order-2 md:order-1`}>
                      Buat undangan
-                  </a>
-                  <a href="#" className="btn__secondary flex gap-x-2 items-center order-1 md:order-2">
+                  </LinkButton>
+                  <LinkButton urlLocation="#" className={`${button({ secondary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} gap-x-2 order-1 md:order-2`}>
                      <PlayCircle width="24" height="24" color="#141210" />
                      Cara buat undangan
-                  </a>
+                  </LinkButton>
                </div>
             </section>
             <Marque />
@@ -53,7 +55,9 @@ export default function Home() {
                      <ul className="flex flex-col gap-y-5">
                         <li className="flex gap-x-2 items-start ">
                            <div className="w-[32px] h-[32px] md:w-[36px] md:h-[36px] flex flex-none items-center justify-center rounded-lg bg-blueLightSecondary-200 ">
-                              <Cube width="20" height="20" color="#0C3D66" />
+                              <i className=" responsive__icon--sm">
+                                 <Cube color="#0C3D66" />
+                              </i>
                            </div>
                            <div className="flex flex-col gap-y-2">
                               <div className="h-[32px] md:h-[36px] w-fit flex flex-none px-3 justify-start items-center bg-blueLightSecondary-200 rounded-lg ">
@@ -66,7 +70,9 @@ export default function Home() {
                         </li>
                         <li className="flex gap-x-2 items-start ">
                            <div className="w-[32px] h-[32px] md:w-[36px] md:h-[36px] flex flex-none items-center justify-center rounded-lg bg-blueLightSecondary-200 ">
-                              <img className="w-[16px] md:w-[20px]" src="icons/3square.svg" alt="cube icon" />
+                              <i className=" responsive__icon--sm">
+                                 <Square color="#0C3D66" />
+                              </i>
                            </div>
                            <div className="flex flex-col gap-y-2">
                               <div className="h-[32px] md:h-[36px] w-fit flex flex-none px-3 justify-start items-center bg-blueLightSecondary-200 rounded-lg ">
@@ -79,7 +85,9 @@ export default function Home() {
                         </li>
                         <li className="flex gap-x-2 items-start ">
                            <div className="w-[32px] h-[32px] md:w-[36px] md:h-[36px] flex flex-none items-center justify-center rounded-lg bg-blueLightSecondary-200 ">
-                              <img className="w-[16px] md:w-[20px]" src="icons/box.svg" alt="cube icon" />
+                              <i className=" responsive__icon--sm">
+                                 <Box color="#0C3D66" />
+                              </i>
                            </div>
                            <div className="flex flex-col gap-y-2">
                               <div className="h-[32px] md:h-[36px] w-fit flex flex-none px-3 justify-start items-center bg-blueLightSecondary-200 rounded-lg ">
@@ -89,7 +97,9 @@ export default function Home() {
                            </div>
                         </li>
                      </ul>
-                     <button className="btn__primary md:w-fit">Buat undangan</button>
+                     <LinkButton urlLocation="#" className={`${button({ primary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} md:w-fit`}>
+                        Buat undangan
+                     </LinkButton>
                   </div>
                   <div className="p-3 hidden md:block">
                      <img className="img__shadow--blue flex-1 hidden md:block lg:w-full md:h-[500px] lg:h-full w-full" src="images/img-section2.jpg" alt="section2 image" />
@@ -139,7 +149,9 @@ export default function Home() {
                            </div>
                         ))}
                      </div>
-                     <button className="btn__primary md:w-fit">Buat undangan</button>
+                     <LinkButton urlLocation="#" className={`${button({ primary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} md:w-fit`}>
+                        Buat undangan
+                     </LinkButton>
                   </div>
                   <img className="flex-1 lg:max-w-[450px] hidden md:block md:max-h-[500px] lg:max-h-fit w-full img__shadow--green " src="/images/img-section4.jpg" alt="img section" />
                </div>
@@ -182,7 +194,7 @@ export default function Home() {
                   <div className=" flex-1 h-fit flex flex-col items-center  gap-y-6 p-6 border border-mossGreenSecondary-300 rounded-3xl">
                      <StarterPackage />
                      <h4 className="text-display-md font-[600] text-primary-950 font-Lora">Gratis</h4>
-                     <hr className="w-full border border-primary-100" />
+                     <hr className="w-full text-primary-100" />
                      <ul className="flex flex-col gap-y-4 text-body-sm md:text-body-md xl:text-body-lg ">
                         <li className="flex gap-x-3 items-start justify-start text-left">
                            <i className="flex-none responsive__icon">
@@ -209,16 +221,16 @@ export default function Home() {
                            Informasi Acara
                         </li>
                      </ul>
-                     <hr className="w-full border border-primary-100" />
-                     <a href="#" className="w-full text-center btn__tertiary">
+                     <hr className="w-full text-primary-100" />
+                     <LinkButton urlLocation="#" className={`${button({ tertiary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} w-full text-center`}>
                         Pilih Starter
-                     </a>
+                     </LinkButton>
                   </div>
                   <div className=" flex-1 flex flex-col items-center  gap-y-6 p-6 border border-orangeDarkSecondary-300 rounded-3xl">
                      <div className=" label__red--lg">Terpopuler</div>
                      <PremiumPackage />
                      <h4 className="text-display-md font-[600] text-orangeDarkSecondary-900 font-Lora">IDR 99.000</h4>
-                     <hr className="w-full border border-primary-100" />
+                     <hr className="w-full text-primary-100" />
                      <ul className="flex flex-col gap-y-4 text-body-sm md:text-body-md xl:text-body-lg ">
                         <li className="flex gap-x-3 items-start justify-start text-left">
                            <i className="flex-none responsive__icon">
@@ -245,15 +257,15 @@ export default function Home() {
                            Informasi Acara
                         </li>
                      </ul>
-                     <hr className="w-full border border-primary-100" />
-                     <a href="#" className="w-full text-center btn__primary">
-                        Pilih Starter
-                     </a>
+                     <hr className="w-full text-primary-100" />
+                     <LinkButton urlLocation="#" className={`${button({ primary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} w-full text-center`}>
+                        Pilih Premium
+                     </LinkButton>
                   </div>
                   <div className=" flex-1 h-fit flex flex-col items-center  gap-y-6 p-6 border border-violetSecondary-300 rounded-3xl">
                      <EksklusifPackage />
                      <h4 className="text-display-md font-[600] text-violetSecondary-900 font-Lora">IDR 199.000</h4>
-                     <hr className="w-full border border-primary-100" />
+                     <hr className="w-full text-primary-100" />
                      <ul className="flex flex-col gap-y-4 text-body-sm md:text-body-md xl:text-body-lg ">
                         <li className="flex gap-x-3 items-start justify-start text-left">
                            <i className="flex-none responsive__icon">
@@ -280,10 +292,10 @@ export default function Home() {
                            Informasi Acara
                         </li>
                      </ul>
-                     <hr className="w-full border border-primary-100" />
-                     <a href="#" className="w-full text-center btn__secondary">
+                     <hr className="w-full text-primary-100" />
+                     <LinkButton urlLocation="#" className={`${button({ secondary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} w-full text-center`}>
                         Pilih Eksklusif
-                     </a>
+                     </LinkButton>
                   </div>
                </div>
             </section>
@@ -294,7 +306,7 @@ export default function Home() {
             {/* Ending */}
             <section className="responsive__container flex flex-col items-center gap-y-5 pt-8">
                <div className="flex flex-col items-center md:max-w-[720px] gap-y-2">
-                  <h1 className=" text-center text-display-md md:text-display-lg xl:text-display-xl font-Lora max-w-[670px] xl:max-w-[1060px]">Buat Undangan Digitalmu Sekarang</h1>
+                  <h1 className="text-center text-display-md md:text-display-lg xl:text-display-xl font-Lora max-w-[670px] xl:max-w-[1060px]">Buat Undangan Digitalmu Sekarang</h1>
                   <p className="text-body-md md:text-body-lg xl:text-body-xl max-w-[520px] xl:max-w-[600px] text-center">
                      Bergabunglah dengan kami yang telah menjadi dipercaya oleh para pasangan. Dapatkan penawaran khusus untuk pembelian pertama Anda.
                   </p>
@@ -302,9 +314,9 @@ export default function Home() {
             </section>
             <Marque />
             <div className="p-4">
-               <a href="#" className="btn__primary w-full mx-auto md:w-fit flex justify-center items-center">
+               <LinkButton urlLocation="#" className={`${button({ primary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} w-full mx-auto md:w-fit`}>
                   Buat undangan
-               </a>
+               </LinkButton>
             </div>
          </main>
          <Footer />

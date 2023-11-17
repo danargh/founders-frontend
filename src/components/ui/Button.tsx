@@ -6,7 +6,7 @@ interface ButtonProps {
    children: ReactNode;
 }
 
-const Button: React.FC<ButtonProps> = ({ onClick, className, children }) => {
+export const Button: React.FC<ButtonProps> = ({ onClick, className, children }) => {
    return (
       <button onClick={onClick} className={`${className}`}>
          {children}
@@ -14,4 +14,15 @@ const Button: React.FC<ButtonProps> = ({ onClick, className, children }) => {
    );
 };
 
-export default Button;
+interface LinkButtonProps {
+   urlLocation: string;
+   className: string;
+   children: ReactNode;
+}
+export const LinkButton: React.FC<LinkButtonProps> = ({ urlLocation, className, children }) => {
+   return (
+      <a href={urlLocation} className={className}>
+         {children}
+      </a>
+   );
+};

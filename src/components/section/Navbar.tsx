@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { Menu } from "@/assets/icons/icons";
+import { button } from "@/app/variants";
+import { LinkButton } from "@/components/ui/Button";
 
 const Navbar: React.FC = () => {
    const [showNav, setShowNav] = useState(true);
@@ -42,18 +45,16 @@ const Navbar: React.FC = () => {
    return (
       <>
          <nav className={`${showNav ? "top-[-82px]" : null} transition-all border-b border-primary-100 bg-primary-25 sticky top-0 z-10`}>
-            <div className="relative responsive__container flex items-center w-full py-4">
-               <h4 className="flex-auto w-[160px] logo__primary">POLOKRAMI</h4>
-               <button id="nav-button__mobile" className={`${showMenu ? "hidden" : "block"} md:hidden`}>
-                  <Image
+            <div className="relative responsive__container flex justify-between items-center w-full py-4">
+               <h4 className="flex-auto logo__primary">POLOKRAMI</h4>
+               <button id="nav-button__mobile" className={`${showMenu ? "hidden" : "flex items-center"} md:hidden`}>
+                  <i
                      onClick={() => {
                         setShowMenu(true);
                      }}
-                     width={24}
-                     height={24}
-                     src="/icons/menu.svg"
-                     alt="menu icon"
-                  />
+                  >
+                     <Menu width="24" height="24" />
+                  </i>
                </button>
                <button id="nav-button__mobile" className={`${showMenu ? "block" : "hidden"}`}>
                   <Image
@@ -70,36 +71,36 @@ const Navbar: React.FC = () => {
                   />
                </button>
                <div className={`${showMenu ? "navbar__mobile--show" : "hidden"} md:flex md:flex-auto items-center justify-between`}>
-                  <ul
-                     className={`${
-                        showMenu ? "flex flex-col w-full justify-start text-left gap-y-4 border-b border-primary-50 pb-3 mb-3" : "grid-cols-4"
-                     } text-body-md md:text-body-lg grid gap-x-6 text-center`}
-                  >
-                     <li className="flex items-center justify-start md:justify-center">
-                        <a className="text__link" href="#">
+                  <ul className={`${showMenu ? "flex flex-col w-full justify-start text-left gap-y-4 border-b border-primary-50 pb-3 mb-3" : "flex"} text-body-md md:text-body-lg gap-x-6 text-center`}>
+                     <li className=" flex items-center justify-start md:justify-center">
+                        <a className="md:w-[68px] text__link" href="#">
                            Beranda
                         </a>
                      </li>
-                     <li className="flex items-center justify-start md:justify-center">
-                        <a className="text__link" href="#">
+                     <li className=" flex items-center justify-start md:justify-center">
+                        <a className="md:w-[68px] text__link" href="#">
                            Tema
                         </a>
                      </li>
-                     <li className="flex items-center justify-start md:justify-center">
-                        <a className="text__link" href="#">
+                     <li className=" flex items-center justify-start md:justify-center">
+                        <a className="md:w-[68px] text__link" href="#">
                            Harga
                         </a>
                      </li>
-                     <li className="flex items-center justify-start md:justify-center">
-                        <a className="text__link" href="#">
+                     <li className=" flex items-center justify-start md:justify-center">
+                        <a className="md:w-[68px] text__link" href="#">
                            Tutorial
                         </a>
                      </li>
                   </ul>
 
                   <div className="w-full md:w-fit flex items-center gap-x-4">
-                     <button className="w-full md:w-fit btn__tertiary">Daftar</button>
-                     <button className="w-full md:w-fit btn__secondary">Masuk</button>
+                     <LinkButton urlLocation="#" className={`${button({ tertiary: "gray", size: { initial: "xs", md: "xs", xl: "sm" } })} 'w-full md:w-fit'`}>
+                        Daftar
+                     </LinkButton>
+                     <LinkButton urlLocation="#" className={`${button({ secondary: "gray", size: { initial: "xs", md: "xs", xl: "sm" } })} 'w-full md:w-fit'`}>
+                        Masuk
+                     </LinkButton>
                   </div>
                </div>
             </div>

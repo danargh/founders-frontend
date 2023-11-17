@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+const { withTV } = require("tailwind-variants/transformer");
+
+module.exports = withTV({
    content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
    theme: {
       fontFamily: {
@@ -177,4 +179,4 @@ module.exports = {
       extend: {},
    },
    plugins: [],
-};
+});

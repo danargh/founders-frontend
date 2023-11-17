@@ -1,5 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
+import ThemeCard from "../ui/ThemeCard";
+import { LinkButton } from "@/components/ui/Button";
+import { button } from "@/app/variants";
 
 const ThemeSection: React.FC = () => {
    const [cardLength, setCardLength] = useState(6);
@@ -30,19 +33,12 @@ const ThemeSection: React.FC = () => {
          </div>
          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-6 xl:gap-8">
             {Array.from({ length: cardLength }).map((_, i) => (
-               <div key={i} className="flex flex-col border border-primary-200 rounded-2xl h-[400px]">
-                  <div className="relative rounded-t-2xl bg-[url('/images/tema-undangan1.jpg')] h-full w-full bg-no-repeat bg-cover">
-                     <span className="absolute label__green--sm top-4 right-4">Starter</span>
-                     <span className="absolute label__white--sm bottom-4 left-4">Traditional minang</span>
-                  </div>
-                  <div className="flex gap-x-4 p-4">
-                     <button className=" btn__tertiary--small flex-1">Detail</button>
-                     <button className=" btn__secondary--small flex-1">Preview</button>
-                  </div>
-               </div>
+               <ThemeCard key={i} />
             ))}
          </div>
-         <button className="btn__primary w-full md:w-fit mx-auto">Lihat semua tema</button>
+         <LinkButton urlLocation="#" className={`${button({ primary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} w-full md:w-fit mx-auto`}>
+            Lihat semua tema
+         </LinkButton>
       </section>
    );
 };
