@@ -1,3 +1,6 @@
+import { LinkButton } from "./Button";
+import { button } from "@/app/variants";
+
 const ThemeCard: React.FC = () => {
    return (
       <div className="flex flex-col border border-primary-200 rounded-2xl h-[400px]">
@@ -6,8 +9,12 @@ const ThemeCard: React.FC = () => {
             <span className="absolute label__white--sm bottom-4 left-4">Traditional minang</span>
          </div>
          <div className="flex gap-x-4 p-4">
-            <button className=" btn__tertiary--small flex-1">Detail</button>
-            <button className=" btn__secondary--small flex-1">Preview</button>
+            <LinkButton urlLocation="#" className={`flex-1 ${button({ tertiary: "gray", size: { initial: "mb_md", md: "sm" } })} gap-x-2 order-1 md:order-2`}>
+               Detail
+            </LinkButton>
+            <LinkButton urlLocation="#" className={`flex-1 ${button({ secondary: "gray", size: { initial: "mb_md", md: "sm" } })} gap-x-2 order-1 md:order-2`}>
+               Preview
+            </LinkButton>
          </div>
       </div>
    );

@@ -168,10 +168,14 @@ export default function Home() {
                         <h2 className="text-display-xs md:text-display-sm xl:text-display-lg font-[500] font-Lora text-mossGreenSecondary-900">Testimoni dari Pasangan yang Percaya pada Polokrami </h2>
                         <p className="text-body-md md:text-body-lg text-primary-800">Polokrami telah menjadi bagian dari kebahagiaan mereka di momen-momen terbaik.</p>
                      </div>
-                     <button className="hidden md:flex flex-none w-full md:w-fit btn__primary">Lihat Portofolio</button>
+                     <LinkButton urlLocation="#" className={`${button({ primary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} hidden md:flex flex-none w-full md:w-fit`}>
+                        Lihat Portofolio
+                     </LinkButton>
                   </div>
                   <TestimoniCarousel />
-                  <button className="flex md:hidden justify-center flex-none w-full md:w-fit btn__primary">Lihat Portofolio</button>
+                  <LinkButton urlLocation="#" className={`${button({ primary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} md:hidden flex-none w-full md:w-fit`}>
+                     Lihat Portofolio
+                  </LinkButton>
                </div>
             </section>
 

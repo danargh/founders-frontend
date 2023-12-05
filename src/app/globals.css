@@ -114,53 +114,6 @@
       }
    }
 
-   /* button variants */
-   /* black */
-   .btn__primary--xl {
-      @apply flex justify-center items-center text-label-lg font-medium text-primary-25 bg-primary-950 py-4 px-8 rounded-full hover:bg-primary-800 active:bg-primary-950 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow--primary transition-colors;
-   }
-   .btn__primary--lg {
-      @apply flex justify-center items-center text-label-md font-medium text-primary-25 bg-primary-950 py-4 px-8 rounded-full hover:bg-primary-800 active:bg-primary-950 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow--primary transition-colors;
-   }
-   .btn__primary--md {
-      @apply flex justify-center items-center text-label-md font-medium text-primary-25 bg-primary-950 py-3 px-6 rounded-full hover:bg-primary-800 active:bg-primary-950 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow--primary transition-colors;
-   }
-   .btn__primary--sm {
-      @apply flex justify-center items-center text-label-sm font-medium text-primary-25 bg-primary-950 py-3 px-5 rounded-full hover:bg-primary-800 active:bg-primary-950 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow--primary transition-colors;
-   }
-   .btn__secondary--xl {
-      @apply flex justify-center items-center text-label-lg font-medium text-primary-25 bg-primary-950 py-4 px-8 rounded-full hover:bg-primary-800 active:bg-primary-950 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow--primary transition-colors;
-   }
-   .btn__secondary--lg {
-      @apply flex justify-center items-center text-label-md font-medium text-primary-25 bg-primary-950 py-4 px-8 rounded-full hover:bg-primary-800 active:bg-primary-950 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow--primary transition-colors;
-   }
-   .btn__secondary--md {
-      @apply flex justify-center items-center text-label-md font-medium text-primary-25 bg-primary-950 py-3 px-6 rounded-full hover:bg-primary-800 active:bg-primary-950 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow--primary transition-colors;
-   }
-   .btn__secondary--sm {
-      @apply flex justify-center items-center text-label-sm font-medium text-primary-25 bg-primary-950 py-3 px-5 rounded-full hover:bg-primary-800 active:bg-primary-950 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow--primary transition-colors;
-   }
-
-   .btn__secondary {
-      @apply flex justify-center items-center text-label-sm font-medium text-primary-950 bg-primary-200 py-4 px-8 rounded-full hover:bg-primary-300 active:bg-primary-200 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow transition-colors;
-   }
-   .btn__tertiary {
-      @apply flex justify-center items-center text-label-sm font-medium text-primary-950 border border-primary-200 hover:border-primary-300 py-4 px-8 rounded-full hover:bg-primary-100 active:bg-primary-25 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow transition-colors;
-   }
-   .btn__primary--small {
-      @apply flex justify-center items-center text-label-sm font-medium text-primary-25 bg-primary-950 py-4 px-8 rounded-full hover:bg-primary-800 active:bg-primary-950 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow--primary transition-colors;
-   }
-   .btn__secondary--small {
-      @apply flex justify-center items-center text-label-sm md:text-label-md font-medium text-primary-950 bg-primary-200 py-3 px-6 rounded-full hover:bg-primary-300 active:bg-primary-200 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow transition-colors;
-   }
-   .btn__tertiary--small {
-      @apply flex justify-center items-center text-label-sm md:text-label-md  font-medium text-primary-950 border border-primary-200 hover:border-primary-300 py-3 px-6 rounded-full hover:bg-primary-100 active:bg-primary-25 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow transition-colors;
-   }
-   /* green */
-   .btn__primary--green {
-      @apply flex justify-center items-center text-label-sm font-medium text-primary-25 bg-primary-950 py-4 px-8 rounded-full hover:bg-primary-800 active:bg-primary-950 active:outline active:outline-1 active:outline-primary-400 active:btn__shadow--primary transition-colors;
-   }
-
    /* link text */
    .text__link {
       @apply hover:underline active:underline active:font-semibold hover:text-primary-600 transition-all;
@@ -220,6 +173,35 @@
    .navbar__mobile--show {
       @apply fixed left-0 right-0 mx-4 p-4 border-primary-200 border rounded-2xl bg-[#fff] z-20 top-[60px] flex flex-col;
    }
+
+   /* * FORM */
+   /* input */
+   .input__wrapper {
+      @apply flex flex-col text-label-sm text-primary-600 p-4 border border-primary-200 rounded-xl hover:border hover:border-primary-400 hover:bg-primary-50 transition-colors;
+   }
+   .input__wrapper-error {
+      @apply flex flex-col text-label-sm p-4 border border-orangeDarkSecondary-600 bg-orangeDarkSecondary-25  rounded-xl transition-colors;
+   }
+   .input__wrapper-disabled {
+      @apply flex flex-col text-label-sm text-primary-300 p-4 border border-primary-300 rounded-xl;
+   }
+   .input__text {
+      @apply text-body-lg w-full text-primary-800 outline-none bg-transparent font-[400] font-JakartaSans;
+   }
+   .input__text:disabled {
+      @apply cursor-not-allowed opacity-[0.7] text-primary-300;
+   }
+   .input__text::placeholder {
+      @apply font-[400];
+   }
+   .input__text:disabled::placeholder {
+      @apply text-primary-300;
+   }
+
+   /* .input__text:
+   .input__text:focus {
+      @apply border-primary-600;
+   } */
 }
 
 /* section 2 */
@@ -273,7 +255,17 @@
       height: 428px;
    }
 }
-
 /* .image-slider > .swiper-wrapper {
    transition-timing-function: linear;
 } */
+
+/* Login page */
+.or__line {
+   border: 0;
+   clear: both;
+   display: block;
+   width: 50%;
+   background-color: #e5e2e1;
+   border-top: 1px solid #e5e2e1;
+   height: 1px;
+}

@@ -95,10 +95,10 @@ const Navbar: React.FC = () => {
                   </ul>
 
                   <div className="w-full md:w-fit flex items-center gap-x-4">
-                     <LinkButton urlLocation="#" className={`${button({ tertiary: "gray", size: { initial: "xs", md: "xs", xl: "sm" } })} 'w-full md:w-fit'`}>
+                     <LinkButton urlLocation="/register" className={`${button({ tertiary: "gray", size: { initial: "xs", md: "xs", xl: "sm" } })} w-full md:w-fit`}>
                         Daftar
                      </LinkButton>
-                     <LinkButton urlLocation="#" className={`${button({ secondary: "gray", size: { initial: "xs", md: "xs", xl: "sm" } })} 'w-full md:w-fit'`}>
+                     <LinkButton urlLocation="/login" className={`${button({ secondary: "gray", size: { initial: "xs", md: "xs", xl: "sm" } })} w-full md:w-fit`}>
                         Masuk
                      </LinkButton>
                   </div>

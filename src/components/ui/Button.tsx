@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import Link from "next/link";
 
 interface ButtonProps {
    onClick: () => void;
@@ -21,8 +22,20 @@ interface LinkButtonProps {
 }
 export const LinkButton: React.FC<LinkButtonProps> = ({ urlLocation, className, children }) => {
    return (
-      <a href={urlLocation} className={className}>
+      <Link href={urlLocation} className={className}>
          {children}
-      </a>
+      </Link>
+   );
+};
+
+interface SubmitButtonProps {
+   className: string;
+   children: ReactNode;
+}
+export const SubmitButton: React.FC<SubmitButtonProps> = ({ children, className }) => {
+   return (
+      <button type="submit" className={className}>
+         {children}
+      </button>
    );
 };

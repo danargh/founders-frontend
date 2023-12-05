@@ -176,7 +176,11 @@ module.exports = withTV({
             500: "#F79009",
          },
       },
-      extend: {},
+      extend: {
+         colors: {
+            transparent: "transparent",
+         },
+      },
    },
    plugins: [],
 });
