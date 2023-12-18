@@ -10,12 +10,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Form from "@/components/form/Form";
 import { LinkButton } from "@/components/ui/Button";
-
-// interface for form
-interface EmailInterface {
-   email: string;
-   password: string;
-}
+import { LoginUser, User } from "@/interfaces";
 
 // validation
 const EmailSchema = yup.object().shape({
@@ -29,8 +24,12 @@ const Login: React.FC = () => {
       handleSubmit,
       formState: { errors },
    } = useForm({ resolver: yupResolver(EmailSchema) });
+   // const { data, isLoading, isError } = useLogin();
 
-   const onSubmit = (data: EmailInterface) => console.log(data);
+   const onSubmit = (data: LoginUser, event: React.FormEvent) => {
+      event.preventDefault();
+      console.log(data);
+   };
 
    return (
       <div className="responsive__container">
@@ -38,7 +37,7 @@ const Login: React.FC = () => {
          <div className="flex gap-x-[72px]">
             <img className="basis-1/2 hidden xl:block" src="/images/login-img.jpg" alt="login image" />
             <div className="basis-2/2 xl:basis-1/2 flex flex-col justify-center items-center gap-y-8 mx-auto w-[424px] xl:w-full">
-               <h2 className=" text-display-md font-[400] font-Lora w-full">Masuk ke Polokrami</h2>
+               <h2 className=" text-display-md font-[400] font-Lora w-full text-center">Masuk ke Polokrami</h2>
                <Form buttonLabel="Change Email" register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} className="flex flex-col gap-y-4 w-full">
                   <Input name="email" type="email" label="Email" placeholder="Enter your email" error={errors.email?.message} autoFocus />
                   <Input name="password" type="password" label="Password" placeholder="Password" error={errors.password?.message} />

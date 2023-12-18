@@ -41,11 +41,11 @@ const FaqSection: React.FC = () => {
             <div className=" flex flex-col md:flex-row md:gap-x-12 xl:gap-x-16">
                <ul className="flex flex-col flex-1">
                   {faqData1.map(({ question, answer }, index) => (
-                     <li key={index} className="flex gap-x-2 items-start border-b border-tealSecondary-200 py-6">
+                     <li key={index} onClick={() => toggleAccordion(index)} className="flex gap-x-2 cursor-pointer items-start border-b border-tealSecondary-200 py-6">
                         <i className="md:mt-[2px]" style={{ rotate: openIndex === index ? "90deg" : "none" }}>
                            <SimpleRightArrow width="24" height="24" />
                         </i>
-                        <div className="flex flex-col gap-y-2 cursor-pointer" onClick={() => toggleAccordion(index)}>
+                        <div className="flex flex-col gap-y-2 cursor-pointer">
                            <h4 className=" text-heading-2xs md:text-heading-xs xl:text-heading-sm font-[500]">{question}</h4>
                            {index === openIndex && <p className="transition-all text-body-sm md:text-body-md xl:text-body-lg">{answer}</p>}
                         </div>
@@ -54,11 +54,11 @@ const FaqSection: React.FC = () => {
                </ul>
                <ul ref={faqList2} className="hidden md:flex flex-col flex-1 faq__list2">
                   {faqData2.map(({ question, answer }, index) => (
-                     <li key={index} className="flex gap-x-2 items-start border-b border-tealSecondary-200 py-6">
+                     <li key={index} onClick={() => toggleAccordion2(index)} className="flex gap-x-2 cursor-pointer items-start border-b border-tealSecondary-200 py-6">
                         <i className="md:mt-[2px]" style={{ rotate: openIndex2 === index ? "90deg" : "none" }}>
                            <SimpleRightArrow width="24" height="24" />
                         </i>
-                        <div className="flex flex-col gap-y-2 cursor-pointer" onClick={() => toggleAccordion2(index)}>
+                        <div className="flex flex-col gap-y-2">
                            <h4 className=" text-heading-2xs md:text-heading-xs xl:text-heading-sm font-[600]">{question}</h4>
                            {index === openIndex2 && <p className="transition-all text-body-sm md:text-body-md xl:text-body-lg">{answer}</p>}
                         </div>

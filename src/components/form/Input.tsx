@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, InputHTMLAttributes } from "react";
+import React, { FC, InputHTMLAttributes, useRef } from "react";
 import { Eye } from "@/assets/icons/icons";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
