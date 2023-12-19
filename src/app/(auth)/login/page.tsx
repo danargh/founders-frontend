@@ -11,6 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Form from "@/components/form/Form";
 import { LinkButton } from "@/components/ui/Button";
 import { LoginUser, User } from "@/interfaces";
+import { useLogin } from "@/api/auth";
 
 // validation
 const EmailSchema = yup.object().shape({
@@ -24,11 +25,11 @@ const Login: React.FC = () => {
       handleSubmit,
       formState: { errors },
    } = useForm({ resolver: yupResolver(EmailSchema) });
-   // const { data, isLoading, isError } = useLogin();
+   const { mutate, data, isError } = useLogin();
 
    const onSubmit = (data: LoginUser, event: React.FormEvent) => {
       event.preventDefault();
-      console.log(data);
+      mutate(data);
    };
 
    return (
