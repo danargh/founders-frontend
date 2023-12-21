@@ -30,12 +30,13 @@ export const LinkButton: React.FC<LinkButtonProps> = ({ urlLocation, className, 
 
 interface SubmitButtonProps {
    className: string;
+   isLoading: boolean;
    children: ReactNode;
 }
-export const SubmitButton: React.FC<SubmitButtonProps> = ({ children, className }) => {
+export const SubmitButton: React.FC<SubmitButtonProps> = ({ isLoading, children, className }) => {
    return (
       <button type="submit" className={className}>
-         {children}
+         {isLoading ? <div>Tunggu sebentar ...</div> : children}
       </button>
    );
 };

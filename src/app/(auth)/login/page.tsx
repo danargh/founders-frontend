@@ -12,6 +12,7 @@ import Form from "@/components/form/Form";
 import { LinkButton } from "@/components/ui/Button";
 import { LoginUser, User } from "@/interfaces";
 import { useLogin } from "@/api/auth";
+import { useRouter } from "next/navigation";
 
 // validation
 const EmailSchema = yup.object().shape({
@@ -20,17 +21,26 @@ const EmailSchema = yup.object().shape({
 });
 
 const Login: React.FC = () => {
+   const router = useRouter();
    const {
       register,
       handleSubmit,
       formState: { errors },
    } = useForm({ resolver: yupResolver(EmailSchema) });
-   const { mutate, data, isError } = useLogin();
+   const { mutate, data, isError, isPending } = useLogin();
 
    const onSubmit = (data: LoginUser, event: React.FormEvent) => {
       event.preventDefault();
       mutate(data);
    };
+
+   if (data) {
+      router.push("/dashboard");
+   }
+
+   if (isError) {
+      return <h1>error password salah</h1>;
+   }
 
    return (
       <div className="responsive__container">
@@ -42,10 +52,12 @@ const Login: React.FC = () => {
                <Form buttonLabel="Change Email" register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} className="flex flex-col gap-y-4 w-full">
                   <Input name="email" type="email" label="Email" placeholder="Enter your email" error={errors.email?.message} autoFocus />
                   <Input name="password" type="password" label="Password" placeholder="Password" error={errors.password?.message} />
-                  <Link href="#" className=" text__link text-right">
+                  <Link href="#" className=" text__link w-fit ml-auto text-right">
                      Lupa password?
                   </Link>
-                  <SubmitButton className={`${button({ primary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} w-full`}>Masuk</SubmitButton>
+                  <SubmitButton isLoading={isPending} className={`${button({ primary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} w-full`}>
+                     Masuk
+                  </SubmitButton>
                </Form>
                <div className="flex items-center w-full">
                   <hr className="or__line" />
