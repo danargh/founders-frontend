@@ -1,15 +1,21 @@
 import { create } from "zustand";
 import { User } from "@/interfaces";
+import { persist } from "zustand/middleware";
 
 interface UserSlice {
    user: User | null;
    setUser: (user: User | null) => void;
 }
 
-export const useUserSlice = create<UserSlice>((set) => ({
-   user: null,
-   setUser: (user) => set(() => ({ user })),
-}));
+export const useUserSlice = create<UserSlice>()(
+   persist(
+      (set) => ({
+         user: null,
+         setUser: (user) => set(() => ({ user })),
+      }),
+      { name: "userSlice" },
+   ),
+);
 
 // import { create, StateCreator } from "zustand";
 

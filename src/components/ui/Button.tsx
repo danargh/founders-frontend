@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import Link from "next/link";
+import { Loader } from "./Loader";
 
 interface ButtonProps {
    onClick: () => void;
@@ -36,7 +37,7 @@ interface SubmitButtonProps {
 export const SubmitButton: React.FC<SubmitButtonProps> = ({ isLoading, children, className }) => {
    return (
       <button type="submit" className={className}>
-         {isLoading ? <div>Tunggu sebentar ...</div> : children}
+         {isLoading ? <Loader /> : children}
       </button>
    );
 };

@@ -19,7 +19,11 @@ export const Input: FC<InputProps> = ({ register, name, error, label, wrapperCla
    return (
       <div>
          <div className={error ? "input__wrapper-error" : "input__wrapper"}>
-            {label && <label htmlFor={name}>{label}</label>}
+            {label && (
+               <label className="absolute" htmlFor={name}>
+                  {label}
+               </label>
+            )}
             <div className="flex justify-between items-center">
                <input className="input__text" type={passwordShown ? "text" : type} aria-invalid={error ? "true" : "false"} {...register(name)} {...rest} autoComplete="off" />
                {type === "password" && (

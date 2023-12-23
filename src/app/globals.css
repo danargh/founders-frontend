@@ -177,7 +177,7 @@
    /* * FORM */
    /* input */
    .input__wrapper {
-      @apply flex flex-col text-label-sm text-primary-600 p-4 border border-primary-200 rounded-xl hover:border hover:border-primary-400 hover:bg-primary-50 transition-colors;
+      @apply relative flex flex-col text-label-sm text-primary-600 p-4 border border-primary-200 rounded-xl hover:border hover:border-primary-400 hover:bg-primary-50 transition-colors;
    }
    .input__wrapper-error {
       @apply flex flex-col text-label-sm p-4 border border-orangeDarkSecondary-600 bg-orangeDarkSecondary-25  rounded-xl transition-colors;
@@ -186,7 +186,7 @@
       @apply flex flex-col text-label-sm text-primary-300 p-4 border border-primary-300 rounded-xl;
    }
    .input__text {
-      @apply text-body-lg w-full text-primary-800 outline-none bg-transparent font-[400] font-JakartaSans;
+      @apply text-body-lg pt-5 w-full text-primary-800 outline-none bg-transparent font-[400] font-JakartaSans;
    }
    .input__text:disabled {
       @apply cursor-not-allowed opacity-[0.7] text-primary-300;

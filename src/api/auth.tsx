@@ -1,12 +1,16 @@
 "use client";
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery, UseQueryOptions } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
-import { LoginUser, Response, User } from "@/interfaces";
+import { LoginUser, Response, ResponseOnly, User } from "@/interfaces";
 import config from "@/config";
 import { useUserSlice } from "@/store/store";
+import Cookies from "universal-cookie";
 
-const postLogin = async (user: LoginUser): Promise<Response<User>> => {
+const cookies = new Cookies();
+
+// Login
+export const postLogin = async (user: LoginUser): Promise<Response<User>> => {
    return await axios
       .post(`${config.BASE_URL}/auth/login`, user)
       .then((res) => {
@@ -16,20 +20,47 @@ const postLogin = async (user: LoginUser): Promise<Response<User>> => {
          throw err.response?.data;
       });
 };
-
 export const useLogin = () => {
    const [setUser] = useUserSlice((state) => [state.setUser, state.user]);
-   return useMutation<Response<User>, Error, LoginUser>({
+   return useMutation<Response<User>, Error, LoginUser, string[]>({
+      mutationKey: ["login"],
       mutationFn: async (user: LoginUser): Promise<Response<User>> => {
          const data = await postLogin(user);
          return data;
       },
       onSuccess: (data) => {
-         // console.log(data);
-         setUser(data.data as User);
+         const userData = data.data as User;
+         setUser(userData);
+
+         // set cookie
+         cookies.set("userToken", userData.auth.token, { path: "/", expires: new Date(userData.auth.expiresIn) });
       },
       onError: (error) => {
-         console.log(error);
+         console.log("ini error", error);
       },
+   });
+};
+
+// validate token
+export const postValidateToken = async (): Promise<ResponseOnly> => {
+   let userToken: string = cookies.get("userToken");
+   if (!userToken) {
+      throw new Error("Token not found");
+   }
+
+   return await axios
+      .get(`${config.BASE_URL}/auth/validate`, { headers: { Authorization: `Bearer ${userToken}`, "Content-Type": "application/json" } })
+      .then((res) => {
+         return res.data;
+      })
+      .catch((err: AxiosError) => {
+         throw err.response?.data;
+      });
+};
+
+export const useValidateToken = () => {
+   return useQuery<ResponseOnly, Error, string[]>({
+      queryKey: ["validateToken"],
+      queryFn: postValidateToken,
    });
 };

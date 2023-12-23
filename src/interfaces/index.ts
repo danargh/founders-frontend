@@ -3,7 +3,12 @@ export interface Response<T> {
    status: string;
    code: number;
    message: string;
-   data: T | null;
+   data: T;
+}
+export interface ResponseOnly {
+   status: string;
+   code: number;
+   message: string;
 }
 
 // user
