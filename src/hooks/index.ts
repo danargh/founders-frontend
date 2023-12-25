@@ -13,19 +13,38 @@ export const useStore = <T, F>(store: (callback: (state: T) => unknown) => unkno
    return data;
 };
 
-// get cookies token hooks
-export const useToken = () => {
-   const cookies = new Cookies();
-   const [token, setToken] = useState(null);
+// cookies hooks
+export const useCookies = (cookieNames: string[]) => {
+   const universalCookie = new Cookies();
+   const [cookies, setCookies] = useState(() => {
+      const initialCookies: { [key: string]: string } = {};
+      cookieNames.forEach((cookieName) => {
+         initialCookies[cookieName] = universalCookie.get(cookieName);
+      });
+      return initialCookies;
+   });
 
-   useEffect(() => {
-      const getTokenFromCookies = () => {
-         const cookieToken = cookies.get("userToken");
-         setToken(cookieToken || null);
-      };
+   const updateCookie = (name: string, value: string, options: { [key: string]: string }) => {
+      // Mengupdate state dan cookie menggunakan setCookie dari js-cookie
+      setCookies((prevCookies) => ({
+         ...prevCookies,
+         [name]: value,
+      }));
+      universalCookie.set(name, value, options);
+   };
 
-      getTokenFromCookies();
-   }, []);
+   const removeCookie = (name: string, options: { [key: string]: string }) => {
+      // Menghapus state dan cookie menggunakan removeCookie dari js-cookie
+      setCookies((prevCookies) => {
+         const { [name]: removedCookie, ...restCookies } = prevCookies;
+         return restCookies;
+      });
+      universalCookie.remove(name, options);
+   };
 
-   return token;
+   return {
+      cookies,
+      updateCookie,
+      removeCookie,
+   };
 };

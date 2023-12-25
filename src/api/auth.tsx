@@ -22,7 +22,7 @@ export const postLogin = async (user: LoginUser): Promise<Response<User>> => {
 };
 export const useLogin = () => {
    const [setUser] = useUserSlice((state) => [state.setUser, state.user]);
-   return useMutation<Response<User>, Error, LoginUser, string[]>({
+   return useMutation<Response<User>, ResponseOnly, LoginUser, string[]>({
       mutationKey: ["login"],
       mutationFn: async (user: LoginUser): Promise<Response<User>> => {
          const data = await postLogin(user);
@@ -34,9 +34,10 @@ export const useLogin = () => {
 
          // set cookie
          cookies.set("userToken", userData.auth.token, { path: "/", expires: new Date(userData.auth.expiresIn) });
+         return data;
       },
       onError: (error) => {
-         console.log("ini error", error);
+         return error;
       },
    });
 };

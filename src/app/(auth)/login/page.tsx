@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect } from "react";
+import { useEffect } from "react";
 import LogoNavbar from "@/components/ui/LogoNavbar";
 import { Input } from "@/components/form/Input";
 import { useForm } from "react-hook-form";
@@ -14,7 +14,8 @@ import { LinkButton } from "@/components/ui/Button";
 import { LoginUser } from "@/interfaces";
 import { useLogin, useValidateToken } from "@/api/auth";
 import { useRouter } from "next/navigation";
-import { Loader } from "@/components/ui/Loader";
+import { CenterLoader, Loader } from "@/components/ui/Loader";
+import { Message } from "@/components/ui/Message";
 
 // validation
 const EmailSchema = yup.object().shape({
@@ -24,7 +25,7 @@ const EmailSchema = yup.object().shape({
 
 const Login: React.FC = () => {
    const router = useRouter();
-   const { mutate: mutateLogin, status: useLoginStatus, isPending } = useLogin();
+   const { data: successResponse, mutate: mutateLogin, status: useLoginStatus, isPending, error: errorReponse } = useLogin();
    const { data, status: useValidateTokenStatus } = useValidateToken();
 
    const {
@@ -41,14 +42,17 @@ const Login: React.FC = () => {
    useEffect(() => {
       if (useLoginStatus === "success") {
          router.push("/dashboard");
+         console.log("kok running1");
       }
       if (useValidateTokenStatus === "success") {
          router.push("/dashboard");
+         console.log(data);
+         console.log("kok running2");
       }
-   }, [router, useLoginStatus, useValidateTokenStatus]);
+   }, [useLoginStatus, useValidateTokenStatus]);
 
    if (useValidateTokenStatus === "pending") {
-      return <Loader />;
+      return <CenterLoader />;
    }
    if (useValidateTokenStatus === "error") {
       return (
@@ -56,8 +60,9 @@ const Login: React.FC = () => {
             <LogoNavbar />
             <div className="flex gap-x-[72px]">
                <img className="basis-1/2 hidden xl:block" src="/images/login-img.jpg" alt="login image" />
-               <div className="basis-2/2 xl:basis-1/2 flex flex-col justify-center items-center gap-y-8 mx-auto w-[424px] xl:w-full">
-                  <h2 className=" text-display-md font-[400] font-Lora w-full text-center">Masuk ke Polokrami</h2>
+               <div className="basis-2/2 xl:basis-1/2 flex flex-col justify-center items-center gap-y-4 mx-auto w-[424px] xl:w-full">
+                  <h2 className=" text-display-md mb-4 font-[400] font-Lora w-full text-center">Masuk ke Polokrami</h2>
+                  {errorReponse?.status === "Failed" && <Message type="error" message={errorReponse.message} />}
                   <Form buttonLabel="Change Email" register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} className="flex flex-col gap-y-4 w-full">
                      <Input name="email" type="email" label="Email" placeholder="Enter your email" error={errors.email?.message} autoFocus />
                      <Input name="password" type="password" label="Password" placeholder="Password" error={errors.password?.message} />
