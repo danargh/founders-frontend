@@ -59,13 +59,13 @@ const Login: React.FC = () => {
          <div className="responsive__container">
             <LogoNavbar />
             <div className="flex gap-x-[72px]">
-               <img className="basis-1/2 hidden xl:block" src="/images/login-img.jpg" alt="login image" />
-               <div className="basis-2/2 xl:basis-1/2 flex flex-col justify-center items-center gap-y-4 mx-auto w-[424px] xl:w-full">
+               <img className="hidden w-[564px] xl:flex object-contain object-top" src="/images/login-img.jpg" alt="login image" />
+               <div className="flex flex-col justify-center items-center gap-y-4 mx-auto w-[424px] xl:w-full">
                   <h2 className=" text-display-md mb-4 font-[400] font-Lora w-full text-center">Masuk ke Polokrami</h2>
                   {errorReponse?.status === "Failed" && <Message type="error" message={errorReponse.message} />}
                   <Form buttonLabel="Change Email" register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} className="flex flex-col gap-y-4 w-full">
-                     <Input name="email" type="email" label="Email" placeholder="Enter your email" error={errors.email?.message} autoFocus />
-                     <Input name="password" type="password" label="Password" placeholder="Password" error={errors.password?.message} />
+                     <Input name="email" type="email" label="Email" placeholder="email@example.com" error={errors.email?.message} autoFocus />
+                     <Input name="password" type="password" label="Password" placeholder="(minimal 8 karakter)" error={errors.password?.message} />
                      <Link href="#" className=" text__link w-fit ml-auto text-right">
                         Lupa password?
                      </Link>

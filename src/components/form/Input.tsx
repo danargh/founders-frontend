@@ -13,19 +13,19 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
    type?: string;
 }
 
-export const Input: FC<InputProps> = ({ register, name, error, label, wrapperClass, type, ...rest }) => {
+export const Input: FC<InputProps> = ({ register, name, className, error, label, wrapperClass, type, ...rest }) => {
    const [passwordShown, setPasswordShown] = React.useState(false);
 
    return (
-      <div>
+      <div className={className}>
          <div className={error ? "input__wrapper-error" : "input__wrapper"}>
             {label && (
                <label className="absolute" htmlFor={name}>
                   {label}
                </label>
             )}
-            <div className="flex justify-between items-center">
-               <input className="input__text" type={passwordShown ? "text" : type} aria-invalid={error ? "true" : "false"} {...register(name)} {...rest} autoComplete="off" />
+            <div className="flex justify-between items-end">
+               <input className="input__text" id={name} type={passwordShown ? "text" : type} aria-invalid={error ? "true" : "false"} {...register(name)} {...rest} />
                {type === "password" && (
                   <i
                      className="cursor-pointer"
@@ -38,6 +38,23 @@ export const Input: FC<InputProps> = ({ register, name, error, label, wrapperCla
                )}
             </div>
          </div>
+         {error && (
+            <span role="alert" className="p-4 text-body-sm font-[400] text-orangeDarkSecondary-600">
+               {error}
+            </span>
+         )}
+      </div>
+   );
+};
+
+export const InputCheckbox: FC<InputProps> = ({ register, name, className, error, label, wrapperClass, type, ...rest }) => {
+   return (
+      <div className={className}>
+         <div className="flex gap-x-2 items-start">
+            <input className="mt-[6px] mr-2" id={name} type={type} aria-invalid={error ? "true" : "false"} {...register(name)} {...rest} />
+            <label htmlFor={name}>{label}</label>
+         </div>
+
          {error && (
             <span role="alert" className="p-4 text-body-sm font-[400] text-orangeDarkSecondary-600">
                {error}
