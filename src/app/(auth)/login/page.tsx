@@ -62,7 +62,7 @@ const Login: React.FC = () => {
                <img className="hidden w-[564px] xl:flex object-contain object-top" src="/images/login-img.jpg" alt="login image" />
                <div className="flex flex-col justify-center items-center gap-y-4 mx-auto w-[424px] xl:w-full">
                   <h2 className=" text-display-md mb-4 font-[400] font-Lora w-full text-center">Masuk ke Polokrami</h2>
-                  {errorReponse?.status === "Failed" && <Message type="error" message={errorReponse.message} />}
+                  {errorReponse?.status === "Failed" && <Message type="error" message={errorReponse.userMessage || errorReponse.message} />}
                   <Form buttonLabel="Change Email" register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} className="flex flex-col gap-y-4 w-full">
                      <Input name="email" type="email" label="Email" placeholder="email@example.com" error={errors.email?.message} autoFocus />
                      <Input name="password" type="password" label="Password" placeholder="(minimal 8 karakter)" error={errors.password?.message} />

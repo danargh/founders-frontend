@@ -9,6 +9,7 @@ export interface ResponseOnly {
    status: string;
    code: number;
    message: string;
+   userMessage: string;
 }
 
 // user
