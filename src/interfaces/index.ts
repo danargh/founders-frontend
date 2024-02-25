@@ -21,6 +21,11 @@ export interface User {
    createdAt: Date;
    auth: Auth;
    role: string;
+
+   maleName: string;
+   femaleName: string;
+   websiteUrl: string;
+   phone: string;
 }
 interface Auth {
    token: string;

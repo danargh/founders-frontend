@@ -42,12 +42,9 @@ const Login: React.FC = () => {
    useEffect(() => {
       if (useLoginStatus === "success") {
          router.push("/dashboard");
-         console.log("kok running1");
       }
       if (useValidateTokenStatus === "success") {
          router.push("/dashboard");
-         console.log(data);
-         console.log("kok running2");
       }
    }, [useLoginStatus, useValidateTokenStatus]);
 

@@ -42,6 +42,30 @@ export const useLogin = () => {
    });
 };
 
+export const postRegister = async (user: User): Promise<ResponseOnly> => {
+   return await axios
+      .post(`${config.BASE_URL}/auth/register`, user)
+      .then((res) => {
+         return res.data;
+      })
+      .catch((err: AxiosError) => {
+         throw err.response?.data;
+      });
+};
+
+export const useRegister = () => {
+   return useMutation<ResponseOnly, ResponseOnly, User, string[]>({
+      mutationKey: ["register"],
+      mutationFn: async (user: User): Promise<ResponseOnly> => {
+         const data = await postRegister(user);
+         return data;
+      },
+      onError: (error) => {
+         return error;
+      },
+   });
+};
+
 // validate token
 export const postValidateToken = async (): Promise<ResponseOnly> => {
    let userToken: string = cookies.get("userToken");

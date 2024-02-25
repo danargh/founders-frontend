@@ -11,18 +11,19 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Form from "@/components/form/Form";
 import { LinkButton } from "@/components/ui/Button";
-import { LoginUser } from "@/interfaces";
-import { useLogin, useValidateToken } from "@/api/auth";
+import { LoginUser, User } from "@/interfaces";
+import { useLogin, useRegister, useValidateToken } from "@/api/auth";
 import { useRouter } from "next/navigation";
 import { CenterLoader, Loader } from "@/components/ui/Loader";
 import { Message } from "@/components/ui/Message";
 
 // validation
 const RegisterSchema = yup.object().shape({
-   pengantinWanita: yup.string().required("Nama pengantin wanita is required"),
-   pengantinPria: yup.string().required("Nama pengantin pria is required"),
-   alamatWebsite: yup.string().required("Alamat website is required"),
-   phone: yup.number().required("Phone is required"),
+   username: yup.string().required("Username is required"),
+   femaleName: yup.string().required("Nama pengantin wanita is required"),
+   maleName: yup.string().required("Nama pengantin pria is required"),
+   websiteUrl: yup.string().required("Alamat website is required"),
+   phone: yup.string().required("Phone is required"),
    email: yup.string().email("Enter a valid email").required("Email is required"),
    password: yup.string().min(8, "Minimal 8 karakter").required("Password is required"),
    terms: yup.boolean().oneOf([true], "Anda harus menyetujui syarat dan ketentuan"),
@@ -30,7 +31,7 @@ const RegisterSchema = yup.object().shape({
 
 const Register: React.FC = () => {
    const router = useRouter();
-   const { data: successResponse, mutate: mutateLogin, status: useLoginStatus, isPending, error: errorReponse } = useLogin();
+   const { data: successResponse, mutate: mutateRegister, status: useRegisterStatus, isPending, error: errorReponse } = useRegister();
    const { data, status: useValidateTokenStatus } = useValidateToken();
 
    const {
@@ -39,20 +40,28 @@ const Register: React.FC = () => {
       formState: { errors },
    } = useForm({ resolver: yupResolver(RegisterSchema) });
 
-   const onSubmit = (data: LoginUser, event: React.FormEvent) => {
+   const addUrlProtocol = (url: string) => {
+      if (url && !url.match(/^[a-zA-Z]+:\/\//)) {
+         return "https://" + url;
+      }
+      return url;
+   };
+
+   const onSubmit = (data: User, event: React.FormEvent) => {
       event.preventDefault();
-      console.log(data);
-      mutateLogin(data);
+      data.websiteUrl = addUrlProtocol(data.websiteUrl);
+
+      mutateRegister(data);
    };
 
    useEffect(() => {
-      if (useLoginStatus === "success") {
+      if (useRegisterStatus === "success") {
          router.push("/dashboard");
       }
       if (useValidateTokenStatus === "success") {
          router.push("/dashboard");
       }
-   }, [useLoginStatus, useValidateTokenStatus]);
+   }, [useRegisterStatus, useValidateTokenStatus]);
 
    if (useValidateTokenStatus === "pending") {
       return <CenterLoader />;
@@ -67,9 +76,10 @@ const Register: React.FC = () => {
                   <h2 className=" text-display-md mb-4 font-[400] font-Lora w-full text-center">Daftar</h2>
                   {errorReponse?.status === "Failed" && <Message type="error" message={errorReponse.message} />}
                   <Form buttonLabel="Change Email" register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} className=" grid grid-cols-2 gap-4 w-full">
-                     <Input name="pengantinWanita" type="text" label="Pengantin Wanita" placeholder="nama pengantin wanita" error={errors.pengantinWanita?.message} autoFocus />
-                     <Input name="pengantinPria" type="text" label="Pengantin Pria" placeholder="nama pengantin pria" error={errors.pengantinPria?.message} />
-                     <Input className="col-span-2" name="alamatWebsite" type="url" label="Alamat Website" placeholder="(subdomain).polokrami.com" error={errors.alamatWebsite?.message} />
+                     <Input className="col-span-2" name="username" type="text" label="Username" placeholder="Username" error={errors.username?.message} autoFocus />
+                     <Input name="femaleName" type="text" label="Pengantin Wanita" placeholder="nama pengantin wanita" error={errors.femaleName?.message} />
+                     <Input name="maleName" type="text" label="Pengantin Pria" placeholder="nama pengantin pria" error={errors.maleName?.message} />
+                     <Input className="col-span-2" name="websiteUrl" type="text" label="Alamat Website" placeholder="(subdomain).polokrami.com" error={errors.websiteUrl?.message} />
                      <Input className="col-span-2" name="phone" type="tel" label="Whatsapp" placeholder="Nomor whatsapp" error={errors.phone?.message} />
                      <Input className="col-span-2" name="email" type="email" label="Email" placeholder="email@example.com" error={errors.email?.message} />
                      <Input className="col-span-2" name="password" type="password" label="Password" placeholder="(minimal 8 karakter)" error={errors.password?.message} />
