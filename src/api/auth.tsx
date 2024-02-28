@@ -42,7 +42,7 @@ export const useLogin = () => {
    });
 };
 
-export const postRegister = async (user: User): Promise<ResponseOnly> => {
+export const postRegister = async (user: User): Promise<Response<User>> => {
    return await axios
       .post(`${config.BASE_URL}/auth/register`, user)
       .then((res) => {
@@ -54,10 +54,19 @@ export const postRegister = async (user: User): Promise<ResponseOnly> => {
 };
 
 export const useRegister = () => {
-   return useMutation<ResponseOnly, ResponseOnly, User, string[]>({
+   const [setUser] = useUserSlice((state) => [state.setUser, state.user]);
+   return useMutation<Response<User>, ResponseOnly, User, string[]>({
       mutationKey: ["register"],
-      mutationFn: async (user: User): Promise<ResponseOnly> => {
+      mutationFn: async (user: User): Promise<Response<User>> => {
          const data = await postRegister(user);
+         return data;
+      },
+      onSuccess: (data) => {
+         const userData = data.data as User;
+         setUser(userData);
+         console.log(userData);
+         // set cookie
+         cookies.set("userToken", userData.auth.token, { path: "/", expires: new Date(userData.auth.expiresIn) });
          return data;
       },
       onError: (error) => {
