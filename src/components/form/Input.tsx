@@ -1,7 +1,7 @@
 "use client";
 
 import React, { FC, InputHTMLAttributes, useRef } from "react";
-import { Eye } from "@/assets/icons/icons";
+import { EyeIcon } from "@/assets/icons/icons";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
    name: string;
@@ -33,7 +33,7 @@ export const Input: FC<InputProps> = ({ register, name, className, error, label,
                         setPasswordShown(!passwordShown);
                      }}
                   >
-                     <Eye width="24" height="24" />
+                     <EyeIcon width="24" height="24" />
                   </i>
                )}
             </div>

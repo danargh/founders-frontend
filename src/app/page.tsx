@@ -3,7 +3,7 @@ import Navbar from "@/components/section/Navbar";
 import Marque from "@/components/ui/Marque";
 import ThemeSection from "@/components/section/ThemeSection";
 import TestimoniCarousel from "@/components/ui/TestimoniCarousel";
-import { Box, Checklist, Cube, PlayCircle, Square } from "@/assets/icons/icons";
+import { BoxIcon, ChecklistIcon, CubeIcon, PlayCircleIcon, SquareIcon } from "@/assets/icons/icons";
 import FaqSection from "@/components/section/FaqSection";
 import Footer from "@/components/section/Footer";
 import { EksklusifPackage, PremiumPackage, StarterPackage } from "@/components/ui/Package";
@@ -35,7 +35,7 @@ export default function Home() {
                      Buat undangan
                   </LinkButton>
                   <LinkButton urlLocation="#" className={`${button({ secondary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} gap-x-2 order-1 md:order-2`}>
-                     <PlayCircle width="24" height="24" color="#141210" />
+                     <PlayCircleIcon width="24" height="24" color="#141210" />
                      Cara buat undangan
                   </LinkButton>
                </div>
@@ -56,7 +56,7 @@ export default function Home() {
                         <li className="flex gap-x-2 items-start ">
                            <div className="w-[32px] h-[32px] md:w-[36px] md:h-[36px] flex flex-none items-center justify-center rounded-lg bg-blueLightSecondary-200 ">
                               <i className=" responsive__icon--sm">
-                                 <Cube color="#0C3D66" />
+                                 <CubeIcon color="#0C3D66" />
                               </i>
                            </div>
                            <div className="flex flex-col gap-y-2">
@@ -71,7 +71,7 @@ export default function Home() {
                         <li className="flex gap-x-2 items-start ">
                            <div className="w-[32px] h-[32px] md:w-[36px] md:h-[36px] flex flex-none items-center justify-center rounded-lg bg-blueLightSecondary-200 ">
                               <i className=" responsive__icon--sm">
-                                 <Square color="#0C3D66" />
+                                 <SquareIcon color="#0C3D66" />
                               </i>
                            </div>
                            <div className="flex flex-col gap-y-2">
@@ -86,7 +86,7 @@ export default function Home() {
                         <li className="flex gap-x-2 items-start ">
                            <div className="w-[32px] h-[32px] md:w-[36px] md:h-[36px] flex flex-none items-center justify-center rounded-lg bg-blueLightSecondary-200 ">
                               <i className=" responsive__icon--sm">
-                                 <Box color="#0C3D66" />
+                                 <BoxIcon color="#0C3D66" />
                               </i>
                            </div>
                            <div className="flex flex-col gap-y-2">
@@ -118,7 +118,7 @@ export default function Home() {
                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 xl:gap-8">
                   {Array.from({ length: 12 }).map((_, i) => (
                      <div key={i} className="flex flex-col gap-y-8 p-5 border border-primary-300 rounded-2xl">
-                        <Box width="24" height="24" color="#292524" />
+                        <BoxIcon width="24" height="24" color="#292524" />
                         <div className="flex flex-col gap-y-2">
                            <h4 className="text-primary-950 text-heading-2xs xl:text-heading-md">Domain eksklusif</h4>
                            <p className=" text-body-sm md:text-body-md">Menggunakan mekanisme subdomain dan tersedia paket custom domain</p>
@@ -202,25 +202,25 @@ export default function Home() {
                      <ul className="flex flex-col gap-y-4 text-body-sm md:text-body-md xl:text-body-lg ">
                         <li className="flex gap-x-3 items-start justify-start text-left">
                            <i className="flex-none responsive__icon">
-                              <Checklist color="#292524" />
+                              <ChecklistIcon color="#292524" />
                            </i>
                            Domain Polokrami (namapasangan.polokrami.com)
                         </li>
                         <li className="flex gap-x-3 items-start justify-start text-left">
                            <i className="flex-none responsive__icon">
-                              <Checklist color="#292524" />
+                              <ChecklistIcon color="#292524" />
                            </i>
                            3 Foto & 1 Video
                         </li>
                         <li className="flex gap-x-3 items-start justify-start text-left">
                            <i className="flex-none responsive__icon">
-                              <Checklist color="#292524" />
+                              <ChecklistIcon color="#292524" />
                            </i>
                            Countdown Timer
                         </li>
                         <li className="flex gap-x-3 items-start justify-start text-left">
                            <i className="flex-none responsive__icon">
-                              <Checklist color="#292524" />
+                              <ChecklistIcon color="#292524" />
                            </i>
                            Informasi Acara
                         </li>
@@ -238,25 +238,25 @@ export default function Home() {
                      <ul className="flex flex-col gap-y-4 text-body-sm md:text-body-md xl:text-body-lg ">
                         <li className="flex gap-x-3 items-start justify-start text-left">
                            <i className="flex-none responsive__icon">
-                              <Checklist color="#292524" />
+                              <ChecklistIcon color="#292524" />
                            </i>
                            Domain Polokrami (namapasangan.polokrami.com)
                         </li>
                         <li className="flex gap-x-3 items-start justify-start text-left">
                            <i className="flex-none responsive__icon">
-                              <Checklist color="#292524" />
+                              <ChecklistIcon color="#292524" />
                            </i>
                            3 Foto & 1 Video
                         </li>
                         <li className="flex gap-x-3 items-start justify-start text-left">
                            <i className="flex-none responsive__icon">
-                              <Checklist color="#292524" />
+                              <ChecklistIcon color="#292524" />
                            </i>
                            Countdown Timer
                         </li>
                         <li className="flex gap-x-3 items-start justify-start text-left">
                            <i className="flex-none responsive__icon">
-                              <Checklist color="#292524" />
+                              <ChecklistIcon color="#292524" />
                            </i>
                            Informasi Acara
                         </li>
@@ -273,25 +273,25 @@ export default function Home() {
                      <ul className="flex flex-col gap-y-4 text-body-sm md:text-body-md xl:text-body-lg ">
                         <li className="flex gap-x-3 items-start justify-start text-left">
                            <i className="flex-none responsive__icon">
-                              <Checklist color="#292524" />
+                              <ChecklistIcon color="#292524" />
                            </i>
                            Domain Polokrami (namapasangan.polokrami.com)
                         </li>
                         <li className="flex gap-x-3 items-start justify-start text-left">
                            <i className="flex-none responsive__icon">
-                              <Checklist color="#292524" />
+                              <ChecklistIcon color="#292524" />
                            </i>
                            3 Foto & 1 Video
                         </li>
                         <li className="flex gap-x-3 items-start justify-start text-left">
                            <i className="flex-none responsive__icon">
-                              <Checklist color="#292524" />
+                              <ChecklistIcon color="#292524" />
                            </i>
                            Countdown Timer
                         </li>
                         <li className="flex gap-x-3 items-start justify-start text-left">
                            <i className="flex-none responsive__icon">
-                              <Checklist color="#292524" />
+                              <ChecklistIcon color="#292524" />
                            </i>
                            Informasi Acara
                         </li>

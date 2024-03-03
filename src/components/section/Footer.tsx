@@ -1,4 +1,4 @@
-import { Instagram, Whatsapp, Youtube } from "@/assets/icons/icons";
+import { InstagramIcon, WhatsappIcon, YoutubeIcon } from "@/assets/icons/icons";
 
 const Footer: React.FC = () => {
    return (
@@ -12,13 +12,13 @@ const Footer: React.FC = () => {
                   </div>
                   <div className="flex gap-x-4">
                      <a href="#" className="flex items-center justify-center rounded-full bg-primary-200 border border-primary-300 w-9 h-9">
-                        <Instagram width="20" height="20" />
+                        <InstagramIcon width="20" height="20" />
                      </a>
                      <a href="#" className="flex items-center justify-center rounded-full bg-primary-200 border border-primary-300 w-9 h-9">
-                        <Whatsapp width="20" height="20" />
+                        <WhatsappIcon width="20" height="20" />
                      </a>
                      <a href="#" className="flex items-center justify-center rounded-full bg-primary-200 border border-primary-300 w-9 h-9">
-                        <Youtube width="20" height="20" />
+                        <YoutubeIcon width="20" height="20" />
                      </a>
                   </div>
                </div>

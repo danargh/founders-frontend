@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { SimpleRightArrow } from "@/assets/icons/icons";
+import { SimpleRightArrowIcon } from "@/assets/icons/icons";
 import { faqData } from "@/store/staticStore";
 import { LinkButton } from "@/components/ui/Button";
 import { button } from "@/app/variants";
@@ -43,7 +43,7 @@ const FaqSection: React.FC = () => {
                   {faqData1.map(({ question, answer }, index) => (
                      <li key={index} onClick={() => toggleAccordion(index)} className="flex gap-x-2 cursor-pointer items-start border-b border-tealSecondary-200 py-6">
                         <i className="md:mt-[2px]" style={{ rotate: openIndex === index ? "90deg" : "none" }}>
-                           <SimpleRightArrow width="24" height="24" />
+                           <SimpleRightArrowIcon width="24" height="24" />
                         </i>
                         <div className="flex flex-col gap-y-2 cursor-pointer">
                            <h4 className=" text-heading-2xs md:text-heading-xs xl:text-heading-sm font-[500]">{question}</h4>
@@ -56,7 +56,7 @@ const FaqSection: React.FC = () => {
                   {faqData2.map(({ question, answer }, index) => (
                      <li key={index} onClick={() => toggleAccordion2(index)} className="flex gap-x-2 cursor-pointer items-start border-b border-tealSecondary-200 py-6">
                         <i className="md:mt-[2px]" style={{ rotate: openIndex2 === index ? "90deg" : "none" }}>
-                           <SimpleRightArrow width="24" height="24" />
+                           <SimpleRightArrowIcon width="24" height="24" />
                         </i>
                         <div className="flex flex-col gap-y-2">
                            <h4 className=" text-heading-2xs md:text-heading-xs xl:text-heading-sm font-[600]">{question}</h4>

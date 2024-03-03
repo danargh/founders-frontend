@@ -25,7 +25,7 @@ export const button = tv(
          size: {
             lg: "py-4 px-8 text-label-lg font-semibold",
             md: "py-4 px-8 text-label-md font-semibold",
-            sm: "py-3 px-6 text-label-md font-semibold",
+            sm: "py-[14px] px-7 text-label-md font-semibold",
             xs: "py-3 px-5 text-label-sm font-semibold",
             mb_lg: "py-4 px-8 text-label-sm font-semibold",
             mb_md: "py-[14px] px-[28px] text-label-sm font-semibold",

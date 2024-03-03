@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Menu } from "@/assets/icons/icons";
+import { MenuIcon } from "@/assets/icons/icons";
 import { button } from "@/app/variants";
 import { LinkButton } from "@/components/ui/Button";
 
@@ -53,7 +53,7 @@ const Navbar: React.FC = () => {
                         setShowMenu(true);
                      }}
                   >
-                     <Menu width="24" height="24" />
+                     <MenuIcon width="24" height="24" />
                   </i>
                </button>
                <button id="nav-button__mobile" className={`${showMenu ? "block" : "hidden"}`}>

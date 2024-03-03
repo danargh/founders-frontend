@@ -70,8 +70,8 @@ const Register: React.FC = () => {
       return (
          <div className="responsive__container">
             <LogoNavbar />
-            <div className="flex gap-x-[72px]">
-               <img className="hidden w-[564px] xl:flex object-contain object-top" src="/images/login-img.jpg" alt="login image" />
+            <div className="flex gap-x-[72px] lg:max-w-[480px] sm:w-full mx-auto">
+               {/* <img className="hidden w-[564px] xl:flex object-contain object-top" src="/images/login-img.jpg" alt="login image" /> */}
                <div className="flex flex-col justify-center items-center gap-y-4 mx-auto">
                   <h2 className=" text-display-md mb-4 font-[400] font-Lora w-full text-center">Daftar</h2>
                   {errorReponse?.status === "Failed" && <Message type="error" message={errorReponse.message} />}
