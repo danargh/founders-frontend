@@ -13,6 +13,7 @@ import Header from "@/components/section/Header";
 const Dashboard: FC = () => {
    const router = useRouter();
    const { status: useValidaTokenStatus } = useValidateToken();
+   const user = useStore(useUserSlice, (state) => state.user);
 
    useEffect(() => {
       if (useValidaTokenStatus === "error") {
@@ -25,18 +26,7 @@ const Dashboard: FC = () => {
    }
 
    if (useValidaTokenStatus === "success") {
-      return (
-         <main className="responsive__container--dashboard flex flex-col">
-            <Header />
-            <div className="flex px-6">
-               <Sidebar />
-
-               <div className="basis-10/12">
-                  <p>INI KONTEN</p>
-               </div>
-            </div>
-         </main>
-      );
+      return <h1>Home dashboard {user?.username}</h1>;
    }
 };
 
