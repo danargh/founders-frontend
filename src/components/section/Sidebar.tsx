@@ -3,10 +3,11 @@
 
 import LogoNavbar from "../ui/LogoNavbar";
 import { CalendarIcon, ClipboardIcon, FrameIcon, GalleryIcon, GiftIcon, HeartEditIcon, HomeIcon, MessageTextIcon, MessagesIcon, SettingIcon, StarOutlineIcon, UserIcon } from "@/assets/icons/icons";
-import { useUserSlice } from "@/store/store";
+import { useUIStateSlice } from "@/store/store";
 import { useCookies, useStore } from "@/hooks";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 interface NavItem {
    icon: JSX.Element;
@@ -82,8 +83,17 @@ const navItems: NavItem[] = [
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({ children }) => {
+   const [setActiveNav, activeNav] = useUIStateSlice((state) => [state.setActiveNav, state.activeNav]);
    const { removeCookie } = useCookies(["userToken"]);
    const router = useRouter();
+   const pathname = usePathname();
+
+   // set first active nav
+   useEffect(() => {
+      const path = pathname.split("/")[2];
+      // if undefined so home dashboard is active
+      path === undefined ? setActiveNav("Dashboard") : setActiveNav(path);
+   }, []);
 
    // logout
    const logoutHandler = () => {
@@ -98,7 +108,12 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
                <Link
                   key={index}
                   href={item.link}
-                  className="items-center justify-start flex gap-x-2 py-3 pl-5 outline-offset-4 hover:outline-4 hover:outline-mossGreenSecondary-900 hover:bg-mossGreenSecondary-50"
+                  onClick={() => {
+                     setActiveNav(item.label);
+                  }}
+                  className={`${
+                     activeNav === item.label ? "bg-mossGreenSecondary-50" : null
+                  } items-center justify-start flex gap-x-2 py-3 pl-5 outline-offset-4 hover:outline-4 hover:bg-mossGreenSecondary-50`}
                >
                   {item.icon}
                   <p className=" text-label-md">{item.label}</p>

@@ -7,6 +7,11 @@ interface UserSlice {
    setUser: (user: User | null) => void;
 }
 
+interface UIStateSlice {
+   activeNav: string;
+   setActiveNav: (nav: string) => void;
+}
+
 export const useUserSlice = create<UserSlice>()(
    persist(
       (set) => ({
@@ -14,6 +19,16 @@ export const useUserSlice = create<UserSlice>()(
          setUser: (user) => set(() => ({ user })),
       }),
       { name: "userSlice" },
+   ),
+);
+
+export const useUIStateSlice = create<UIStateSlice>()(
+   persist(
+      (set) => ({
+         activeNav: "Dashboard",
+         setActiveNav: (nav) => set(() => ({ activeNav: nav })),
+      }),
+      { name: "UIStateSlice" },
    ),
 );
 
