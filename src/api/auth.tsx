@@ -1,5 +1,3 @@
-// "use client";
-
 import { useMutation, useQuery, UseQueryOptions } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { LoginUser, Response, ResponseOnly, User } from "@/interfaces";
