@@ -93,7 +93,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
       const path = pathname.split("/")[2];
       // if undefined so home dashboard is active
       path === undefined ? setActiveNav("Dashboard") : setActiveNav(path);
-   }, []);
+   }, [pathname, setActiveNav]);
 
    // logout
    const logoutHandler = () => {
