@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useValidateToken } from "@/api/auth";
 import { Loader } from "@/components/ui/Loader";
 
-const Dashboard: FC = () => {
+const HomeDashboard: FC = () => {
    const router = useRouter();
    const { status: useValidaTokenStatus } = useValidateToken();
    const user = useStore(useUserSlice, (state) => state.user);
@@ -23,8 +23,8 @@ const Dashboard: FC = () => {
    }
 
    if (useValidaTokenStatus === "success") {
-      return <h1> dashboard {user?.username}</h1>;
+      return <h1>Home dashboard {user?.username}</h1>;
    }
 };
 
-export default Dashboard;
+export default HomeDashboard;

@@ -7,7 +7,7 @@ import { useUIStateSlice } from "@/store/store";
 import { useCookies, useStore } from "@/hooks";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface NavItem {
    icon: JSX.Element;
@@ -83,17 +83,11 @@ const navItems: NavItem[] = [
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({ children }) => {
-   const [setActiveNav, activeNav] = useUIStateSlice((state) => [state.setActiveNav, state.activeNav]);
+   // const [setActiveNav, activeNav] = useUIStateSlice((state) => [state.setActiveNav, state.activeNav]);
    const { removeCookie } = useCookies(["userToken"]);
+   const [activeNav, setActiveNav] = useState<string>("");
    const router = useRouter();
    const pathname = usePathname();
-
-   // set first active nav
-   useEffect(() => {
-      const path = pathname.split("/")[2];
-      // if undefined so home dashboard is active
-      path === undefined ? setActiveNav("Dashboard") : setActiveNav(path);
-   }, [pathname, setActiveNav]);
 
    // logout
    const logoutHandler = () => {
@@ -108,11 +102,11 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
                <Link
                   key={index}
                   href={item.link}
-                  onClick={() => {
-                     setActiveNav(item.label);
-                  }}
+                  // onClick={() => {
+                  //    setActiveNav(item.link);
+                  // }}
                   className={`${
-                     activeNav === item.label ? "bg-mossGreenSecondary-50" : null
+                     item.link === pathname ? "bg-mossGreenSecondary-50" : null
                   } items-center justify-start flex gap-x-2 py-3 pl-5 outline-offset-4 hover:outline-4 hover:bg-mossGreenSecondary-50`}
                >
                   {item.icon}
