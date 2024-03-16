@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+/* color variable */
+:root {
+   --mossGreenSecondary-900: #2e4210;
+   --mossGreenSecondary-700: #3f621a;
+   --mossGreenSecondary-600: #4f7a21;
+   --mossGreenSecondary-400: #99b875;
+   --mossGreenSecondary-300: #bfd6a3;
+   --mossGreenSecondary-200: #d3e5bc;
+   --mossGreenSecondary-100: #e2ebd8;
+   --mossGreenSecondary-50: #f0f5e8;
+   --mossGreenSecondary-25: #f4f7ed;
+}
+
 @layer base {
    /* font */
    @font-face {
@@ -306,4 +319,15 @@
    background-color: #e5e2e1;
    border-top: 1px solid #e5e2e1;
    height: 1px;
+}
+
+/* dashboard sidebar */
+.active__sidebar::before {
+   content: "";
+   position: absolute;
+   left: 0;
+   top: 0;
+   width: 4px;
+   height: 100%;
+   background-color: var(--mossGreenSecondary-900);
 }

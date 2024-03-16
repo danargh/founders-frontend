@@ -4,7 +4,7 @@
 import LogoNavbar from "../ui/LogoNavbar";
 import { CalendarIcon, ClipboardIcon, FrameIcon, GalleryIcon, GiftIcon, HeartEditIcon, HomeIcon, MessageTextIcon, MessagesIcon, SettingIcon, StarOutlineIcon, UserIcon } from "@/assets/icons/icons";
 import { useUIStateSlice } from "@/store/store";
-import { useCookies, useStore } from "@/hooks";
+
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -83,17 +83,7 @@ const navItems: NavItem[] = [
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({ children }) => {
-   // const [setActiveNav, activeNav] = useUIStateSlice((state) => [state.setActiveNav, state.activeNav]);
-   const { removeCookie } = useCookies(["userToken"]);
-   const [activeNav, setActiveNav] = useState<string>("");
-   const router = useRouter();
    const pathname = usePathname();
-
-   // logout
-   const logoutHandler = () => {
-      removeCookie("userToken", { path: "/" });
-      router.push("/login");
-   };
 
    return (
       <>
@@ -102,22 +92,16 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
                <Link
                   key={index}
                   href={item.link}
-                  // onClick={() => {
-                  //    setActiveNav(item.link);
-                  // }}
                   className={`${
-                     item.link === pathname ? "bg-mossGreenSecondary-50" : null
-                  } items-center justify-start flex gap-x-2 py-3 pl-5 outline-offset-4 hover:outline-4 hover:bg-mossGreenSecondary-50`}
+                     item.link === pathname ? "bg-mossGreenSecondary-50 active__sidebar" : null
+                  } relative items-center justify-start flex gap-x-2 py-3 pl-5 outline-offset-4 hover:outline-4 hover:bg-mossGreenSecondary-50`}
                >
                   {item.icon}
                   <p className=" text-label-md">{item.label}</p>
                </Link>
             ))}
-            <button className="items-center justify-start flex gap-x-2 py-3" onClick={logoutHandler}>
-               Logout
-            </button>
          </nav>
-         <div className="basis-10/12">{children}</div>
+         <div className="basis-10/12 py-5 px-6">{children}</div>
       </>
    );
 };

@@ -3,9 +3,8 @@
 import { StarterPackageDashboard } from "../ui/Package";
 import { button } from "@/app/variants";
 import { LinkButton } from "../ui/Button";
-import { testimoniData } from "@/store/staticStore";
-import Image from "next/image";
 import LogoNavbar from "../ui/LogoNavbar";
+import Profile from "@/components/section/Profile";
 
 const Header: React.FC = () => {
    return (
@@ -14,16 +13,13 @@ const Header: React.FC = () => {
             <LogoNavbar />
          </div>
 
-         <div className="flex justify-between items-center basis-10/12">
+         <div className="flex justify-between items-center pl-6 basis-10/12">
             <StarterPackageDashboard />
-            <div className="flex gap-x-4">
+            <div className="flex justify-center">
                <LinkButton urlLocation="#" className={`${button({ tertiary: "gray", size: { initial: "xs", md: "xs", xl: "sm" } })}`}>
                   Preview Undangan
                </LinkButton>
-               <LinkButton urlLocation="#" className={`${button({ tertiary: "gray", size: { initial: "xs", md: "xs", xl: "sm" } })}`}>
-                  {/* <Image width={32} height={32} className="border border-[#DBD8EB] rounded-full object-cover w-8 h-8" src={testimoniData[0].imgMale} alt="avatar img" /> */}
-                  Zahnanami
-               </LinkButton>
+               <Profile />
             </div>
          </div>
       </header>
