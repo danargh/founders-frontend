@@ -1,13 +1,10 @@
 // Sidebar section for user dashboard
 "use client";
 
-import LogoNavbar from "../ui/LogoNavbar";
 import { CalendarIcon, ClipboardIcon, FrameIcon, GalleryIcon, GiftIcon, HeartEditIcon, HomeIcon, MessageTextIcon, MessagesIcon, SettingIcon, StarOutlineIcon, UserIcon } from "@/assets/icons/icons";
 import { useUIStateSlice } from "@/store/store";
-
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 interface NavItem {
    icon: JSX.Element;
@@ -83,25 +80,34 @@ const navItems: NavItem[] = [
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({ children }) => {
+   const [activeSidebar, setActiveSidebar] = useUIStateSlice((state) => [state.activeSidebar, state.setActiveSidebar]);
+
    const pathname = usePathname();
 
    return (
       <>
-         <nav className="basis-2/12 h-screen flex flex-col gap-y-2 border-r border-mossGreenSecondary-100 ">
+         <nav className={`${activeSidebar ? "flex" : "hidden"} transition-all basis-2/12 h-screen absolute sm:relative sm:flex flex-col gap-y-2 border-r border-mossGreenSecondary-100 bg-primary-25`}>
             {navItems.map((item, index) => (
                <Link
                   key={index}
                   href={item.link}
                   className={`${
                      item.link === pathname ? "bg-mossGreenSecondary-50 active__sidebar" : null
-                  } relative items-center justify-start flex gap-x-2 py-3 pl-5 outline-offset-4 hover:outline-4 hover:bg-mossGreenSecondary-50`}
+                  } relative items-center justify-start flex gap-x-2 py-3 px-4 sm:px-6 outline-offset-4 hover:outline-4 hover:bg-mossGreenSecondary-50`}
                >
                   {item.icon}
                   <p className=" text-label-md">{item.label}</p>
                </Link>
             ))}
          </nav>
-         <div className="basis-10/12 py-5 px-6">{children}</div>
+         <div
+            onClick={() => {
+               setActiveSidebar(false);
+            }}
+            className="basis-10/12 py-5 px-4 sm:px-6"
+         >
+            {children}
+         </div>
       </>
    );
 };

@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
    return (
-      <main className="responsive__container--dashboard flex flex-col">
+      <main className="flex flex-col bg-primary-25">
          <Header />
-         <div className="flex px-6">
+         <div className="w-full sm:flex">
             <Sidebar>{children}</Sidebar>
          </div>
       </main>

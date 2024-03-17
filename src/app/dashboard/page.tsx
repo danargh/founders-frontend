@@ -64,7 +64,7 @@ const Dashboard: FC = () => {
                <p>Data acara masih dapat diubah setelah undangan selesai dibuat</p>
             </div>
             <hr className=" text-primary-100" />
-            <div className=" grid grid-cols-3 gap-x-4 gap-y-6">
+            <div className=" grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-6">
                {statistik.map((item, index) => (
                   <div className="flex flex-col gap-y-6 p-5 border border-mossGreenSecondary-100 bg-mossGreenSecondary-25 rounded-[16px]" key={index}>
                      <UserIcon width="20" height="20" color="#2E4210" />
