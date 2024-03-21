@@ -91,6 +91,9 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
                <Link
                   key={index}
                   href={item.link}
+                  onClick={() => {
+                     setActiveSidebar(false);
+                  }}
                   className={`${
                      item.link === pathname ? "bg-mossGreenSecondary-50 active__sidebar" : null
                   } relative items-center justify-start flex gap-x-2 py-3 px-4 sm:px-6 outline-offset-4 hover:outline-4 hover:bg-mossGreenSecondary-50`}
