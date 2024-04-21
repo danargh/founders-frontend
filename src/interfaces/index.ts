@@ -21,6 +21,7 @@ export interface User {
    createdAt: Date;
    auth: Auth;
    role: string;
+   membership: string;
 
    maleName: string;
    femaleName: string;

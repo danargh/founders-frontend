@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
-import Providers from "@/app/provider";
 import Sidebar from "@/components/section/Sidebar";
 import Header from "@/components/section/Header";
+import { useDashboardThemeSlice, useUserSlice } from "@/store/store";
 
 export const metadata: Metadata = {
    title: "The Founders Wedding Invitation",

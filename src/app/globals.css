@@ -329,5 +329,5 @@
    top: 0;
    width: 4px;
    height: 100%;
-   background-color: var(--mossGreenSecondary-900);
+   background-color: var(--active-sidebar-color);
 }

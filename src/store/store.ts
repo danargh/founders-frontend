@@ -12,6 +12,15 @@ interface UIStateSlice {
    setActiveSidebar: (nav: boolean) => void;
 }
 
+interface DashboardThemeSlice {
+   primaryColor: string;
+   setPrimaryColor: (color: string) => void;
+   secondaryColor: string;
+   setSecondaryColor: (color: string) => void;
+   tertiaryColor: string;
+   setTertiaryColor: (color: string) => void;
+}
+
 export const useUserSlice = create<UserSlice>()(
    persist(
       (set) => ({
@@ -29,6 +38,20 @@ export const useUIStateSlice = create<UIStateSlice>()(
          setActiveSidebar: (nav) => set(() => ({ activeSidebar: nav })),
       }),
       { name: "UIStateSlice" },
+   ),
+);
+
+export const useDashboardThemeSlice = create<DashboardThemeSlice>()(
+   persist(
+      (set) => ({
+         primaryColor: "#2E4210",
+         setPrimaryColor: (color) => set(() => ({ primaryColor: color })),
+         secondaryColor: "#E2EBD8",
+         setSecondaryColor: (color) => set(() => ({ secondaryColor: color })),
+         tertiaryColor: "#F4F7ED",
+         setTertiaryColor: (color) => set(() => ({ tertiaryColor: color })),
+      }),
+      { name: "DashboardThemeSlice" },
    ),
 );
 
