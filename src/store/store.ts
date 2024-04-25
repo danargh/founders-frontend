@@ -31,29 +31,19 @@ export const useUserSlice = create<UserSlice>()(
    ),
 );
 
-export const useUIStateSlice = create<UIStateSlice>()(
-   persist(
-      (set) => ({
-         activeSidebar: false,
-         setActiveSidebar: (nav) => set(() => ({ activeSidebar: nav })),
-      }),
-      { name: "UIStateSlice" },
-   ),
-);
+export const useUIStateSlice = create<UIStateSlice>()((set) => ({
+   activeSidebar: false,
+   setActiveSidebar: (nav) => set(() => ({ activeSidebar: nav })),
+}));
 
-export const useDashboardThemeSlice = create<DashboardThemeSlice>()(
-   persist(
-      (set) => ({
-         primaryColor: "#2E4210",
-         setPrimaryColor: (color) => set(() => ({ primaryColor: color })),
-         secondaryColor: "#E2EBD8",
-         setSecondaryColor: (color) => set(() => ({ secondaryColor: color })),
-         tertiaryColor: "#F4F7ED",
-         setTertiaryColor: (color) => set(() => ({ tertiaryColor: color })),
-      }),
-      { name: "DashboardThemeSlice" },
-   ),
-);
+export const useDashboardThemeSlice = create<DashboardThemeSlice>()((set) => ({
+   primaryColor: "#701608",
+   setPrimaryColor: (color) => set(() => ({ primaryColor: color })),
+   secondaryColor: "#EBC5BC",
+   setSecondaryColor: (color) => set(() => ({ secondaryColor: color })),
+   tertiaryColor: "#F7EFED",
+   setTertiaryColor: (color) => set(() => ({ tertiaryColor: color })),
+}));
 
 // import { create, StateCreator } from "zustand";
 

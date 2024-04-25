@@ -104,12 +104,17 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
                   onClick={() => {
                      setActiveSidebar(false);
                   }}
-                  className={`${item.link === pathname ? `active__sidebar` : null} relative items-center justify-start flex gap-x-2 py-3 px-4 sm:px-6 outline-offset-4 hover:outline-4`}
+                  style={item.link === pathname ? { backgroundColor: tertiaryColor } : { backgroundColor: "transparent" }}
+                  className={`${item.link === pathname ? `active__sidebar` : null} relative items-center justify-start flex gap-x-2 py-3 px-4 sm:px-6 outline-offset-4 hover:outline-4 transition-all`}
                   onMouseOver={(event) => {
-                     event.currentTarget.style.backgroundColor = tertiaryColor;
+                     event.currentTarget.style.backgroundColor = `${tertiaryColor}`;
                   }}
                   onMouseLeave={(event) => {
-                     event.currentTarget.style.backgroundColor = "transparent";
+                     if (item.link === pathname) {
+                        return;
+                     } else {
+                        event.currentTarget.style.backgroundColor = "transparent";
+                     }
                   }}
                >
                   {item.icon}

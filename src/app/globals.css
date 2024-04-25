@@ -330,4 +330,5 @@
    width: 4px;
    height: 100%;
    background-color: var(--active-sidebar-color);
+   transition: all 0.3s;
 }
