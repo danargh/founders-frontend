@@ -2,10 +2,12 @@
 "use client";
 
 import { CalendarIcon, ClipboardIcon, FrameIcon, GalleryIcon, GiftIcon, HeartEditIcon, HomeIcon, MessageTextIcon, MessagesIcon, SettingIcon, StarOutlineIcon, UserIcon } from "@/assets/icons/icons";
-import { useUIStateSlice, useDashboardThemeSlice } from "@/store/store";
+import { useUIStateSlice, useDashboardThemeSlice, DashboardThemeSlice } from "@/store/store";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
+import { useStore } from "@/hooks";
+import { useUserSlice } from "@/store/store";
 
 interface NavItem {
    icon: JSX.Element;
@@ -82,19 +84,19 @@ const navItems: NavItem[] = [
 
 const Sidebar: React.FC<SidebarProps> = ({ children }) => {
    const [activeSidebar, setActiveSidebar] = useUIStateSlice((state) => [state.activeSidebar, state.setActiveSidebar]);
-   const [primaryColor, secondaryColor, tertiaryColor] = useDashboardThemeSlice((state) => [state.primaryColor, state.secondaryColor, state.tertiaryColor]);
+   const dashboardThemeStore = useStore<DashboardThemeSlice, DashboardThemeSlice>(useDashboardThemeSlice, (state) => state);
 
    useEffect(() => {
       let root = document.documentElement;
-      root.style.setProperty("--active-sidebar-color", primaryColor);
-   }, [primaryColor]);
+      root.style.setProperty("--active-sidebar-color", dashboardThemeStore?.primaryColor || "");
+   }, [dashboardThemeStore?.primaryColor]);
 
    const pathname = usePathname();
 
    return (
       <>
          <nav
-            style={{ borderColor: secondaryColor }}
+            style={{ borderColor: dashboardThemeStore?.secondaryColor }}
             className={`${activeSidebar ? "flex" : "hidden"} transition-all basis-2/12 h-screen absolute sm:relative sm:flex flex-col gap-y-2 border-r bg-primary-25`}
          >
             {navItems.map((item, index) => (
@@ -104,10 +106,10 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
                   onClick={() => {
                      setActiveSidebar(false);
                   }}
-                  style={item.link === pathname ? { backgroundColor: tertiaryColor } : { backgroundColor: "transparent" }}
+                  style={item.link === pathname ? { backgroundColor: dashboardThemeStore?.tertiaryColor } : { backgroundColor: "transparent" }}
                   className={`${item.link === pathname ? `active__sidebar` : null} relative items-center justify-start flex gap-x-2 py-3 px-4 sm:px-6 outline-offset-4 hover:outline-4 transition-all`}
                   onMouseOver={(event) => {
-                     event.currentTarget.style.backgroundColor = `${tertiaryColor}`;
+                     event.currentTarget.style.backgroundColor = `${dashboardThemeStore?.tertiaryColor}`;
                   }}
                   onMouseLeave={(event) => {
                      if (item.link === pathname) {

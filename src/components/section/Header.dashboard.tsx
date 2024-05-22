@@ -5,30 +5,46 @@ import { EksklusifPackageDashboard, PremiumPackageDashboard, StarterPackageDashb
 import { button } from "@/app/variants";
 import { LinkButton } from "../ui/Button";
 import LogoNavbar from "../ui/LogoNavbar";
-import Profile from "@/components/section/Profile";
+import Profile from "@/components/section/Profile.dashboard";
 import { MenuIcon } from "@/assets/icons/icons";
-import { useUIStateSlice, useDashboardThemeSlice, useUserSlice } from "@/store/store";
+import { useUIStateSlice, useDashboardThemeSlice, useUserSlice, DashboardThemeSlice } from "@/store/store";
 import { useEffect, useState } from "react";
 import { Loader } from "../ui/Loader";
+import { useStore } from "@/hooks";
 
 const Header: React.FC = () => {
    const [activeSidebar, setActiveSidebar] = useUIStateSlice((state) => [state.activeSidebar, state.setActiveSidebar]);
-   const [secondaryColor] = useDashboardThemeSlice((state) => [state.secondaryColor]);
-   const user = useUserSlice((state) => state.user);
+   const dashboardThemeStore = useStore<DashboardThemeSlice, DashboardThemeSlice>(useDashboardThemeSlice, (state) => state);
+   const user = useStore(useUserSlice, (state) => state.user);
    const [packageType, setPackageType] = useState<React.ReactNode>(null);
+   const [setPrimaryColor, setSecondaryColor, setTertiaryColor] = useDashboardThemeSlice((state) => [state.setPrimaryColor, state.setSecondaryColor, state.setTertiaryColor]);
 
    useEffect(() => {
-      if (user?.membership === "premium") {
+      if (user?.data?.membership === "premium") {
          setPackageType(<PremiumPackageDashboard />);
-      } else if (user?.membership === "eksklusif") {
+      } else if (user?.data?.membership === "eksklusif") {
          setPackageType(<EksklusifPackageDashboard />);
       } else {
          setPackageType(<StarterPackageDashboard />);
       }
-   }, [user]);
+
+      if (user?.data?.membership === "premium") {
+         setPrimaryColor("#701608");
+         setSecondaryColor("#EBC5BC");
+         setTertiaryColor("#F7EFED");
+      } else if (user?.data?.membership === "eksklusif") {
+         setPrimaryColor("#2B0C66");
+         setSecondaryColor("#CFCAEB");
+         setTertiaryColor("#F3F2F7");
+      } else {
+         setPrimaryColor("#2E4210");
+         setSecondaryColor("#D3E5BC");
+         setTertiaryColor("#EFF5E6");
+      }
+   }, [user, setPrimaryColor, setSecondaryColor, setTertiaryColor]);
 
    return (
-      <header style={{ borderColor: secondaryColor }} className="flex justify-between gap-x-4 sm:gap-x-6 items-center py-4 border-b h-[80px]">
+      <header style={{ borderColor: dashboardThemeStore?.secondaryColor }} className="flex justify-between gap-x-4 sm:gap-x-6 items-center py-4 border-b h-[80px]">
          <div className="hidden sm:flex basis-2/12 pl-6 pr-6 md:pr-0">
             <LogoNavbar />
          </div>

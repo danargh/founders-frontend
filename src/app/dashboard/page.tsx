@@ -1,7 +1,7 @@
 "use client";
 
 import React, { FC, useEffect } from "react";
-import { useDashboardThemeSlice, useUserSlice } from "@/store/store";
+import { useDashboardThemeSlice, DashboardThemeSlice, useUserSlice } from "@/store/store";
 import { useCookies, useStore } from "@/hooks";
 import { useRouter } from "next/navigation";
 import { useValidateToken } from "@/api/auth";
@@ -43,26 +43,19 @@ const statistik: Statistik[] = [
 
 const Dashboard: FC = () => {
    const router = useRouter();
-   const { status: useValidaTokenStatus } = useValidateToken();
+   const { status: useValidaTokenStatus, data: userData } = useValidateToken();
+   const [setUser] = useUserSlice((state) => [state.setUser, state.user]);
    const user = useStore(useUserSlice, (state) => state.user);
-   const [tertiaryColor, secondaryColor] = useDashboardThemeSlice((state) => [state.tertiaryColor, state.secondaryColor]);
-   const [setPrimaryColor, setSecondaryColor, setTertiaryColor] = useDashboardThemeSlice((state) => [state.setPrimaryColor, state.setSecondaryColor, state.setTertiaryColor]);
+
+   const dashboardThemeStore = useStore<DashboardThemeSlice, DashboardThemeSlice>(useDashboardThemeSlice, (state) => state);
 
    useEffect(() => {
       if (useValidaTokenStatus === "error") {
          router.push("/login");
+      } else {
+         setUser(userData as any);
       }
-
-      if (user?.membership === "premium") {
-         setPrimaryColor("#701608");
-         setSecondaryColor("#EBC5BC");
-         setTertiaryColor("#F7EFED");
-      } else if (user?.membership === "eksklusif") {
-         setPrimaryColor("#2B0C66");
-         setSecondaryColor("#CFCAEB");
-         setTertiaryColor("#F3F2F7");
-      }
-   }, [useValidaTokenStatus, router, user, setPrimaryColor, setSecondaryColor, setTertiaryColor]);
+   }, [useValidaTokenStatus, userData, user, router, setUser]);
 
    if (useValidaTokenStatus === "pending") {
       return <Loader />;
@@ -70,7 +63,7 @@ const Dashboard: FC = () => {
 
    if (useValidaTokenStatus === "success") {
       return (
-         <section style={{ borderColor: secondaryColor }} className="flex flex-col gap-y-6 p-6 border rounded-[32px]">
+         <section style={{ borderColor: dashboardThemeStore?.secondaryColor }} className="flex flex-col gap-y-6 p-6 border rounded-[32px]">
             <div className="flex flex-col gap-y-1">
                <h2 className=" text-display-sm font-Lora font-[500]">Statistik Undangan</h2>
                <p>Data acara masih dapat diubah setelah undangan selesai dibuat</p>
@@ -78,7 +71,11 @@ const Dashboard: FC = () => {
             <hr className=" text-primary-100" />
             <div className=" grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-6">
                {statistik.map((item, index) => (
-                  <div style={{ backgroundColor: tertiaryColor, borderColor: secondaryColor }} className="flex flex-col gap-y-6 p-5 border rounded-[16px]" key={index}>
+                  <div
+                     style={{ backgroundColor: dashboardThemeStore?.tertiaryColor, borderColor: dashboardThemeStore?.secondaryColor }}
+                     className="flex flex-col gap-y-6 p-5 border rounded-[16px]"
+                     key={index}
+                  >
                      <UserIcon width="20" height="20" color="#2E4210" />
                      <div className="flex flex-col gap-y-1">
                         <h3 className=" text-heading-xs">{item.title}</h3>

@@ -1,18 +1,19 @@
 import { create } from "zustand";
 import { User } from "@/interfaces";
 import { persist } from "zustand/middleware";
+import { Response } from "@/interfaces";
 
-interface UserSlice {
-   user: User | null;
-   setUser: (user: User | null) => void;
+export interface UserSlice {
+   user: Response<User> | null;
+   setUser: (user: Response<User> | null) => void;
 }
 
-interface UIStateSlice {
+export interface UIStateSlice {
    activeSidebar: boolean;
    setActiveSidebar: (nav: boolean) => void;
 }
 
-interface DashboardThemeSlice {
+export interface DashboardThemeSlice {
    primaryColor: string;
    setPrimaryColor: (color: string) => void;
    secondaryColor: string;
@@ -27,7 +28,9 @@ export const useUserSlice = create<UserSlice>()(
          user: null,
          setUser: (user) => set(() => ({ user })),
       }),
-      { name: "userSlice" },
+      {
+         name: "user",
+      },
    ),
 );
 
@@ -36,57 +39,18 @@ export const useUIStateSlice = create<UIStateSlice>()((set) => ({
    setActiveSidebar: (nav) => set(() => ({ activeSidebar: nav })),
 }));
 
-export const useDashboardThemeSlice = create<DashboardThemeSlice>()((set) => ({
-   primaryColor: "#701608",
-   setPrimaryColor: (color) => set(() => ({ primaryColor: color })),
-   secondaryColor: "#EBC5BC",
-   setSecondaryColor: (color) => set(() => ({ secondaryColor: color })),
-   tertiaryColor: "#F7EFED",
-   setTertiaryColor: (color) => set(() => ({ tertiaryColor: color })),
-}));
-
-// import { create, StateCreator } from "zustand";
-
-// interface BearSlice {
-//    bears: number;
-//    addBear: () => void;
-//    eatFish: () => void;
-// }
-
-// interface FishSlice {
-//    fishes: number;
-//    addFish: () => void;
-// }
-
-// interface SharedSlice {
-//    addBoth: () => void;
-//    getBoth: () => void;
-// }
-
-// const createBearSlice: StateCreator<BearSlice & FishSlice, [], [], BearSlice> = (set) => ({
-//    bears: 0,
-//    addBear: () => set((state) => ({ bears: state.bears + 1 })),
-//    eatFish: () => set((state) => ({ fishes: state.fishes - 1 })),
-// });
-
-// const createFishSlice: StateCreator<BearSlice & FishSlice, [], [], FishSlice> = (set) => ({
-//    fishes: 0,
-//    addFish: () => set((state) => ({ fishes: state.fishes + 1 })),
-// });
-
-// const createSharedSlice: StateCreator<BearSlice & FishSlice, [], [], SharedSlice> = (set, get) => ({
-//    addBoth: () => {
-//       // you can reuse previous methods
-//       get().addBear();
-//       get().addFish();
-//       // or do them from scratch
-//       // set((state) => ({ bears: state.bears + 1, fishes: state.fishes + 1 })
-//    },
-//    getBoth: () => get().bears + get().fishes,
-// });
-
-// const useBoundStore = create<BearSlice & FishSlice & SharedSlice>()((...a) => ({
-//    ...createBearSlice(...a),
-//    ...createFishSlice(...a),
-//    ...createSharedSlice(...a),
-// }));
+export const useDashboardThemeSlice = create<DashboardThemeSlice>()(
+   persist(
+      (set) => ({
+         primaryColor: "",
+         setPrimaryColor: (color) => set(() => ({ primaryColor: color })),
+         secondaryColor: "",
+         setSecondaryColor: (color) => set(() => ({ secondaryColor: color })),
+         tertiaryColor: "",
+         setTertiaryColor: (color) => set(() => ({ tertiaryColor: color })),
+      }),
+      {
+         name: "dashboardTheme",
+      },
+   ),
+);

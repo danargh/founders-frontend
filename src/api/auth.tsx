@@ -28,7 +28,7 @@ export const useLogin = () => {
       },
       onSuccess: (data) => {
          const userData = data.data as User;
-         setUser(userData);
+         setUser(userData as any);
 
          // set cookie
          cookies.set("userToken", userData.auth.token, { path: "/", expires: new Date(userData.auth.expiresIn) });
@@ -61,8 +61,7 @@ export const useRegister = () => {
       },
       onSuccess: (data) => {
          const userData = data.data as User;
-         setUser(userData);
-         console.log(userData);
+         setUser(userData as any);
          // set cookie
          cookies.set("userToken", userData.auth.token, { path: "/", expires: new Date(userData.auth.expiresIn) });
          return data;
@@ -74,7 +73,7 @@ export const useRegister = () => {
 };
 
 // validate token
-export const postValidateToken = async (): Promise<ResponseOnly> => {
+export const postValidateToken = async (): Promise<Response<User>> => {
    let userToken: string = cookies.get("userToken");
    if (!userToken) {
       throw new Error("Token not found");
@@ -83,7 +82,7 @@ export const postValidateToken = async (): Promise<ResponseOnly> => {
    return await axios
       .get(`${config.BASE_URL}/auth/validate`, { headers: { Authorization: `Bearer ${userToken}`, "Content-Type": "application/json" } })
       .then((res) => {
-         return res.data;
+         return res.data as Response<User>;
       })
       .catch((err: AxiosError) => {
          throw err.response?.data;
@@ -91,7 +90,7 @@ export const postValidateToken = async (): Promise<ResponseOnly> => {
 };
 
 export const useValidateToken = () => {
-   return useQuery<ResponseOnly, Error, string[]>({
+   return useQuery<Response<User>, Error, string[]>({
       queryKey: ["validateToken"],
       queryFn: postValidateToken,
    });
