@@ -28,7 +28,7 @@ export const useLogin = () => {
       },
       onSuccess: (data) => {
          const userData = data.data as User;
-         setUser(userData as any);
+         setUser(userData);
 
          // set cookie
          cookies.set("userToken", userData.auth.token, { path: "/", expires: new Date(userData.auth.expiresIn) });
@@ -61,7 +61,7 @@ export const useRegister = () => {
       },
       onSuccess: (data) => {
          const userData = data.data as User;
-         setUser(userData as any);
+         setUser(userData);
          // set cookie
          cookies.set("userToken", userData.auth.token, { path: "/", expires: new Date(userData.auth.expiresIn) });
          return data;
@@ -82,7 +82,7 @@ export const postValidateToken = async (): Promise<Response<User>> => {
    return await axios
       .get(`${config.BASE_URL}/auth/validate`, { headers: { Authorization: `Bearer ${userToken}`, "Content-Type": "application/json" } })
       .then((res) => {
-         return res.data as Response<User>;
+         return res.data;
       })
       .catch((err: AxiosError) => {
          throw err.response?.data;
@@ -90,8 +90,11 @@ export const postValidateToken = async (): Promise<Response<User>> => {
 };
 
 export const useValidateToken = () => {
-   return useQuery<Response<User>, Error, string[]>({
+   return useQuery<Response<User>, AxiosError, User>({
       queryKey: ["validateToken"],
-      queryFn: postValidateToken,
+      queryFn: async () => {
+         const data = await postValidateToken();
+         return data;
+      },
    });
 };

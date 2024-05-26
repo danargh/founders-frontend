@@ -4,8 +4,8 @@ import { persist } from "zustand/middleware";
 import { Response } from "@/interfaces";
 
 export interface UserSlice {
-   user: Response<User> | null;
-   setUser: (user: Response<User> | null) => void;
+   user: User | null;
+   setUser: (user: User | null) => void;
 }
 
 export interface UIStateSlice {

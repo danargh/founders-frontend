@@ -22,7 +22,6 @@ export interface User {
    auth: Auth;
    role: string;
    membership: string;
-
    maleName: string;
    femaleName: string;
    websiteUrl: string;
@@ -36,6 +35,24 @@ interface Auth {
 export interface LoginUser {
    email: string;
    password: string;
+}
+
+export interface Groom {
+   id: string;
+   name: string;
+   nickName: string;
+   childOrder: number;
+   fatherName: string;
+   motherName: string;
+   address: string;
+   photo: string;
+   socialMedia: SocialMedia;
+}
+interface SocialMedia {
+   facebook: string;
+   instagram: string;
+   twitter: string;
+   tiktok: string;
 }
 
 // query

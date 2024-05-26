@@ -18,7 +18,7 @@ import { CenterLoader, Loader } from "@/components/ui/Loader";
 import { Message } from "@/components/ui/Message";
 
 // validation
-const EmailSchema = yup.object().shape({
+const LoginSchema = yup.object().shape({
    email: yup.string().email("Enter a valid email").required("Email is required"),
    password: yup.string().max(32, "Max password length is 32").required("Password is required"),
 });
@@ -32,7 +32,7 @@ const Login: React.FC = () => {
       register,
       handleSubmit,
       formState: { errors },
-   } = useForm({ resolver: yupResolver(EmailSchema) });
+   } = useForm({ resolver: yupResolver(LoginSchema) });
 
    const onSubmit = (data: LoginUser, event: React.FormEvent) => {
       event.preventDefault();

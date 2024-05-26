@@ -11,9 +11,10 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
    wrapperClass?: string;
    className?: string;
    type?: string;
+   value?: string;
 }
 
-export const Input: FC<InputProps> = ({ register, name, className, error, label, wrapperClass, type, ...rest }) => {
+export const Input: FC<InputProps> = ({ register, name, className, error, label, wrapperClass, type, value, ...rest }) => {
    const [passwordShown, setPasswordShown] = React.useState(false);
 
    return (
@@ -25,7 +26,7 @@ export const Input: FC<InputProps> = ({ register, name, className, error, label,
                </label>
             )}
             <div className="flex justify-between items-end">
-               <input className="input__text" id={name} type={passwordShown ? "text" : type} aria-invalid={error ? "true" : "false"} {...register(name)} {...rest} />
+               <input className="input__text" id={name} value={value} type={passwordShown ? "text" : type} aria-invalid={error ? "true" : "false"} {...register(name)} {...rest} />
                {type === "password" && (
                   <i
                      className="cursor-pointer"

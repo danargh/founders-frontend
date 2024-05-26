@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Cookies from "universal-cookie";
 
-// persist hydration
+// persist side effect hooks
 export const useStore = <T, F>(store: (callback: (state: T) => unknown) => unknown, callback: (state: T) => F) => {
    const result = store(callback) as F;
    const [data, setData] = useState<F>();

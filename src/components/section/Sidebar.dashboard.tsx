@@ -7,7 +7,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { useStore } from "@/hooks";
-import { useUserSlice } from "@/store/store";
 
 interface NavItem {
    icon: JSX.Element;
