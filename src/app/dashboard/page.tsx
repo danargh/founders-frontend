@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { useDashboardThemeSlice, DashboardThemeSlice, useUserSlice } from "@/store/store";
 import { useStore } from "@/hooks";
 import { SmsTracking, Calendar1, People, UserTag, ProfileTick, ProfileDelete } from "iconsax-react";
