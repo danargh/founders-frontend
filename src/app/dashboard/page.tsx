@@ -5,6 +5,7 @@ import { useDashboardThemeSlice, DashboardThemeSlice, useUserSlice } from "@/sto
 import { useStore } from "@/hooks";
 import { SmsTracking, Calendar1, People, UserTag, ProfileTick, ProfileDelete } from "iconsax-react";
 import AuthHOC from "@/components/hoc/AuthHOC";
+import { UserSetting } from "@/interfaces";
 
 interface Statistik {
    // icon: React.ReactNode;
@@ -46,7 +47,7 @@ const statistik: Statistik[] = [
    },
 ];
 
-const Dashboard: FC = () => {
+const Dashboard: FC<{ userData: UserSetting }> = ({ userData }) => {
    const dashboardThemeStore = useStore<DashboardThemeSlice, DashboardThemeSlice>(useDashboardThemeSlice, (state) => state);
 
    return (

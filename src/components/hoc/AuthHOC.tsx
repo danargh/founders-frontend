@@ -10,8 +10,8 @@ export interface AuthHOCProps {
    userData: UserSetting;
 }
 
-function AuthHOC(Component: React.FC): React.FC<AuthHOCProps> {
-   const AuthenticatedComponent: React.FC<AuthHOCProps> = ({ userData }: AuthHOCProps) => {
+function AuthHOC<P extends AuthHOCProps>(Component: React.FC<P>): React.FC<P> {
+   const AuthenticatedComponent: React.FC<P> = (props: P) => {
       const { status: useValidateTokenStatus, data: userResponseData } = useValidateToken();
       const [setUser] = useUserSlice((state) => [state.setUser, state.user]);
       const user = useStore(useUserSlice, (state) => state.user);
@@ -23,12 +23,12 @@ function AuthHOC(Component: React.FC): React.FC<AuthHOCProps> {
          } else if (useValidateTokenStatus === "success") {
             setUser(userResponseData.data);
          }
-      }, [router, useValidateTokenStatus, userData, setUser, userResponseData]);
+      }, [router, useValidateTokenStatus, setUser, userResponseData]);
 
       if (useValidateTokenStatus === "pending") {
          return <CenterLoader />;
       } else if (useValidateTokenStatus === "success") {
-         return <Component />;
+         return <Component {...props} />;
       }
    };
 
