@@ -10,32 +10,8 @@ export interface AuthHOCProps {
    userData: UserSetting;
 }
 
-function AuthHOC<P extends AuthHOCProps>(Component: React.FC<P>): React.FC<P> {
-   const AuthenticatedComponent: React.FC<P> = (props: P) => {
-      const { status: useValidateTokenStatus, data: userResponseData } = useValidateToken();
-      const [setUser] = useUserSlice((state) => [state.setUser, state.user]);
-      const user = useStore(useUserSlice, (state) => state.user);
-      const router = useRouter();
-
-      useEffect(() => {
-         if (useValidateTokenStatus === "error") {
-            router.push("/login");
-         } else if (useValidateTokenStatus === "success") {
-            setUser(userResponseData.data);
-         }
-      }, [router, useValidateTokenStatus, setUser, userResponseData]);
-
-      if (useValidateTokenStatus === "pending") {
-         return <CenterLoader />;
-      } else if (useValidateTokenStatus === "success") {
-         return <Component {...props} />;
-      }
-   };
-
-   return AuthenticatedComponent;
-}
-// function AuthHOC<P extends object>(Component: React.ComponentType<P>): React.FC<P & AuthHOCProps> {
-//    const AuthenticatedComponent: React.FC<P & AuthHOCProps> = ({ userData, ...props }: AuthHOCProps & P) => {
+// function AuthHOC<P extends AuthHOCProps>(Component: React.FC<P>): React.FC<P> {
+//    const AuthenticatedComponent: React.FC<P> = (props: P) => {
 //       const { status: useValidateTokenStatus, data: userResponseData } = useValidateToken();
 //       const [setUser] = useUserSlice((state) => [state.setUser, state.user]);
 //       const user = useStore(useUserSlice, (state) => state.user);
@@ -47,16 +23,40 @@ function AuthHOC<P extends AuthHOCProps>(Component: React.FC<P>): React.FC<P> {
 //          } else if (useValidateTokenStatus === "success") {
 //             setUser(userResponseData.data);
 //          }
-//       }, [router, useValidateTokenStatus, userData, setUser, userResponseData]);
+//       }, [router, useValidateTokenStatus, setUser, userResponseData]);
 
 //       if (useValidateTokenStatus === "pending") {
 //          return <CenterLoader />;
 //       } else if (useValidateTokenStatus === "success") {
-//          return <Component {...(props as P)} userData={user} />;
+//          return <Component {...props} />;
 //       }
 //    };
 
 //    return AuthenticatedComponent;
 // }
+function AuthHOC<P extends object>(Component: React.ComponentType<P>): React.FC<P & AuthHOCProps> {
+   const AuthenticatedComponent: React.FC<P & AuthHOCProps> = ({ userData, ...props }: AuthHOCProps & P) => {
+      const { status: useValidateTokenStatus, data: userResponseData } = useValidateToken();
+      const [setUser] = useUserSlice((state) => [state.setUser, state.user]);
+      const user = useStore(useUserSlice, (state) => state.user);
+      const router = useRouter();
+
+      useEffect(() => {
+         if (useValidateTokenStatus === "error") {
+            router.push("/login");
+         } else if (useValidateTokenStatus === "success") {
+            setUser(userResponseData.data);
+         }
+      }, [router, useValidateTokenStatus, userData, setUser, userResponseData]);
+
+      if (useValidateTokenStatus === "pending") {
+         return <CenterLoader />;
+      } else if (useValidateTokenStatus === "success") {
+         return <Component {...(props as P)} userData={user} />;
+      }
+   };
+
+   return AuthenticatedComponent;
+}
 
 export default AuthHOC;

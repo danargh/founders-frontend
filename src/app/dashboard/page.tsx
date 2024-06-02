@@ -1,11 +1,10 @@
 "use client";
 
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { useDashboardThemeSlice, DashboardThemeSlice, useUserSlice } from "@/store/store";
 import { useStore } from "@/hooks";
 import { SmsTracking, Calendar1, People, UserTag, ProfileTick, ProfileDelete } from "iconsax-react";
-import AuthHOC from "@/components/hoc/AuthHOC";
-import { UserSetting } from "@/interfaces";
+import AuthHOC, { AuthHOCProps } from "@/components/hoc/AuthHOC";
 
 interface Statistik {
    // icon: React.ReactNode;
@@ -47,7 +46,11 @@ const statistik: Statistik[] = [
    },
 ];
 
-function Dashboard({ userData }: { userData: UserSetting }) {
+interface DashboardProps {
+   dummy?: string;
+}
+
+const Dashboard: FC<AuthHOCProps & DashboardProps> = ({ dummy, userData }) => {
    const dashboardThemeStore = useStore<DashboardThemeSlice, DashboardThemeSlice>(useDashboardThemeSlice, (state) => state);
 
    return (
@@ -74,6 +77,6 @@ function Dashboard({ userData }: { userData: UserSetting }) {
          </div>
       </section>
    );
-}
+};
 
 export default AuthHOC(Dashboard);
