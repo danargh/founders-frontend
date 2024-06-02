@@ -31,7 +31,7 @@ const GroomSchema = yup.object().shape({
    address: yup.string().required("Alamat is required"),
 });
 
-const Profile: FC<AuthHOCProps> = () => {
+const Profile: FC = () => {
    const router = useRouter();
    const { data: userData, status: getUserStatus, isPending, error } = useGetUser();
    const dashboardThemeStore = useStore<DashboardThemeSlice, DashboardThemeSlice>(useDashboardThemeSlice, (state) => state);
