@@ -46,11 +46,7 @@ const statistik: Statistik[] = [
    },
 ];
 
-interface DashboardProps {
-   dummy?: string;
-}
-
-const Dashboard: FC<AuthHOCProps & DashboardProps> = ({ dummy, userData }) => {
+const Dashboard = () => {
    const dashboardThemeStore = useStore<DashboardThemeSlice, DashboardThemeSlice>(useDashboardThemeSlice, (state) => state);
 
    return (
