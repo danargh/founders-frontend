@@ -10,7 +10,7 @@ export interface AuthHOCProps {
    userData: UserSetting;
 }
 
-function AuthHOC(Component: React.ComponentType): React.FC<AuthHOCProps> {
+function AuthHOC(Component: React.FC): React.FC<AuthHOCProps> {
    const AuthenticatedComponent: React.FC<AuthHOCProps> = ({ userData }: AuthHOCProps) => {
       const { status: useValidateTokenStatus, data: userResponseData } = useValidateToken();
       const [setUser] = useUserSlice((state) => [state.setUser, state.user]);
