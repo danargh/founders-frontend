@@ -20,19 +20,20 @@ const Header: React.FC = () => {
    const [setPrimaryColor, setSecondaryColor, setTertiaryColor] = useDashboardThemeSlice((state) => [state.setPrimaryColor, state.setSecondaryColor, state.setTertiaryColor]);
 
    useEffect(() => {
-      if (user?.data?.membership === "premium") {
+      console.log("user", user);
+      if (user?.membership === "premium") {
          setPackageType(<PremiumPackageDashboard />);
-      } else if (user?.data?.membership === "eksklusif") {
+      } else if (user?.membership === "eksklusif") {
          setPackageType(<EksklusifPackageDashboard />);
       } else {
          setPackageType(<StarterPackageDashboard />);
       }
 
-      if (user?.data?.membership === "premium") {
+      if (user?.membership === "premium") {
          setPrimaryColor("#701608");
          setSecondaryColor("#EBC5BC");
          setTertiaryColor("#F7EFED");
-      } else if (user?.data?.membership === "eksklusif") {
+      } else if (user?.membership === "eksklusif") {
          setPrimaryColor("#2B0C66");
          setSecondaryColor("#CFCAEB");
          setTertiaryColor("#F3F2F7");

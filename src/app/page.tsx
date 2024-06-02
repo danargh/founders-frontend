@@ -15,7 +15,6 @@ export default function Home() {
       <>
          <Navbar />
          <main className="flex font flex-col gap-y-8 md:gap-y-14 xl:gap-y-20">
-            {/* hero */}
             <section className="responsive__container flex flex-col items-center gap-y-5 pt-8">
                <div className="text-[10px] leading-[16px] md:text-label-sm font-semibold rounded-full text-orangeDarkSecondary-900 bg-orangeDarkSecondary-200 py-1 px-[10px] md:py-2 md:px-4">
                   <p className="flex items-center gap-x-2">

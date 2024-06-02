@@ -14,7 +14,7 @@ import { LinkButton } from "@/components/ui/Button";
 import { LoginUser } from "@/interfaces";
 import { useLogin, useValidateToken } from "@/api/auth";
 import { useRouter } from "next/navigation";
-import { CenterLoader, Loader } from "@/components/ui/Loader";
+import { CenterLoader, FullScreenLoader, Loader } from "@/components/ui/Loader";
 import { Message } from "@/components/ui/Message";
 
 // validation

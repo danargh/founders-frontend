@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, use, useEffect } from "react";
+import React, { FC, use, useEffect, useMemo } from "react";
 import { useDashboardThemeSlice, DashboardThemeSlice, useUserSlice } from "@/store/store";
 import { useCookies, useStore } from "@/hooks";
 import { useRouter } from "next/navigation";
@@ -18,6 +18,7 @@ import { CenterLoader } from "@/components/ui/Loader";
 import { Groom } from "@/interfaces";
 import { useGetUser } from "@/api/user";
 import { useParams } from "next/navigation";
+import AuthHOC, { AuthHOCProps } from "@/components/hoc/AuthHOC";
 
 // validation
 const GroomSchema = yup.object().shape({
@@ -30,7 +31,7 @@ const GroomSchema = yup.object().shape({
    address: yup.string().required("Alamat is required"),
 });
 
-const Profile: FC = () => {
+const Profile: FC<AuthHOCProps> = () => {
    const router = useRouter();
    const { data: userData, status: getUserStatus, isPending, error } = useGetUser();
    const dashboardThemeStore = useStore<DashboardThemeSlice, DashboardThemeSlice>(useDashboardThemeSlice, (state) => state);
@@ -38,13 +39,19 @@ const Profile: FC = () => {
    const {
       register,
       handleSubmit,
+      setValue,
       formState: { errors },
-   } = useForm({ resolver: yupResolver(GroomSchema) });
+   } = useForm({
+      resolver: yupResolver(GroomSchema),
+   });
 
    useEffect(() => {
-      if (getUserStatus === "error") {
-         router.replace("/login");
-      }
+      setValue("name", userData?.maleName as string);
+      // setValue("nickName", userData?.maleNickName as string);
+      // setValue("childOrder", userData?.childOrder as number);
+      // setValue("fatherName", userData?.fatherName as string);
+      // setValue("motherName", userData?.motherName as string);
+      // setValue("address", userData?.address as string);
       console.log("user data", userData);
    }, [getUserStatus, router]);
 
@@ -58,7 +65,6 @@ const Profile: FC = () => {
    }
 
    if (getUserStatus === "success") {
-      console.log(userData);
       return (
          <div className="flex flex-col gap-y-6">
             <section style={{ borderColor: dashboardThemeStore?.secondaryColor }} className="flex flex-col gap-y-6 p-6 border rounded-[32px]">
@@ -74,7 +80,7 @@ const Profile: FC = () => {
                         Simpan
                      </SubmitButton>
 
-                     <Input name="name" type="text" label="Nama" placeholder="" value={userData?.maleName} error={errors.name?.message} />
+                     <Input name="name" type="text" label="Nama" placeholder="" error={errors.name?.message} />
                      <Input name="nickname" type="text" label="Nama Panggilan" placeholder="" error={errors.nickName?.message} />
                      <Input className="col-span-2" name="childOrder" type="number" label="Anak ke" placeholder="" error={errors.childOrder?.message} />
                      <Input name="fatherName" type="text" label="Nama Bapak" placeholder="" error={errors.fatherName?.message} />
@@ -96,4 +102,4 @@ const Profile: FC = () => {
    }
 };
 
-export default Profile;
+export default AuthHOC(Profile);

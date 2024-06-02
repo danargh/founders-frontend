@@ -1,6 +1,6 @@
 import { useMutation, useQuery, UseQueryOptions } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
-import { LoginUser, Response, ResponseOnly, User } from "@/interfaces";
+import { LoginUser, Response, ResponseOnly, User, UserSetting } from "@/interfaces";
 import config from "@/config";
 import { useUserSlice } from "@/store/store";
 import Cookies from "universal-cookie";
@@ -73,7 +73,7 @@ export const useRegister = () => {
 };
 
 // validate token
-export const postValidateToken = async (): Promise<Response<User>> => {
+export const postValidateToken = async (): Promise<Response<UserSetting>> => {
    let userToken: string = cookies.get("userToken");
    if (!userToken) {
       throw new Error("Token not found");
@@ -82,15 +82,15 @@ export const postValidateToken = async (): Promise<Response<User>> => {
    return await axios
       .get(`${config.BASE_URL}/auth/validate`, { headers: { Authorization: `Bearer ${userToken}`, "Content-Type": "application/json" } })
       .then((res) => {
-         return res.data;
+         return res.data as Response<UserSetting>;
       })
       .catch((err: AxiosError) => {
-         throw err.response?.data;
+         throw err.response?.data as ResponseOnly;
       });
 };
 
 export const useValidateToken = () => {
-   return useQuery<Response<User>, AxiosError, User>({
+   return useQuery<Response<UserSetting>, AxiosError, Response<UserSetting>>({
       queryKey: ["validateToken"],
       queryFn: async () => {
          const data = await postValidateToken();

@@ -1,11 +1,10 @@
 import { create } from "zustand";
-import { User } from "@/interfaces";
+import { User, UserSetting } from "@/interfaces";
 import { persist } from "zustand/middleware";
-import { Response } from "@/interfaces";
 
 export interface UserSlice {
-   user: User | null;
-   setUser: (user: User | null) => void;
+   user: UserSetting | null;
+   setUser: (user: UserSetting | null) => void;
 }
 
 export interface UIStateSlice {

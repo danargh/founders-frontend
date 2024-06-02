@@ -27,6 +27,12 @@ export interface User {
    websiteUrl: string;
    phone: string;
 }
+
+export interface UserSetting {
+   membership: string;
+   role: string;
+}
+
 interface Auth {
    token: string;
    expiresIn: Date;
