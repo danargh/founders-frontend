@@ -47,7 +47,7 @@ const statistik: Statistik[] = [
    },
 ];
 
-const Dashboard: FC<{ userData: UserSetting }> = ({ userData }) => {
+function Dashboard({ userData }: { userData: UserSetting }) {
    const dashboardThemeStore = useStore<DashboardThemeSlice, DashboardThemeSlice>(useDashboardThemeSlice, (state) => state);
 
    return (
@@ -74,6 +74,6 @@ const Dashboard: FC<{ userData: UserSetting }> = ({ userData }) => {
          </div>
       </section>
    );
-};
+}
 
 export default AuthHOC(Dashboard);
