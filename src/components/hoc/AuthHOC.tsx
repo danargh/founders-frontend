@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Cookies from "universal-cookie";
-import { User } from "@/interfaces";
+import { UserSetting } from "@/interfaces";
 import { useValidateToken } from "@/api/auth";
 import { CenterLoader, FullScreenLoader, Loader } from "@/components/ui/Loader";
 import { useUserSlice } from "@/store/store";
 import { useStore } from "@/hooks";
 
 export interface AuthHOCProps {
-   userData: User;
+   userData: UserSetting;
 }
 
 function AuthHOC<P extends object>(Component: React.ComponentType<P>): React.FC<P & AuthHOCProps> {

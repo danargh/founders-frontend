@@ -4,7 +4,7 @@ import React, { FC, useEffect } from "react";
 import { useDashboardThemeSlice, DashboardThemeSlice, useUserSlice } from "@/store/store";
 import { useStore } from "@/hooks";
 import { SmsTracking, Calendar1, People, UserTag, ProfileTick, ProfileDelete } from "iconsax-react";
-import AuthHOC, { AuthHOCProps } from "@/components/hoc/AuthHOC";
+import AuthHOC from "@/components/hoc/AuthHOC";
 
 interface Statistik {
    // icon: React.ReactNode;
