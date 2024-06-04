@@ -214,8 +214,14 @@
    .help__btn--primary {
       @apply flex justify-center items-center text-label-sm font-[600] text-primary-25 bg-success-600 py-[10px] px-4 rounded-full hover:bg-success-700 help-btn__shadow transition-colors;
    }
+   .help__btn--secondary {
+      @apply flex justify-center items-center text-label-sm font-[600] text-success-600 bg-transparent py-[10px] px-4 rounded-full hover:bg-success-600 hover:text-primary-25 border-success-600 border transition-colors;
+   }
    @media screen and (min-width: 768px) {
       .help__btn--primary {
+         @apply text-label-lg py-3 px-5;
+      }
+      .help__btn--secondary {
          @apply text-label-lg py-3 px-5;
       }
    }

@@ -33,7 +33,7 @@ const Profile: React.FC = () => {
             className="flex justify-center items-center gap-x-2 ml-4 border border-primary-200 rounded-full p-2 text-label-md font-[600]"
          >
             <Image width={32} height={32} className="border border-[#DBD8EB] rounded-full object-cover w-8 h-8" src={testimoniData[0].imgMale} alt="avatar img" />
-            <p>username</p>
+            <p>{user?.username}</p>
             <i className="md:mt-[2px] transition-all" style={{ rotate: profileisOpen ? "-90deg" : "90deg" }}>
                <SimpleRightArrowIcon width="24" height="24" />
             </i>

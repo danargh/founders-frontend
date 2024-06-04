@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Navbar from "@/components/section/Navbar";
 import Marque from "@/components/ui/Marque";
@@ -9,8 +11,21 @@ import Footer from "@/components/section/Footer";
 import { EksklusifPackage, PremiumPackage, StarterPackage } from "@/components/ui/Package";
 import { LinkButton } from "@/components/ui/Button";
 import { button } from "@/app/variants";
+import { useState, useEffect } from "react";
+import { useValidateToken } from "@/api/auth";
+import { useRouter } from "next/navigation";
+import { CenterLoader } from "@/components/ui/Loader";
 
 export default function Home() {
+   const router = useRouter();
+   const { data, status: useValidateTokenStatus } = useValidateToken();
+
+   useEffect(() => {
+      if (useValidateTokenStatus === "success") {
+         router.push("/invitation");
+      }
+   }, [router, useValidateTokenStatus, data]);
+
    return (
       <>
          <Navbar />

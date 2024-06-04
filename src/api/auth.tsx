@@ -9,6 +9,7 @@ const cookies = new Cookies();
 
 // Login
 export const postLogin = async (user: LoginUser): Promise<Response<User>> => {
+   cookies.remove("userToken");
    return await axios
       .post(`${config.BASE_URL}/auth/login`, user)
       .then((res) => {

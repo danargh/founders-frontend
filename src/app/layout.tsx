@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
 import Providers from "./provider";
+import Navbar from "@/components/section/Navbar";
+import Footer from "@/components/section/Footer";
 
 export const metadata: Metadata = {
    title: "The Founders Wedding Invitation",

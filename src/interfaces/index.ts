@@ -22,15 +22,13 @@ export interface User {
    auth: Auth;
    role: string;
    membership: string;
-   maleName: string;
-   femaleName: string;
-   websiteUrl: string;
    phone: string;
 }
 
 export interface UserSetting {
    membership: string;
    role: string;
+   username: string;
 }
 
 interface Auth {
@@ -43,9 +41,28 @@ export interface LoginUser {
    password: string;
 }
 
+// query
+export interface QueryResult<T> {
+   data: T | undefined;
+   error: Error | null;
+   isLoading: boolean;
+}
+
+// invitation
 export interface Groom {
    id: string;
-   name: string;
+   fullName: string;
+   nickName: string;
+   childOrder: number;
+   fatherName: string;
+   motherName: string;
+   address: string;
+   photo: string;
+   socialMedia: SocialMedia;
+}
+export interface Bride {
+   id: string;
+   fullName: string;
    nickName: string;
    childOrder: number;
    fatherName: string;
@@ -59,11 +76,4 @@ interface SocialMedia {
    instagram: string;
    twitter: string;
    tiktok: string;
-}
-
-// query
-export interface QueryResult<T> {
-   data: T | undefined;
-   error: Error | null;
-   isLoading: boolean;
 }

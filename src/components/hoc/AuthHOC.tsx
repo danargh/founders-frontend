@@ -43,10 +43,10 @@ function AuthHOC(Component: any) {
       const router = useRouter();
 
       useEffect(() => {
-         if (useValidateTokenStatus === "error") {
-            router.push("/login");
-         } else if (useValidateTokenStatus === "success") {
+         if (useValidateTokenStatus === "success") {
             setUser(userResponseData.data);
+         } else if (useValidateTokenStatus === "error") {
+            router.push("/login");
          }
       }, [router, useValidateTokenStatus, setUser, userResponseData]);
 

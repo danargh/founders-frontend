@@ -5,11 +5,15 @@ import Image from "next/image";
 import { MenuIcon } from "@/assets/icons/icons";
 import { button } from "@/app/variants";
 import { LinkButton } from "@/components/ui/Button";
+import { useValidateToken } from "@/api/auth";
+import Profile from "./Profile.dashboard";
+import Link from "next/link";
 
 const Navbar: React.FC = () => {
    const [showNav, setShowNav] = useState(true);
    const [lastScrollY, setLastScrollY] = useState(0);
    const [showMenu, setShowMenu] = useState(false);
+   const { data, status: useValidateTokenStatus } = useValidateToken();
 
    useEffect(() => {
       window.addEventListener("scroll", controlNavbar);
@@ -46,7 +50,9 @@ const Navbar: React.FC = () => {
       <>
          <nav className={`${showNav ? "top-[-82px]" : null} transition-all border-b border-primary-100 bg-primary-25 sticky top-0 z-10`}>
             <div className="relative responsive__container flex justify-between items-center w-full py-4">
-               <h4 className="flex-auto logo__primary">POLOKRAMI</h4>
+               <Link href="/" className="flex-auto logo__primary">
+                  POLOKRAMI
+               </Link>
                <button id="nav-button__mobile" className={`${showMenu ? "hidden" : "flex items-center"} md:hidden`}>
                   <i
                      onClick={() => {
@@ -95,12 +101,21 @@ const Navbar: React.FC = () => {
                   </ul>
 
                   <div className="w-full md:w-fit flex items-center gap-x-4">
-                     <LinkButton urlLocation="/register" className={`${button({ tertiary: "gray", size: { initial: "xs", md: "xs", xl: "sm" } })} w-full md:w-fit`}>
-                        Daftar
-                     </LinkButton>
-                     <LinkButton urlLocation="/login" className={`${button({ secondary: "gray", size: { initial: "xs", md: "xs", xl: "sm" } })} w-full md:w-fit`}>
-                        Masuk
-                     </LinkButton>
+                     {useValidateTokenStatus === "success" ? (
+                        <>
+                           <button className=" help__btn--secondary">Bantuan</button>
+                           <Profile />
+                        </>
+                     ) : (
+                        <>
+                           <LinkButton urlLocation="/register" className={`${button({ tertiary: "gray", size: { initial: "xs", md: "xs", xl: "sm" } })} w-full md:w-fit`}>
+                              Daftar
+                           </LinkButton>
+                           <LinkButton urlLocation="/login" className={`${button({ secondary: "gray", size: { initial: "xs", md: "xs", xl: "sm" } })} w-full md:w-fit`}>
+                              Masuk
+                           </LinkButton>
+                        </>
+                     )}
                   </div>
                </div>
             </div>

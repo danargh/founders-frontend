@@ -43,17 +43,12 @@ const Profile: FC = () => {
       formState: { errors },
    } = useForm({
       resolver: yupResolver(GroomSchema),
+      defaultValues: {
+         name: "danar ganteng",
+      },
    });
 
-   useEffect(() => {
-      setValue("name", userData?.maleName as string);
-      // setValue("nickName", userData?.maleNickName as string);
-      // setValue("childOrder", userData?.childOrder as number);
-      // setValue("fatherName", userData?.fatherName as string);
-      // setValue("motherName", userData?.motherName as string);
-      // setValue("address", userData?.address as string);
-      console.log("user data", userData);
-   }, [getUserStatus, router]);
+   useEffect(() => {}, [getUserStatus, router]);
 
    const onSubmit = (data: Groom, event: React.FormEvent) => {
       event.preventDefault();
@@ -79,7 +74,6 @@ const Profile: FC = () => {
                      <SubmitButton isLoading={isPending} className={`${button({ tertiary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} w-fit ml-auto`}>
                         Simpan
                      </SubmitButton>
-
                      <Input name="name" type="text" label="Nama" placeholder="" error={errors.name?.message} />
                      <Input name="nickname" type="text" label="Nama Panggilan" placeholder="" error={errors.nickName?.message} />
                      <Input className="col-span-2" name="childOrder" type="number" label="Anak ke" placeholder="" error={errors.childOrder?.message} />
