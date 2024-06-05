@@ -40,7 +40,7 @@ const Profile: React.FC = () => {
          </button>
          {profileisOpen && (
             <div className="absolute top-[88px] right-6 flex flex-col text-body-md font-[500] border border-primary-200 bg-primary-25 p-3 rounded-2xl">
-               <LinkButton urlLocation="/dashboard/template" className="items-center justify-start flex py-2 px-3">
+               <LinkButton urlLocation="/invitation" className="items-center justify-start flex py-2 px-3">
                   List Undangan
                </LinkButton>
                <button className="items-center justify-start flex py-2 px-3 text-orangeDarkSecondary-700" onClick={logoutHandler}>

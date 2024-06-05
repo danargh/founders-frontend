@@ -47,7 +47,7 @@ const Login: React.FC = () => {
       if (useValidateTokenStatus === "success") {
          router.push("/invitation");
       }
-   }, [router, useLoginStatus, successResponse]);
+   }, [router, useLoginStatus, successResponse, useValidateTokenStatus, data]);
 
    if (useValidateTokenStatus === "pending") {
       return <CenterLoader />;
