@@ -53,7 +53,7 @@ function AuthHOC(Component: any) {
       if (useValidateTokenStatus === "pending") {
          return <CenterLoader />;
       } else if (useValidateTokenStatus === "success") {
-         return <Component {...props} />;
+         return <Component user={user} {...props} />;
       }
    };
 

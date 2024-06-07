@@ -49,6 +49,20 @@ export interface QueryResult<T> {
 }
 
 // invitation
+export interface Invitations {
+   invitations: Invitation[];
+}
+export interface Invitation {
+   _id: string;
+   groom: Groom | null;
+   bride: Bride | null;
+   websiteUrl: string;
+   dueDateActive: Date;
+   theme: string | null;
+   events: Event[] | null;
+   guests: Guest[] | null;
+   pricingCategory: string;
+}
 export interface Groom {
    id: string;
    fullName: string;
@@ -76,4 +90,8 @@ interface SocialMedia {
    instagram: string;
    twitter: string;
    tiktok: string;
+}
+export interface Guest {
+   fullName: string;
+   category: string;
 }
