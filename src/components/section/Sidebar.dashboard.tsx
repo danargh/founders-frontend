@@ -4,8 +4,8 @@
 import { CalendarIcon, ClipboardIcon, FrameIcon, GalleryIcon, GiftIcon, HeartEditIcon, HomeIcon, MessageTextIcon, MessagesIcon, SettingIcon, StarOutlineIcon, UserIcon } from "@/assets/icons/icons";
 import { useUIStateSlice, useDashboardThemeSlice, DashboardThemeSlice } from "@/store/store";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useParams, usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useStore } from "@/hooks";
 
 interface NavItem {
@@ -22,73 +22,84 @@ const navItems: NavItem[] = [
    {
       icon: <HomeIcon width="20" height="20" color="#2E4210" />,
       label: "Dashboard",
-      link: "/dashboard",
+      link: "",
    },
    {
       icon: <UserIcon width="20" height="20" color="#2E4210" />,
       label: "Profile",
-      link: "/dashboard/profile",
+      link: "/profile",
    },
    {
       icon: <CalendarIcon width="20" height="20" color="#2E4210" />,
       label: "Acara",
-      link: "/dashboard/event",
+      link: "/event",
    },
    {
       icon: <ClipboardIcon width="20" height="20" color="#2E4210" />,
       label: "Tamu",
-      link: "/dashboard/guests",
+      link: "/guests",
    },
    {
       icon: <MessagesIcon width="20" height="20" color="#2E4210" />,
       label: "Ucapan",
-      link: "/dashboard/message",
+      link: "/message",
    },
    {
       icon: <GalleryIcon width="20" height="20" color="#2E4210" />,
       label: "Galeri",
-      link: "/dashboard/gallery",
+      link: "/gallery",
    },
    {
       icon: <HeartEditIcon width="20" height="20" color="#2E4210" />,
       label: "Story",
-      link: "/dashboard/story",
+      link: "/story",
    },
    {
       icon: <MessageTextIcon width="20" height="20" color="#2E4210" />,
       label: "Quote",
-      link: "/dashboard/quote",
+      link: "/quote",
    },
    {
       icon: <FrameIcon width="20" height="20" color="#2E4210" />,
       label: "Tema",
-      link: "/dashboard/template",
+      link: "/template",
    },
    {
       icon: <GiftIcon width="20" height="20" color="#2E4210" />,
       label: "Hadiah",
-      link: "/dashboard/gift",
+      link: "/gift",
    },
    {
       icon: <StarOutlineIcon width="20" height="20" color="#2E4210" />,
       label: "Upgrade",
-      link: "/dashboard/upgrade",
+      link: "/upgrade",
    },
    {
       icon: <SettingIcon width="20" height="20" color="#2E4210" />,
       label: "Pengaturan",
-      link: "/dashboard/setting",
+      link: "/setting",
    },
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({ children }) => {
    const [activeSidebar, setActiveSidebar] = useUIStateSlice((state) => [state.activeSidebar, state.setActiveSidebar]);
    const dashboardThemeStore = useStore<DashboardThemeSlice, DashboardThemeSlice>(useDashboardThemeSlice, (state) => state);
+   const params = useParams();
+   const [newNavItems, setNewNavItems] = useState<NavItem[]>([]);
 
    useEffect(() => {
       let root = document.documentElement;
       root.style.setProperty("--active-sidebar-color", dashboardThemeStore?.primaryColor || "");
-   }, [dashboardThemeStore?.primaryColor]);
+
+      // edit link
+      const newNavItems = navItems.map((item) => {
+         return {
+            ...item,
+            link: `/${params.dashboard}${item.link}`,
+         };
+      });
+      setNewNavItems(newNavItems);
+   }, [dashboardThemeStore?.primaryColor, params.dashboard]);
 
    const pathname = usePathname();
 
@@ -98,7 +109,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
             style={{ borderColor: dashboardThemeStore?.secondaryColor }}
             className={`${activeSidebar ? "flex" : "hidden"} transition-all basis-2/12 h-screen absolute sm:relative sm:flex flex-col gap-y-2 border-r bg-primary-25`}
          >
-            {navItems.map((item, index) => (
+            {newNavItems.map((item, index) => (
                <Link
                   key={index}
                   href={item.link}

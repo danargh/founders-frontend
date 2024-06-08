@@ -46,7 +46,7 @@ const statistik: Statistik[] = [
    },
 ];
 
-const Dashboard = () => {
+const Dashboard = ({ params }: { params: { invitationId: string } }) => {
    const dashboardThemeStore = useStore<DashboardThemeSlice, DashboardThemeSlice>(useDashboardThemeSlice, (state) => state);
 
    return (

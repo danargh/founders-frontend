@@ -53,7 +53,7 @@ export interface Invitations {
    invitations: Invitation[];
 }
 export interface Invitation {
-   _id: string;
+   id: string;
    groom: Groom | null;
    bride: Bride | null;
    websiteUrl: string;

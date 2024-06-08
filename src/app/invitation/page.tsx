@@ -9,7 +9,7 @@ import AuthHOC from "@/components/hoc/AuthHOC";
 import { useState } from "react";
 import { SearchNormal, ArrowDown2, Link1, Calendar2 } from "iconsax-react";
 import { InputFilter, OptionFilter } from "@/components/form/InputFilter";
-import { StarterPackage, StarterPackageDashboard } from "@/components/ui/Package";
+import { StarterPackage } from "@/components/ui/Package";
 import Image from "next/image";
 import Link from "next/link";
 import Modal from "@/components/ui/Modal";
@@ -22,10 +22,22 @@ import { Input } from "@/components/form/Input";
 import { SubmitButton } from "@/components/ui/Button";
 import { usePostInvitation, useGetInvitation } from "@/api/invitation";
 import moment from "moment";
+import { CenterLoader } from "@/components/ui/Loader";
+import { useStore } from "@/hooks";
+import { useDashboardThemeSlice } from "@/store/store";
+import { DashboardThemeSlice } from "@/store/store";
+import { StarterPackageDashboard, PremiumPackageDashboard, EksklusifPackageDashboard } from "@/components/ui/Package";
 
 type Props = {
    user: UserSetting;
 };
+
+interface NewInvitation extends Invitation {
+   packageType: React.ReactNode;
+   borderType?: string;
+   tertiaryButtonColor?: string;
+   secondaryButtonColor?: string;
+}
 
 const InvitationSchema = yup.object().shape({
    websiteUrl: yup.string().required("Website URL is required"),
@@ -37,9 +49,11 @@ function InvitationPage({ user }: Props) {
    const [search, setSearch] = useState<string>("");
    const [filter, setFilter] = useState<string>("");
    const [isModal, setIsModal] = useState<boolean>(false);
-   const [invitations, setInvitation] = useState<Invitation[]>([]);
+   const [invitations, setInvitation] = useState<NewInvitation[]>([]);
    const { data: invitationAdded, status: invitationAddedStatus, mutate: addInvitation, isPending } = usePostInvitation();
-   const { data: invitationData, status: invitationStatus, error: invitationError } = useGetInvitation();
+   const { data: invitationData, status: invitationStatus, error: invitationError, isPending: getInvitationLoading, isSuccess } = useGetInvitation();
+   const dashboardThemeStore = useStore<DashboardThemeSlice, DashboardThemeSlice>(useDashboardThemeSlice, (state) => state);
+   const [setPrimaryColor, setSecondaryColor, setTertiaryColor] = useDashboardThemeSlice((state) => [state.setPrimaryColor, state.setSecondaryColor, state.setTertiaryColor]);
 
    const {
       register,
@@ -54,17 +68,43 @@ function InvitationPage({ user }: Props) {
    });
 
    useEffect(() => {
-      console.log(invitationData);
-      if (invitationStatus === "success") {
-         setInvitation((prev) => [...prev, ...invitationData]);
+      if (user?.membership === "premium") {
+         setPrimaryColor("#701608");
+         setSecondaryColor("#EBC5BC");
+         setTertiaryColor("#F7EFED");
+      } else if (user?.membership === "eksklusif") {
+         setPrimaryColor("#2B0C66");
+         setSecondaryColor("#CFCAEB");
+         setTertiaryColor("#F3F2F7");
+      } else {
+         setPrimaryColor("#2E4210");
+         setSecondaryColor("#D3E5BC");
+         setTertiaryColor("#EFF5E6");
       }
-   }, [invitationStatus, invitationData]);
 
-   const onSubmit = (data: Invitation, event: React.FormEvent) => {
+      if (invitationStatus === "success" && getInvitationLoading === false) {
+         const newInvitation: NewInvitation[] = addStatePropertyInvitation(invitationData);
+         setInvitation(() => [...(newInvitation || [])]);
+      }
+   }, [invitationStatus, invitationData, user, setPrimaryColor, setSecondaryColor, setTertiaryColor, isSuccess, getInvitationLoading]);
+
+   const addStatePropertyInvitation = (data: Invitation[]) => {
+      return data?.map((data) => {
+         return {
+            ...data,
+            packageType: data.pricingCategory.includes("free") ? <StarterPackageDashboard /> : data.pricingCategory.includes("premium") ? <PremiumPackageDashboard /> : <EksklusifPackageDashboard />,
+            borderType: data.pricingCategory.includes("free") ? "#D3E5BC" : data.pricingCategory.includes("premium") ? "#EBC5BC" : "#CFCAEB",
+         };
+      });
+   };
+
+   const onSubmit = (data: NewInvitation, event: React.FormEvent) => {
       event.preventDefault();
       addInvitation(data);
-      setInvitation((prev) => [...prev, data]);
+      const newInvitation: NewInvitation = addStatePropertyInvitation([data])[0];
+      setInvitation((prev) => [...prev, newInvitation]);
       reset();
+      setIsModal(false);
    };
 
    const formatDate = (date: Date) => {
@@ -73,13 +113,12 @@ function InvitationPage({ user }: Props) {
 
    const searchHandler = (input: string) => {
       setSearch(input);
-      console.log(search);
    };
 
    return (
       <>
          <Navbar />
-         <main className="responsive__container mt-8 flex flex-col gap-y-8">
+         <main className="responsive__container mt-8 flex flex-col gap-y-8 pb-6">
             <header className="flex flex-col gap-y-6">
                <DocumentText />
                <div className="flex justify-between items-center">
@@ -111,7 +150,7 @@ function InvitationPage({ user }: Props) {
             <hr style={{ borderColor: "#F0EEEB" }} />
             <section className="flex justify-between items-center">
                <div className="flex gap-x-4">
-                  <div className="flex justify-center items-center px-5 bg-primary-100 rounded-full font-bold">200 undangan</div>
+                  <div className="flex justify-center items-center px-5 bg-primary-100 rounded-full font-bold">{invitations.length} undangan</div>
                   <InputFilter placeholder="Cari undangan" onSetInput={searchHandler}>
                      <SearchNormal />
                   </InputFilter>
@@ -128,13 +167,15 @@ function InvitationPage({ user }: Props) {
                </div>
             </section>
             <section className="flex w-full gap-y-4 flex-col">
-               {invitations.length === 0 ? (
+               {getInvitationLoading === true ? (
+                  <CenterLoader />
+               ) : invitations.length === 0 ? (
                   <h3 className="flex justify-center items-center">Belum ada undangan</h3>
                ) : (
                   invitations.map((data, index) => (
-                     <div key={index} className="flex flex-col border rounded-2xl p-5 gap-y-4">
+                     <div key={index} style={{ borderColor: data.borderType }} className="flex flex-col border rounded-2xl p-5 gap-y-4">
                         <div className="flex justify-between items-center">
-                           <StarterPackageDashboard />
+                           {data?.packageType}
                            <button className={`${button({ secondary: "gray", size: { initial: "xs", md: "xs", xl: "xs" } })} w-fit col-span-2`}>Upgrade</button>
                         </div>
                         <div className="flex items-end gap-x-2 justify-between">
@@ -143,7 +184,8 @@ function InvitationPage({ user }: Props) {
                               <div className="flex flex-col gap-y-2">
                                  <h4>{user.username}</h4>
                                  <Link href="/invitation/1" className="flex gap-x-2">
-                                    <Link1 /> {data.websiteUrl}
+                                    <Link1 />
+                                    https://polokrami.com/{data.websiteUrl}
                                  </Link>
                                  <div className="flex items-center gap-x-2">
                                     <Calendar2 />
@@ -153,7 +195,7 @@ function InvitationPage({ user }: Props) {
                            </div>
                            <div className="flex items-center gap-x-2">
                               <button className={`${button({ tertiary: "gray", size: { initial: "sm", md: "sm", xl: "sm" } })} w-fit col-span-2`}>Ubah alamat website</button>
-                              <Link href="/dashboard" className={`${button({ secondary: "gray", size: { initial: "sm", md: "sm", xl: "sm" } })} w-fit col-span-2`}>
+                              <Link href={`/${data.id}`} className={`${button({ primary: "gray", size: { initial: "sm", md: "sm", xl: "sm" } })} w-fit col-span-2`}>
                                  Dashboard
                               </Link>
                            </div>
