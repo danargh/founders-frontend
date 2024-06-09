@@ -1,10 +1,15 @@
 import { create } from "zustand";
-import { User, UserSetting } from "@/interfaces";
+import { InvitationSetting, User, UserSetting } from "@/interfaces";
 import { persist } from "zustand/middleware";
 
 export interface UserSlice {
    user: UserSetting | null;
    setUser: (user: UserSetting | null) => void;
+}
+
+export interface InvitationSlice {
+   invitation: InvitationSetting;
+   setInvitation: (invitation: InvitationSetting) => void;
 }
 
 export interface UIStateSlice {
@@ -50,6 +55,20 @@ export const useDashboardThemeSlice = create<DashboardThemeSlice>()(
       }),
       {
          name: "dashboardTheme",
+      },
+   ),
+);
+
+export const useInvitationStateSlice = create<InvitationSlice>()(
+   persist(
+      (set) => ({
+         invitation: {
+            pricingCategory: "",
+         },
+         setInvitation: (invitation) => set(() => ({ invitation })),
+      }),
+      {
+         name: "invitation",
       },
    ),
 );

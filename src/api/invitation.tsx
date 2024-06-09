@@ -1,6 +1,6 @@
 import { useMutation, useQuery, UseQueryOptions } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
-import { Groom, LoginUser, Response, ResponseOnly, User, Invitation, Invitations } from "@/interfaces";
+import { Groom, LoginUser, Response, ResponseOnly, User, Invitation } from "@/interfaces";
 import config from "@/config";
 import { useUserSlice } from "@/store/store";
 import Cookies from "universal-cookie";
@@ -58,7 +58,7 @@ export const usePostInvitation = () => {
 };
 
 // get invitation
-export const getInvitation = async (): Promise<Response<Invitation[]>> => {
+export const getInvitations = async (): Promise<Response<Invitation[]>> => {
    return await axios
       .get(`${config.BASE_URL}/invitation`, {
          headers: {
@@ -72,14 +72,71 @@ export const getInvitation = async (): Promise<Response<Invitation[]>> => {
          throw err.response?.data;
       });
 };
-export const useGetInvitation = () => {
+export const useGetInvitations = () => {
    return useQuery<Invitation[], ResponseOnly, Invitation[]>({
       queryKey: ["user"],
       queryFn: async (): Promise<Invitation[]> => {
-         const data = await getInvitation();
+         const data = await getInvitations();
          const invitationData = data.data;
          // setinvitation(userData);
          return invitationData;
       },
    });
 };
+
+// get invitation by id
+export const getInvitationById = async (id: string): Promise<Response<Invitation>> => {
+   return await axios
+      .get(`${config.BASE_URL}/invitation/${id}`, {
+         headers: {
+            Authorization: `Bearer ${cookies.get("userToken")}`,
+         },
+      })
+      .then((res) => {
+         return res.data;
+      })
+      .catch((err: AxiosError) => {
+         throw err.response?.data;
+      });
+};
+export const useGetInvitationById = () => {
+   return useMutation<Response<Invitation>, ResponseOnly, string, string[]>({
+      mutationKey: ["invitation"],
+      mutationFn: async (id: string): Promise<Response<Invitation>> => {
+         const data = await getInvitationById(id);
+         return data;
+      },
+   });
+};
+
+// export const postRegister = async (user: User): Promise<Response<User>> => {
+//    return await axios
+//       .post(`${config.BASE_URL}/auth/register`, user)
+//       .then((res) => {
+//          return res.data;
+//       })
+//       .catch((err: AxiosError) => {
+//          throw err.response?.data;
+//       });
+// };
+
+// export const useRegister = () => {
+//    const [setUser] = useUserSlice((state) => [state.setUser, state.user]);
+//    return useMutation<Response<User>, ResponseOnly, User, string[]>({
+//       mutationKey: ["register"],
+//       mutationFn: async (user: User): Promise<Response<User>> => {
+//          const data = await postRegister(user);
+//          return data;
+//       },
+//       onSuccess: (data) => {
+//          const userData = data.data as User;
+//          setUser(userData);
+//          // set cookie
+//          cookies.set("userToken", userData.auth.token, { path: "/", expires: new Date(userData.auth.expiresIn) });
+//          return data;
+//       },
+//       onError: (error) => {
+//          return error;
+//       },
+//    });
+// };

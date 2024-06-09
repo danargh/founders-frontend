@@ -7,10 +7,11 @@ import { LinkButton } from "../ui/Button";
 import LogoNavbar from "../ui/LogoNavbar";
 import Profile from "@/components/section/Profile.dashboard";
 import { MenuIcon } from "@/assets/icons/icons";
-import { useUIStateSlice, useDashboardThemeSlice, useUserSlice, DashboardThemeSlice } from "@/store/store";
+import { useUIStateSlice, useDashboardThemeSlice, useUserSlice, DashboardThemeSlice, useInvitationStateSlice } from "@/store/store";
 import { useEffect, useState } from "react";
-import { Loader } from "../ui/Loader";
 import { useStore } from "@/hooks";
+import { useGetInvitationById } from "@/api/invitation";
+import { useParams } from "next/navigation";
 
 const Header: React.FC = () => {
    const [activeSidebar, setActiveSidebar] = useUIStateSlice((state) => [state.activeSidebar, state.setActiveSidebar]);
@@ -18,22 +19,33 @@ const Header: React.FC = () => {
    const user = useStore(useUserSlice, (state) => state.user);
    const [packageType, setPackageType] = useState<React.ReactNode>(null);
    const [setPrimaryColor, setSecondaryColor, setTertiaryColor] = useDashboardThemeSlice((state) => [state.setPrimaryColor, state.setSecondaryColor, state.setTertiaryColor]);
+   const params = useParams();
+   const { data: invitationData, status: invitationStatus, mutate: getInvitation } = useGetInvitationById();
+   const [setInvitation] = useInvitationStateSlice((state) => [state.setInvitation]);
+   const invitation = useStore(useInvitationStateSlice, (state) => state.invitation);
 
    useEffect(() => {
-      console.log("user", user);
-      if (user?.membership === "premium") {
+      getInvitation(params.dashboard as string);
+
+      if (invitationStatus === "success") {
+         setInvitation({ pricingCategory: invitationData?.data.pricingCategory });
+      }
+
+      console.log(invitation);
+
+      if (invitation?.pricingCategory === "premium") {
          setPackageType(<PremiumPackageDashboard />);
-      } else if (user?.membership === "eksklusif") {
+      } else if (invitation?.pricingCategory === "eksklusif") {
          setPackageType(<EksklusifPackageDashboard />);
       } else {
          setPackageType(<StarterPackageDashboard />);
       }
 
-      if (user?.membership === "premium") {
+      if (invitation?.pricingCategory === "premium") {
          setPrimaryColor("#701608");
          setSecondaryColor("#EBC5BC");
          setTertiaryColor("#F7EFED");
-      } else if (user?.membership === "eksklusif") {
+      } else if (invitation?.pricingCategory === "eksklusif") {
          setPrimaryColor("#2B0C66");
          setSecondaryColor("#CFCAEB");
          setTertiaryColor("#F3F2F7");
@@ -42,7 +54,7 @@ const Header: React.FC = () => {
          setSecondaryColor("#D3E5BC");
          setTertiaryColor("#EFF5E6");
       }
-   }, [user, setPrimaryColor, setSecondaryColor, setTertiaryColor]);
+   }, [invitationStatus, invitationData, setPrimaryColor, setSecondaryColor, setTertiaryColor, invitation, params.dashboard, getInvitation, setInvitation]);
 
    return (
       <header style={{ borderColor: dashboardThemeStore?.secondaryColor }} className="flex justify-between gap-x-4 sm:gap-x-6 items-center py-4 border-b h-[80px]">

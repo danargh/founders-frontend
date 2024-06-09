@@ -16,11 +16,11 @@ import Modal from "@/components/ui/Modal";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Invitation, Invitations, UserSetting } from "@/interfaces";
+import { Invitation, UserSetting } from "@/interfaces";
 import Form from "@/components/form/Form";
 import { Input } from "@/components/form/Input";
 import { SubmitButton } from "@/components/ui/Button";
-import { usePostInvitation, useGetInvitation } from "@/api/invitation";
+import { usePostInvitation, useGetInvitations } from "@/api/invitation";
 import moment from "moment";
 import { CenterLoader } from "@/components/ui/Loader";
 import { useStore } from "@/hooks";
@@ -51,8 +51,7 @@ function InvitationPage({ user }: Props) {
    const [isModal, setIsModal] = useState<boolean>(false);
    const [invitations, setInvitation] = useState<NewInvitation[]>([]);
    const { data: invitationAdded, status: invitationAddedStatus, mutate: addInvitation, isPending } = usePostInvitation();
-   const { data: invitationData, status: invitationStatus, error: invitationError, isPending: getInvitationLoading, isSuccess } = useGetInvitation();
-   const dashboardThemeStore = useStore<DashboardThemeSlice, DashboardThemeSlice>(useDashboardThemeSlice, (state) => state);
+   const { data: invitationData, status: invitationStatus, error: invitationError, isPending: getInvitationLoading, isSuccess } = useGetInvitations();
    const [setPrimaryColor, setSecondaryColor, setTertiaryColor] = useDashboardThemeSlice((state) => [state.setPrimaryColor, state.setSecondaryColor, state.setTertiaryColor]);
 
    const {
@@ -68,21 +67,7 @@ function InvitationPage({ user }: Props) {
    });
 
    useEffect(() => {
-      if (user?.membership === "premium") {
-         setPrimaryColor("#701608");
-         setSecondaryColor("#EBC5BC");
-         setTertiaryColor("#F7EFED");
-      } else if (user?.membership === "eksklusif") {
-         setPrimaryColor("#2B0C66");
-         setSecondaryColor("#CFCAEB");
-         setTertiaryColor("#F3F2F7");
-      } else {
-         setPrimaryColor("#2E4210");
-         setSecondaryColor("#D3E5BC");
-         setTertiaryColor("#EFF5E6");
-      }
-
-      if (invitationStatus === "success" && getInvitationLoading === false) {
+      if (invitationStatus === "success" && getInvitationLoading === false && Array.isArray(invitationData)) {
          const newInvitation: NewInvitation[] = addStatePropertyInvitation(invitationData);
          setInvitation(() => [...(newInvitation || [])]);
       }

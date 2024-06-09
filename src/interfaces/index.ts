@@ -49,9 +49,6 @@ export interface QueryResult<T> {
 }
 
 // invitation
-export interface Invitations {
-   invitations: Invitation[];
-}
 export interface Invitation {
    id: string;
    groom: Groom | null;
@@ -61,6 +58,9 @@ export interface Invitation {
    theme: string | null;
    events: Event[] | null;
    guests: Guest[] | null;
+   pricingCategory: string;
+}
+export interface InvitationSetting {
    pricingCategory: string;
 }
 export interface Groom {
