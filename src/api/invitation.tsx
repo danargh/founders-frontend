@@ -99,44 +99,13 @@ export const getInvitationById = async (id: string): Promise<Response<Invitation
          throw err.response?.data;
       });
 };
-export const useGetInvitationById = () => {
-   return useMutation<Response<Invitation>, ResponseOnly, string, string[]>({
-      mutationKey: ["invitation"],
-      mutationFn: async (id: string): Promise<Response<Invitation>> => {
+export const useGetInvitationById = (id: string) => {
+   return useQuery<Invitation, ResponseOnly, Invitation>({
+      queryKey: ["invitation"],
+      queryFn: async (): Promise<Invitation> => {
          const data = await getInvitationById(id);
-         return data;
+         return data.data;
       },
+      enabled: !!id,
    });
 };
-
-// export const postRegister = async (user: User): Promise<Response<User>> => {
-//    return await axios
-//       .post(`${config.BASE_URL}/auth/register`, user)
-//       .then((res) => {
-//          return res.data;
-//       })
-//       .catch((err: AxiosError) => {
-//          throw err.response?.data;
-//       });
-// };
-
-// export const useRegister = () => {
-//    const [setUser] = useUserSlice((state) => [state.setUser, state.user]);
-//    return useMutation<Response<User>, ResponseOnly, User, string[]>({
-//       mutationKey: ["register"],
-//       mutationFn: async (user: User): Promise<Response<User>> => {
-//          const data = await postRegister(user);
-//          return data;
-//       },
-//       onSuccess: (data) => {
-//          const userData = data.data as User;
-//          setUser(userData);
-//          // set cookie
-//          cookies.set("userToken", userData.auth.token, { path: "/", expires: new Date(userData.auth.expiresIn) });
-//          return data;
-//       },
-//       onError: (error) => {
-//          return error;
-//       },
-//    });
-// };

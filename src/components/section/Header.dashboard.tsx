@@ -19,42 +19,37 @@ const Header: React.FC = () => {
    const user = useStore(useUserSlice, (state) => state.user);
    const [packageType, setPackageType] = useState<React.ReactNode>(null);
    const [setPrimaryColor, setSecondaryColor, setTertiaryColor] = useDashboardThemeSlice((state) => [state.setPrimaryColor, state.setSecondaryColor, state.setTertiaryColor]);
-   const params = useParams();
-   const { data: invitationData, status: invitationStatus, mutate: getInvitation } = useGetInvitationById();
+   const { dashboard } = useParams();
+   const { data: invitationData, status: invitationStatus } = useGetInvitationById(dashboard as string);
    const [setInvitation] = useInvitationStateSlice((state) => [state.setInvitation]);
-   const invitation = useStore(useInvitationStateSlice, (state) => state.invitation);
 
    useEffect(() => {
-      getInvitation(params.dashboard as string);
-
       if (invitationStatus === "success") {
-         setInvitation({ pricingCategory: invitationData?.data.pricingCategory });
-      }
+         setInvitation({ pricingCategory: invitationData?.pricingCategory });
 
-      console.log(invitation);
+         if (invitationData?.pricingCategory === "premium") {
+            setPackageType(<PremiumPackageDashboard />);
+         } else if (invitationData?.pricingCategory === "eksklusif") {
+            setPackageType(<EksklusifPackageDashboard />);
+         } else {
+            setPackageType(<StarterPackageDashboard />);
+         }
 
-      if (invitation?.pricingCategory === "premium") {
-         setPackageType(<PremiumPackageDashboard />);
-      } else if (invitation?.pricingCategory === "eksklusif") {
-         setPackageType(<EksklusifPackageDashboard />);
-      } else {
-         setPackageType(<StarterPackageDashboard />);
+         if (invitationData?.pricingCategory === "premium") {
+            setPrimaryColor("#701608");
+            setSecondaryColor("#EBC5BC");
+            setTertiaryColor("#F7EFED");
+         } else if (invitationData?.pricingCategory === "eksklusif") {
+            setPrimaryColor("#2B0C66");
+            setSecondaryColor("#CFCAEB");
+            setTertiaryColor("#F3F2F7");
+         } else {
+            setPrimaryColor("#2E4210");
+            setSecondaryColor("#D3E5BC");
+            setTertiaryColor("#EFF5E6");
+         }
       }
-
-      if (invitation?.pricingCategory === "premium") {
-         setPrimaryColor("#701608");
-         setSecondaryColor("#EBC5BC");
-         setTertiaryColor("#F7EFED");
-      } else if (invitation?.pricingCategory === "eksklusif") {
-         setPrimaryColor("#2B0C66");
-         setSecondaryColor("#CFCAEB");
-         setTertiaryColor("#F3F2F7");
-      } else {
-         setPrimaryColor("#2E4210");
-         setSecondaryColor("#D3E5BC");
-         setTertiaryColor("#EFF5E6");
-      }
-   }, [invitationStatus, invitationData, setPrimaryColor, setSecondaryColor, setTertiaryColor, invitation, params.dashboard, getInvitation, setInvitation]);
+   }, [invitationData, invitationStatus, setInvitation, setPrimaryColor, setSecondaryColor, setTertiaryColor]);
 
    return (
       <header style={{ borderColor: dashboardThemeStore?.secondaryColor }} className="flex justify-between gap-x-4 sm:gap-x-6 items-center py-4 border-b h-[80px]">
