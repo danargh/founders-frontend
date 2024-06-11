@@ -54,6 +54,9 @@ export const usePostInvitation = () => {
          const data = await postInvitation(invitation);
          return data;
       },
+      onSuccess(data) {
+         return data;
+      },
    });
 };
 

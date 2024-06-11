@@ -50,7 +50,7 @@ export interface QueryResult<T> {
 
 // invitation
 export interface Invitation {
-   id: string;
+   id: string | null | undefined;
    groom: Groom | null;
    bride: Bride | null;
    websiteUrl: string;

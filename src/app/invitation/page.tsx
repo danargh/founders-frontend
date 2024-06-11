@@ -50,8 +50,8 @@ function InvitationPage({ user }: Props) {
    const [filter, setFilter] = useState<string>("");
    const [isModal, setIsModal] = useState<boolean>(false);
    const [invitations, setInvitation] = useState<NewInvitation[]>([]);
-   const { data: invitationAdded, status: invitationAddedStatus, mutate: addInvitation, isPending } = usePostInvitation();
-   const { data: invitationData, status: invitationStatus, error: invitationError, isPending: getInvitationLoading, isSuccess } = useGetInvitations();
+   const { isPending, mutateAsync } = usePostInvitation();
+   const { data: invitationData, status: invitationStatus, error: invitationError, isPending: getInvitationLoading, isSuccess, refetch: refetchInvitation } = useGetInvitations();
    const [setPrimaryColor, setSecondaryColor, setTertiaryColor] = useDashboardThemeSlice((state) => [state.setPrimaryColor, state.setSecondaryColor, state.setTertiaryColor]);
 
    const {
@@ -83,11 +83,15 @@ function InvitationPage({ user }: Props) {
       });
    };
 
-   const onSubmit = (data: NewInvitation, event: React.FormEvent) => {
+   const onSubmit = async (newData: NewInvitation, event: React.FormEvent) => {
       event.preventDefault();
-      addInvitation(data);
-      const newInvitation: NewInvitation = addStatePropertyInvitation([data])[0];
-      setInvitation((prev) => [...prev, newInvitation]);
+      const newInvitation: NewInvitation = addStatePropertyInvitation([newData])[0];
+      await mutateAsync(newData, {
+         onSuccess: (data) => {
+            newInvitation.id = data.data.id;
+            setInvitation((prev) => [...prev, newInvitation]);
+         },
+      });
       reset();
       setIsModal(false);
    };
