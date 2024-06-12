@@ -8,30 +8,6 @@ import { getIn } from "yup";
 
 const cookies = new Cookies();
 
-const postGroom = async (groom: Groom): Promise<Response<Groom>> => {
-   return await axios
-      .post(`${config.BASE_URL}/groom`, groom, {
-         headers: {
-            Authorization: `Bearer ${cookies.get("userToken")}`,
-         },
-      })
-      .then((res) => {
-         return res.data;
-      })
-      .catch((err: AxiosError) => {
-         throw err.response?.data;
-      });
-};
-export const usePostGroom = () => {
-   return useMutation<Response<Groom>, ResponseOnly, Groom, string[]>({
-      mutationKey: ["groom"],
-      mutationFn: async (groom: Groom): Promise<Response<Groom>> => {
-         const data = await postGroom(groom);
-         return data;
-      },
-   });
-};
-
 // invitation
 export const postInvitation = async (invitation: Invitation): Promise<Response<Invitation>> => {
    return await axios
@@ -59,8 +35,6 @@ export const usePostInvitation = () => {
       },
    });
 };
-
-// get invitation
 export const getInvitations = async (): Promise<Response<Invitation[]>> => {
    return await axios
       .get(`${config.BASE_URL}/invitation`, {
@@ -86,8 +60,6 @@ export const useGetInvitations = () => {
       },
    });
 };
-
-// get invitation by id
 export const getInvitationById = async (id: string): Promise<Response<Invitation>> => {
    return await axios
       .get(`${config.BASE_URL}/invitation/${id}`, {
@@ -110,5 +82,83 @@ export const useGetInvitationById = (id: string) => {
          return data.data;
       },
       enabled: !!id,
+   });
+};
+
+// groom
+export const postGroom = async (groom: Groom): Promise<Response<Groom>> => {
+   return await axios
+      .post(`${config.BASE_URL}/groom`, groom, {
+         headers: {
+            Authorization: `Bearer ${cookies.get("userToken")}`,
+         },
+      })
+      .then((res) => {
+         return res.data;
+      })
+      .catch((err: AxiosError) => {
+         throw err.response?.data;
+      });
+};
+export const usePostGroom = () => {
+   return useMutation<Response<Groom>, ResponseOnly, Groom, string[]>({
+      mutationKey: ["groom"],
+      mutationFn: async (groom: Groom): Promise<Response<Groom>> => {
+         const data = await postGroom(groom);
+         return data;
+      },
+      onSuccess(data) {
+         return data;
+      },
+   });
+};
+export const getGroomsByInvitationId = async (invitationId: string): Promise<Response<Groom>> => {
+   return await axios
+      .get(`${config.BASE_URL}/groom/${invitationId}`, {
+         headers: {
+            Authorization: `Bearer ${cookies.get("userToken")}`,
+         },
+      })
+      .then((res) => {
+         return res.data;
+      })
+      .catch((err: AxiosError) => {
+         throw err.response?.data;
+      });
+};
+export const useGetGroomsByInvitationId = (id: string) => {
+   return useQuery<Groom, ResponseOnly, Groom>({
+      queryKey: ["groom"],
+      queryFn: async (): Promise<Groom> => {
+         const data = await getGroomsByInvitationId(id);
+         return data.data;
+      },
+      enabled: !!id,
+   });
+};
+export const updateGroom = async (groom: Groom): Promise<Response<Groom>> => {
+   return await axios
+      .put(`${config.BASE_URL}/groom/${groom.id}`, groom, {
+         headers: {
+            Authorization: `Bearer ${cookies.get("userToken")}`,
+         },
+      })
+      .then((res) => {
+         return res.data;
+      })
+      .catch((err: AxiosError) => {
+         throw err.response?.data;
+      });
+};
+export const useUpdateGroom = () => {
+   return useMutation<Response<Groom>, ResponseOnly, Groom, string[]>({
+      mutationKey: ["groom"],
+      mutationFn: async (groom: Groom): Promise<Response<Groom>> => {
+         const data = await updateGroom(groom);
+         return data;
+      },
+      onSuccess(data) {
+         return data;
+      },
    });
 };

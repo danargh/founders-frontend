@@ -16,14 +16,12 @@ import * as yup from "yup";
 import { button } from "@/app/variants";
 import { CenterLoader } from "@/components/ui/Loader";
 import { Groom } from "@/interfaces";
-import { useGetUser } from "@/api/user";
-import { useParams } from "next/navigation";
-import AuthHOC, { AuthHOCProps } from "@/components/hoc/AuthHOC";
+import AuthHOC from "@/components/hoc/AuthHOC";
+import { useGetGroomsByInvitationId, usePostGroom } from "@/api/invitation";
 
 // validation
 const GroomSchema = yup.object().shape({
-   id: yup.string().required("ID is required"),
-   name: yup.string().required("Nama is required"),
+   fullName: yup.string().required("Nama is required"),
    nickName: yup.string().required("Nama panggilan is required"),
    childOrder: yup.number().required("Anak ke is required"),
    fatherName: yup.string().required("Nama ayah is required"),
@@ -31,35 +29,49 @@ const GroomSchema = yup.object().shape({
    address: yup.string().required("Alamat is required"),
 });
 
-const Profile: FC = () => {
+const Profile = ({ params }: { params: { dashboard: string } }) => {
    const router = useRouter();
-   const { data: userData, status: getUserStatus, isPending, error } = useGetUser();
+   const { data: getGroomData, status: getGroomStatus, isPending: getGroomPending } = useGetGroomsByInvitationId(params.dashboard);
+   const { data: postGroomData, status: postGroomStatus, isPending: postGroomPending, mutate: mutatePostGroom } = usePostGroom();
    const dashboardThemeStore = useStore<DashboardThemeSlice, DashboardThemeSlice>(useDashboardThemeSlice, (state) => state);
 
    const {
       register,
       handleSubmit,
-      setValue,
       formState: { errors },
+      reset,
    } = useForm({
       resolver: yupResolver(GroomSchema),
-      defaultValues: {
-         name: "danar ganteng",
-      },
    });
 
-   useEffect(() => {}, [getUserStatus, router]);
+   useEffect(() => {
+      if (getGroomStatus === "success") {
+         console.log(getGroomData);
+         reset({
+            fullName: getGroomData?.fullName || "",
+            nickName: getGroomData?.nickName || "",
+            childOrder: getGroomData?.childOrder || 0,
+            fatherName: getGroomData?.fatherName || "",
+            motherName: getGroomData?.motherName || "",
+            address: getGroomData?.address || "",
+         });
+      }
+   }, [getGroomData, getGroomStatus, reset]);
 
    const onSubmit = (data: Groom, event: React.FormEvent) => {
       event.preventDefault();
-      console.log(data);
+      const newData = {
+         ...data,
+         invitationId: params.dashboard,
+      };
+      mutatePostGroom(newData);
    };
 
-   if (getUserStatus === "pending") {
+   if (getGroomStatus === "pending") {
       return <CenterLoader />;
    }
 
-   if (getUserStatus === "success") {
+   if (getGroomStatus === "error" || getGroomStatus === "success") {
       return (
          <div className="flex flex-col gap-y-6">
             <section style={{ borderColor: dashboardThemeStore?.secondaryColor }} className="flex flex-col gap-y-6 p-6 border rounded-[32px]">
@@ -69,14 +81,14 @@ const Profile: FC = () => {
                </div>
                <div className="flex flex-col gap-y-2">
                   <hr className=" text-primary-100" />
-                  <Form buttonLabel="Change Email" register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} className="grid grid-cols-2 gap-y-4 gap-x-4 w-full">
+                  <Form register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} className="grid grid-cols-2 gap-y-4 gap-x-4 w-full">
                      <h3 className="text-heading-sm font-medium mt-1">Informasi Pribadi</h3>
-                     <SubmitButton isLoading={isPending} className={`${button({ tertiary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} w-fit ml-auto`}>
+                     <SubmitButton isLoading={postGroomPending} className={`${button({ tertiary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} w-fit ml-auto`}>
                         Simpan
                      </SubmitButton>
-                     <Input name="name" type="text" label="Nama" placeholder="" error={errors.name?.message} />
-                     <Input name="nickname" type="text" label="Nama Panggilan" placeholder="" error={errors.nickName?.message} />
-                     <Input className="col-span-2" name="childOrder" type="number" label="Anak ke" placeholder="" error={errors.childOrder?.message} />
+                     <Input name="fullName" type="text" label="Nama Lengkap" placeholder="" error={errors.fullName?.message} />
+                     <Input name="nickName" type="text" label="Nama Panggilan" placeholder="" error={errors.nickName?.message} />
+                     <Input name="childOrder" className="col-span-2" type="number" label="Anak ke" placeholder="" error={errors.childOrder?.message} />
                      <Input name="fatherName" type="text" label="Nama Bapak" placeholder="" error={errors.fatherName?.message} />
                      <Input name="motherName" type="text" label="Nama Ibu" placeholder="" error={errors.motherName?.message} />
                      <Input className="col-span-2" name="address" type="text" label="Alamat" placeholder="" error={errors.address?.message} />

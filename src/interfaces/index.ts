@@ -65,6 +65,7 @@ export interface InvitationSetting {
 }
 export interface Groom {
    id: string;
+   invitationId: string;
    fullName: string;
    nickName: string;
    childOrder: number;
@@ -76,6 +77,7 @@ export interface Groom {
 }
 export interface Bride {
    id: string;
+   invitationId: string;
    fullName: string;
    nickName: string;
    childOrder: number;
