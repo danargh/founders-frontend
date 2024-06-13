@@ -107,7 +107,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
       <>
          <nav
             style={{ borderColor: dashboardThemeStore?.secondaryColor }}
-            className={`${activeSidebar ? "flex" : "hidden"} transition-all basis-2/12 h-screen absolute sm:relative sm:flex flex-col gap-y-2 border-r bg-primary-25`}
+            className={`${activeSidebar ? "flex" : "hidden"} transition-all basis-2/12 min-h-screen absolute sm:relative sm:flex flex-col gap-y-2 border-r bg-primary-25`}
          >
             {newNavItems.map((item, index) => (
                <Link
