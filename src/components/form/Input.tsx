@@ -4,7 +4,7 @@ import React, { FC, InputHTMLAttributes, useRef } from "react";
 import { EyeIcon } from "@/assets/icons/icons";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-   name: string;
+   name?: string;
    label?: string;
    error?: string;
    register?: any;

@@ -1,14 +1,11 @@
 "use client";
 
-import React, { FC, use, useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import { useDashboardThemeSlice, DashboardThemeSlice, useUserSlice } from "@/store/store";
-import { useCookies, useStore } from "@/hooks";
+import { useStore } from "@/hooks";
 import { useRouter } from "next/navigation";
-import { useValidateToken } from "@/api/auth";
-import { Loader } from "@/components/ui/Loader";
 import Form from "@/components/form/Form";
 import { Input } from "@/components/form/Input";
-import Link from "next/link";
 import { SubmitButton } from "@/components/ui/Button";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -38,7 +35,6 @@ const BrideSchema = yup.object().shape({
 });
 
 const Profile = ({ params }: { params: { dashboard: string } }) => {
-   const router = useRouter();
    const { data: getGroomData, status: getGroomStatus, isPending: getGroomPending } = useGetGroomsByInvitationId(params.dashboard);
    const { data: updateGroomData, status: updateGroomStatus, isPending: updateGroomPending, mutate: mutateUpdateGroom } = useUpdateGroom(params.dashboard);
    const { data: getBrideData, status: getBrideStatus, isPending: getBridePending } = useGetBridesByInvitationId(params.dashboard);

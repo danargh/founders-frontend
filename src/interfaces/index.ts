@@ -93,6 +93,21 @@ interface SocialMedia {
    twitter: string;
    tiktok: string;
 }
+
+// event
+export interface Event {
+   id: string | null;
+   invitationId: string;
+   category: string;
+   title: string;
+   date: Date;
+   startTime: string;
+   endTime: string;
+   timezone: string;
+   place: string;
+   address: string;
+   googleMapsUrl: string;
+}
 export interface Guest {
    fullName: string;
    category: string;

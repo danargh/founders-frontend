@@ -370,3 +370,31 @@
 .modal.display-none {
    display: none;
 }
+
+/* tabs */
+
+.fade-enter {
+   opacity: 0;
+   transform: translateX(-10%);
+}
+
+.fade-enter-active {
+   opacity: 1;
+   transform: translateX(0);
+   transition:
+      opacity 300ms,
+      transform 300ms;
+}
+
+.fade-exit {
+   opacity: 1;
+   transform: translateX(0);
+}
+
+.fade-exit-active {
+   opacity: 0;
+   transform: translateX(10%);
+   transition:
+      opacity 300ms,
+      transform 300ms;
+}
