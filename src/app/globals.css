@@ -96,6 +96,15 @@
    .btn__shadow--primary {
       box-shadow: 0px 0px 0px 4px #d7d3d0;
    }
+   .btn__shadow--mossGreenSecondary {
+      box-shadow: 0px 0px 0px 4px #e2ebd8;
+   }
+   .btn__shadow--orangeDarkSecondary {
+      box-shadow: 0px 0px 0px 4px #f9e8e1;
+   }
+   .btn__shadow--violetSecondary {
+      box-shadow: 0px 0px 0px 4px #dbd8eb;
+   }
    .btn__shadow {
       box-shadow: 0px 0px 0px 4px #f0eeeb;
    }

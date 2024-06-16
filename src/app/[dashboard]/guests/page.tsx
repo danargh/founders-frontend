@@ -1,10 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AuthHOC from "@/components/hoc/AuthHOC";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useStore } from "@/hooks";
-import { DashboardThemeSlice, useDashboardThemeSlice } from "@/store/store";
+import { DashboardThemeSlice, useDashboardThemeSlice, useInvitationStateSlice } from "@/store/store";
+import { Add } from "iconsax-react";
+import { button } from "@/app/variants";
+import GuestBook from "@/components/section/GuestBook.dashboard";
+import Rsvp from "@/components/section/Rsvp.dashboard";
+import Quote from "@/components/section/Quote.dashboard";
 
 interface Tab {
    id: number;
@@ -15,52 +20,34 @@ interface Tab {
 const Guest = () => {
    const [activeTab, setActiveTab] = useState<number>(0);
    const dashboardThemeStore = useStore<DashboardThemeSlice, DashboardThemeSlice>(useDashboardThemeSlice, (state) => state);
+   const invitation = useStore(useInvitationStateSlice, (state) => state.invitation);
+   const [theme, setTheme] = useState<string>("");
+
+   useEffect(() => {
+      if (invitation?.pricingCategory === "premium") {
+         setTheme("orange");
+      } else if (invitation?.pricingCategory === "eksklusif") {
+         setTheme("violet");
+      } else {
+         setTheme("green");
+      }
+   }, [invitation?.pricingCategory]);
 
    const tabs: Tab[] = [
       {
          id: 0,
          title: "Buku Tamu",
-         content: (
-            <section style={{ borderColor: dashboardThemeStore?.secondaryColor }} className="flex flex-col gap-y-6 p-6 border rounded-[32px]">
-               <div className="flex flex-col gap-y-1">
-                  <h2 className=" text-display-sm font-Lora font-[500]">Daftar Tamu</h2>
-                  <p>Data acara masih dapat diubah setelah undangan selesai dibuat. </p>
-               </div>
-               <div className="flex flex-col gap-y-2">
-                  <hr className=" text-primary-100" />
-               </div>
-            </section>
-         ),
+         content: <GuestBook theme={theme} dashboardThemeStore={dashboardThemeStore} />,
       },
       {
          id: 1,
          title: "RSVP",
-         content: (
-            <section style={{ borderColor: dashboardThemeStore?.secondaryColor }} className="flex flex-col gap-y-6 p-6 border rounded-[32px]">
-               <div className="flex flex-col gap-y-1">
-                  <h2 className=" text-display-sm font-Lora font-[500]">RSVP</h2>
-                  <p>Data acara masih dapat diubah setelah undangan selesai dibuat. </p>
-               </div>
-               <div className="flex flex-col gap-y-2">
-                  <hr className=" text-primary-100" />
-               </div>
-            </section>
-         ),
+         content: <Rsvp theme={theme} dashboardThemeStore={dashboardThemeStore} />,
       },
       {
          id: 2,
          title: "Ucapan",
-         content: (
-            <section style={{ borderColor: dashboardThemeStore?.secondaryColor }} className="flex flex-col gap-y-6 p-6 border rounded-[32px]">
-               <div className="flex flex-col gap-y-1">
-                  <h2 className=" text-display-sm font-Lora font-[500]">Ucapan</h2>
-                  <p>Data acara masih dapat diubah setelah undangan selesai dibuat. </p>
-               </div>
-               <div className="flex flex-col gap-y-2">
-                  <hr className=" text-primary-100" />
-               </div>
-            </section>
-         ),
+         content: <Quote theme={theme} dashboardThemeStore={dashboardThemeStore} />,
       },
    ];
    return (

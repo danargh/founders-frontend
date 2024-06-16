@@ -20,9 +20,9 @@ export function InputFilter({ children, placeholder, onSetInput }: InputFilterPr
    };
 
    return (
-      <div className="flex items-center gap-x-4 border border-primary-200 p-4 rounded-[32px]">
+      <div className="flex items-center gap-x-4 border border-primary-200 p-3 rounded-[32px]">
          {children}
-         <input onChange={inputHandler} value={input} className="bg-primary-25" style={{ outline: "none" }} type="text" placeholder={placeholder} />
+         <input onChange={inputHandler} value={input} className="bg-primary-25 text-label-md" style={{ outline: "none" }} type="text" placeholder={placeholder} />
       </div>
    );
 }
@@ -46,8 +46,8 @@ export function OptionFilter({ children, onSetInput, options }: OptionFilterProp
    };
 
    return (
-      <div className="flex items-center gap-x-1 border border-primary-200 p-4 rounded-[32px]">
-         <select id="select-input" onChange={inputHandler} value={input} className="bg-primary-25" style={{ outline: "none" }}>
+      <div className="flex items-center gap-x-1 border border-primary-200 p-3 rounded-[32px]">
+         <select id="select-input" onChange={inputHandler} value={input} className="bg-primary-25 text-label-md" style={{ outline: "none" }}>
             {options.map((option, index) => (
                <option key={index} value={option.value}>
                   {option.label}
