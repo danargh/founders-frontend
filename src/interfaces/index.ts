@@ -96,7 +96,7 @@ interface SocialMedia {
 
 // event
 export interface Event {
-   id: string | null;
+   id?: string;
    invitationId: string;
    category: string;
    title: string;

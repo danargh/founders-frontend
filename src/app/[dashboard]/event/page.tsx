@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDashboardThemeSlice, DashboardThemeSlice, useUserSlice } from "@/store/store";
 import { useStore } from "@/hooks";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Form from "@/components/form/Form";
 import { Input } from "@/components/form/Input";
 import { Button, SubmitButton } from "@/components/ui/Button";
@@ -13,10 +13,10 @@ import * as yup from "yup";
 import { button } from "@/app/variants";
 import { CenterLoader } from "@/components/ui/Loader";
 import AuthHOC from "@/components/hoc/AuthHOC";
-import { Event as EventInterface } from "@/interfaces";
+import { Event, Response } from "@/interfaces";
+import { useCreateEventByInvitationId, useGetEventsByInvitationId } from "@/api/invitation";
 
 const EventSchema = yup.object().shape({
-   invitationId: yup.string().required("Invitation id is required"),
    category: yup.string().required("Kategori is required"),
    title: yup.string().required("Judul is required"),
    date: yup.date().required("Tanggal is required"),
@@ -28,8 +28,12 @@ const EventSchema = yup.object().shape({
    googleMapsUrl: yup.string().required("Google maps url is required"),
 });
 
-const Event = () => {
+const Events = () => {
+   const params = useParams();
    const dashboardThemeStore = useStore<DashboardThemeSlice, DashboardThemeSlice>(useDashboardThemeSlice, (state) => state);
+   const { data: createEventData, status: createEventStatus, isPending: createEventPending, mutateAsync: mutateAsyncCreateEvent } = useCreateEventByInvitationId(params.dashboard as string);
+   const { data: getEventData, status: getEventStatus, isPending: getEventPending } = useGetEventsByInvitationId(params.dashboard as string);
+   const [events, setEvents] = useState<Event[]>([]);
 
    const {
       register: eventRegisterForm,
@@ -38,25 +42,28 @@ const Event = () => {
       reset: eventResetForm,
    } = useForm({
       resolver: yupResolver(EventSchema),
-      defaultValues: {
-         invitationId: "",
-         category: "",
-         title: "",
-         date: new Date(),
-         startTime: "",
-         endTime: "",
-         timezone: "",
-         place: "",
-         address: "",
-         googleMapsUrl: "",
-      },
    });
 
-   useEffect(() => {}, []);
+   useEffect(() => {
+      if (getEventStatus === "success") {
+         setEvents(getEventData);
+      }
+   }, [getEventStatus, getEventData]);
 
-   const handleEventSubmit = (data: EventInterface) => {
-      console.log(data);
+   const handleEventSubmit = async (newData: Event, event: React.FormEvent) => {
+      event.preventDefault();
+      console.log(newData);
+
+      await mutateAsyncCreateEvent(newData, {
+         onSuccess: (data) => {
+            newData.id = data.data.id;
+            newData.invitationId = data.data.invitationId;
+            setEvents((prev) => [...prev, newData]);
+         },
+      });
    };
+
+   if (getEventPending) return <CenterLoader />;
 
    return (
       <div className="flex flex-col gap-y-6">
@@ -67,11 +74,22 @@ const Event = () => {
             </div>
             <div>
                <ul className="flex flex-col gap-y-4">
-                  {Array.from({ length: 3 }).map((_, index) => (
-                     <li className="w-full p-5 border border-mossGreenSecondary-100 rounded-xl" key={index}>
-                        Event yang ditambahkan
-                     </li>
-                  ))}
+                  {events.length > 0 ? (
+                     events.map((event, index) => (
+                        <li key={index} className="flex flex-col gap-y-2">
+                           <h3 className="text-display-sm font-Lora font-[500]">{event.title}</h3>
+                           <p>{event.category}</p>
+                           <p>
+                              {event.startTime} - {event.endTime}
+                           </p>
+                           <p>{event.place}</p>
+                           <p>{event.address}</p>
+                           <p>{event.googleMapsUrl}</p>
+                        </li>
+                     ))
+                  ) : (
+                     <div>Event Kosong</div>
+                  )}
                </ul>
             </div>
             <div className="flex flex-col gap-y-2">
@@ -97,4 +115,4 @@ const Event = () => {
    );
 };
 
-export default AuthHOC(Event);
+export default AuthHOC(Events);

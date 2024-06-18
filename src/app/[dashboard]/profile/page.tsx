@@ -113,7 +113,6 @@ const Profile = ({ params }: { params: { dashboard: string } }) => {
    };
    const brideOnSubmit = (data: Groom, event: React.FormEvent) => {
       event.preventDefault();
-      console.log(data);
       const newData = {
          ...data,
          invitationId: params.dashboard,

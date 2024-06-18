@@ -5,6 +5,7 @@ import config from "@/config";
 import { useUserSlice } from "@/store/store";
 import Cookies from "universal-cookie";
 import { getIn } from "yup";
+import { Event } from "@/interfaces";
 
 const cookies = new Cookies();
 
@@ -186,5 +187,109 @@ export const useUpdateBride = (invitationId: string) => {
       onSuccess(data) {
          return data;
       },
+   });
+};
+
+// event
+export const updateEvent = async (id: string, event: Event): Promise<Response<Event>> => {
+   return await axios
+      .put(`${config.BASE_URL}/event/${id}`, event, {
+         headers: {
+            Authorization: `Bearer ${cookies.get("userToken")}`,
+         },
+      })
+      .then((res) => {
+         return res.data;
+      })
+      .catch((err: AxiosError) => {
+         throw err.response?.data;
+      });
+};
+export const useUpdateEvent = (id: string) => {
+   return useMutation<Response<Event>, ResponseOnly, Event, string[]>({
+      mutationKey: ["event"],
+      mutationFn: async (event: Event): Promise<Response<Event>> => {
+         const data = await updateEvent(id, event);
+         return data;
+      },
+      onSuccess(data) {
+         return data;
+      },
+   });
+};
+export const createEventByInvitationId = async (invitationId: string, event: Event): Promise<Response<Event>> => {
+   return await axios
+      .post(`${config.BASE_URL}/event/${invitationId}`, event, {
+         headers: {
+            Authorization: `Bearer ${cookies.get("userToken")}`,
+         },
+      })
+      .then((res) => {
+         return res.data;
+      })
+      .catch((err: AxiosError) => {
+         throw err.response?.data;
+      });
+};
+export const useCreateEventByInvitationId = (id: string) => {
+   return useMutation<Response<Event>, ResponseOnly, Event, string>({
+      mutationKey: ["event"],
+      mutationFn: async (event: Event): Promise<Response<Event>> => {
+         const data = await createEventByInvitationId(id, event);
+         return data;
+      },
+      onSuccess(data) {
+         return data;
+      },
+   });
+};
+export const deleteEvent = async (id: string): Promise<ResponseOnly> => {
+   return await axios
+      .delete(`${config.BASE_URL}/event/${id}`, {
+         headers: {
+            Authorization: `Bearer ${cookies.get("userToken")}`,
+         },
+      })
+      .then((res) => {
+         return res.data;
+      })
+      .catch((err: AxiosError) => {
+         throw err.response?.data;
+      });
+};
+export const useDeleteEvent = () => {
+   return useMutation<ResponseOnly, ResponseOnly, string, string[]>({
+      mutationKey: ["event"],
+      mutationFn: async (id: string): Promise<ResponseOnly> => {
+         const data = await deleteEvent(id);
+         return data;
+      },
+      onSuccess(data) {
+         return data;
+      },
+   });
+};
+export const getEventsByInvitationId = async (invitationId: string): Promise<Response<Event[]>> => {
+   return await axios
+      .get(`${config.BASE_URL}/event/${invitationId}`, {
+         headers: {
+            Authorization: `Bearer ${cookies.get("userToken")}`,
+         },
+      })
+      .then((res) => {
+         return res.data;
+      })
+      .catch((err: AxiosError) => {
+         throw err.response?.data;
+      });
+};
+export const useGetEventsByInvitationId = (id: string) => {
+   return useQuery<Event[], ResponseOnly, Event[]>({
+      queryKey: ["event"],
+      queryFn: async (): Promise<Event[]> => {
+         const data = await getEventsByInvitationId(id);
+         return data.data;
+      },
+      enabled: !!id,
    });
 };
