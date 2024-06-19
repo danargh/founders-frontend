@@ -205,11 +205,11 @@ export const updateEvent = async (id: string, event: Event): Promise<Response<Ev
          throw err.response?.data;
       });
 };
-export const useUpdateEvent = (id: string) => {
-   return useMutation<Response<Event>, ResponseOnly, Event, string[]>({
+export const useUpdateEvent = () => {
+   return useMutation<Response<Event>, ResponseOnly, { selectedId: string; newData: Event }, string[]>({
       mutationKey: ["event"],
-      mutationFn: async (event: Event): Promise<Response<Event>> => {
-         const data = await updateEvent(id, event);
+      mutationFn: async ({ newData, selectedId }): Promise<Response<Event>> => {
+         const data = await updateEvent(selectedId, newData);
          return data;
       },
       onSuccess(data) {
