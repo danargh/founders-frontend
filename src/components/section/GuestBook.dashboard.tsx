@@ -7,6 +7,18 @@ import { button } from "@/app/variants";
 import { Add, ArrowLeft, ArrowRight, Edit, ElementEqual, Share, Trash } from "iconsax-react";
 import { InputFilter, OptionFilter } from "../form/InputFilter";
 import { SearchNormal, ArrowDown2 } from "iconsax-react";
+import Modal from "../ui/Modal";
+import Form from "../form/Form";
+import { Input } from "../form/Input";
+import { SubmitButton } from "../ui/Button";
+import * as yup from "yup";
+
+export const GuestSchema = yup.object().shape({
+   fullName: yup.string().required("Full name is required"),
+   address: yup.string().required("Address is required"),
+   category: yup.string().required("Category is required"),
+   status: yup.string().required("Status is required"),
+});
 
 type GuestProps = {
    theme: string;
@@ -14,6 +26,8 @@ type GuestProps = {
 };
 
 export default function GuestBook({ theme, dashboardThemeStore }: GuestProps) {
+   const [isModal, setIsModal] = React.useState<boolean>(false);
+
    const searchHandler = (input: string) => {
       console.log(input);
    };
@@ -33,6 +47,17 @@ export default function GuestBook({ theme, dashboardThemeStore }: GuestProps) {
                   <Add />
                   Tambah
                </button>
+               {/* <Modal isModal={isModal} onClose={setIsModal}>
+                  <Form buttonLabel="Change Email" register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} className="flex flex-col gap-y-4 w-full">
+                     <Input name="websiteUrl" type="text" label="Website URL" placeholder="polokrami.com/danardandia" error={errors.websiteUrl?.message} autoFocus />
+                     <Input name="pricingCategory" type="text" label="Paket Harga" placeholder="free" error={errors.pricingCategory?.message} />
+                     <p>Website aktif sampai : 17 Juli 2024</p>
+
+                     <SubmitButton isLoading={isPending} className={`${button({ primary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} w-full`}>
+                        Buat undangan
+                     </SubmitButton>
+                  </Form>
+               </Modal> */}
             </div>
          </div>
          <div className="flex flex-col gap-y-2">

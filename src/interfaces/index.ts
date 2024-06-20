@@ -109,6 +109,9 @@ export interface Event {
    googleMapsUrl: string;
 }
 export interface Guest {
+   id?: string;
+   invitationId: string;
    fullName: string;
    category: string;
+   status: string;
 }
