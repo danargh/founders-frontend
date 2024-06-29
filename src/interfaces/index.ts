@@ -62,6 +62,7 @@ export interface Invitation {
 }
 export interface InvitationSetting {
    pricingCategory: string;
+   dashboardTheme: string;
 }
 export interface Groom {
    id: string;

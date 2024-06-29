@@ -20,7 +20,7 @@ interface Tab {
 const Guest = () => {
    const [activeTab, setActiveTab] = useState<number>(0);
    const dashboardThemeStore = useStore<DashboardThemeSlice, DashboardThemeSlice>(useDashboardThemeSlice, (state) => state);
-   const invitation = useStore(useInvitationStateSlice, (state) => state.invitation);
+   const invitation = useStore(useInvitationStateSlice, (state) => state.invitationSetting);
    const [theme, setTheme] = useState<string>("");
 
    useEffect(() => {

@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { useDashboardThemeSlice, DashboardThemeSlice, useUserSlice } from "@/store/store";
+import { useDashboardThemeSlice, DashboardThemeSlice, useUserSlice, useInvitationStateSlice } from "@/store/store";
 import { useStore } from "@/hooks";
 import { useRouter } from "next/navigation";
 import Form from "@/components/form/Form";
 import { Input } from "@/components/form/Input";
-import { SubmitButton } from "@/components/ui/Button";
+import { Button, SubmitButton } from "@/components/ui/Button";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -15,6 +15,8 @@ import { CenterLoader } from "@/components/ui/Loader";
 import { Groom } from "@/interfaces";
 import AuthHOC from "@/components/hoc/AuthHOC";
 import { useGetBridesByInvitationId, useGetGroomsByInvitationId, useUpdateBride, useUpdateGroom } from "@/api/invitation";
+import { ArrowLeft } from "iconsax-react";
+import LivePreview from "@/components/section/LivePreview.dashboard";
 
 // validation
 const GroomSchema = yup.object().shape({
@@ -40,6 +42,8 @@ const Profile = ({ params }: { params: { dashboard: string } }) => {
    const { data: getBrideData, status: getBrideStatus, isPending: getBridePending } = useGetBridesByInvitationId(params.dashboard);
    const { data: updateBrideData, status: updateBrideStatus, isPending: updateBridePending, mutate: mutateUpdateBride } = useUpdateBride(params.dashboard);
    const dashboardThemeStore = useStore<DashboardThemeSlice, DashboardThemeSlice>(useDashboardThemeSlice, (state) => state);
+   const invitationSetting = useStore(useInvitationStateSlice, (state) => state.invitationSetting);
+   const [isPreview, setIsPreview] = React.useState<boolean>(false);
 
    const {
       register: groomRegisterForm,
@@ -126,50 +130,85 @@ const Profile = ({ params }: { params: { dashboard: string } }) => {
 
    if (getGroomStatus === "error" || getGroomStatus === "success" || getBrideStatus === "error" || getBrideStatus === "success") {
       return (
-         <div className="flex flex-col gap-y-6">
-            <section style={{ borderColor: dashboardThemeStore?.secondaryColor }} className="flex flex-col gap-y-6 p-6 border rounded-[32px]">
-               <div className="flex flex-col gap-y-1">
-                  <h2 className=" text-display-sm font-Lora font-[500]">Profil Pengantin Pria</h2>
-                  <p>Data acara masih dapat diubah setelah undangan selesai dibuat. </p>
+         <section className="flex gap-x-6">
+            <div className="flex flex-col gap-y-6" style={isPreview === true ? { flexBasis: "50%" } : { flexBasis: "83.3%" }}>
+               <section style={{ borderColor: dashboardThemeStore?.secondaryColor }} className="flex flex-col gap-y-6 p-6 border rounded-[32px]">
+                  <div className="flex flex-col gap-y-1">
+                     <h2 className=" text-display-sm font-Lora font-[500]">Profil Pengantin Pria</h2>
+                     <p>Data acara masih dapat diubah setelah undangan selesai dibuat. </p>
+                  </div>
+                  <div className="flex flex-col gap-y-2">
+                     <hr className=" text-primary-100" />
+                     <Form register={groomRegisterForm} handleSubmit={groomHandleSubmitForm} onSubmit={groomOnSubmit} className="grid grid-cols-2 gap-y-4 gap-x-4 w-full">
+                        <h3 className="text-heading-sm font-medium mt-1">Informasi Pribadi</h3>
+                        <SubmitButton
+                           isLoading={updateGroomPending}
+                           className={`${button({ tertiary: invitationSetting?.dashboardTheme as any, size: { initial: "mb_lg", md: "md", xl: "lg" } })} w-fit ml-auto`}
+                        >
+                           Simpan
+                        </SubmitButton>
+                        <Input name="fullName" type="text" label="Nama Lengkap" placeholder="" error={groomErrors.fullName?.message} />
+                        <Input name="nickName" type="text" label="Nama Panggilan" placeholder="" error={groomErrors.nickName?.message} />
+                        <Input name="childOrder" className="col-span-2" type="number" label="Anak ke" placeholder="" error={groomErrors.childOrder?.message} />
+                        <Input name="fatherName" type="text" label="Nama Bapak" placeholder="" error={groomErrors.fatherName?.message} />
+                        <Input name="motherName" type="text" label="Nama Ibu" placeholder="" error={groomErrors.motherName?.message} />
+                        <Input className="col-span-2" name="address" type="text" label="Alamat" placeholder="" error={groomErrors.address?.message} />
+                     </Form>
+                  </div>
+               </section>
+               <div style={{ borderColor: dashboardThemeStore?.secondaryColor }} className="flex flex-col gap-y-6 p-6 border rounded-[32px]">
+                  <div className="flex flex-col gap-y-1">
+                     <h2 className=" text-display-sm font-Lora font-[500]">Profil Pengantin Wanita</h2>
+                     <p>Data acara masih dapat diubah setelah undangan selesai dibuat. </p>
+                  </div>
+                  <div className=" flex flex-col gap-y-2">
+                     <hr className=" text-primary-100" />
+                     <Form register={brideRegisterForm} handleSubmit={brideHandleSubmitForm} onSubmit={brideOnSubmit} className="grid grid-cols-2 gap-y-4 gap-x-4 w-full">
+                        <h3 className="text-heading-sm font-medium mt-1">Informasi Pribadi</h3>
+                        <SubmitButton
+                           isLoading={updateBridePending}
+                           className={`${button({ tertiary: invitationSetting?.dashboardTheme as any, size: { initial: "mb_lg", md: "md", xl: "lg" } })} w-fit ml-auto`}
+                        >
+                           Simpan
+                        </SubmitButton>
+                        <Input name="fullName" type="text" label="Nama Lengkap" placeholder="" error={brideErrors.fullName?.message} />
+                        <Input name="nickName" type="text" label="Nama Panggilan" placeholder="" error={brideErrors.nickName?.message} />
+                        <Input name="childOrder" className="col-span-2" type="number" label="Anak ke" placeholder="" error={brideErrors.childOrder?.message} />
+                        <Input name="fatherName" type="text" label="Nama Bapak" placeholder="" error={brideErrors.fatherName?.message} />
+                        <Input name="motherName" type="text" label="Nama Ibu" placeholder="" error={brideErrors.motherName?.message} />
+                        <Input className="col-span-2" name="address" type="text" label="Alamat" placeholder="" error={brideErrors.address?.message} />
+                     </Form>
+                  </div>
                </div>
-               <div className="flex flex-col gap-y-2">
-                  <hr className=" text-primary-100" />
-                  <Form register={groomRegisterForm} handleSubmit={groomHandleSubmitForm} onSubmit={groomOnSubmit} className="grid grid-cols-2 gap-y-4 gap-x-4 w-full">
-                     <h3 className="text-heading-sm font-medium mt-1">Informasi Pribadi</h3>
-                     <SubmitButton isLoading={updateGroomPending} className={`${button({ tertiary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} w-fit ml-auto`}>
-                        Simpan
-                     </SubmitButton>
-                     <Input name="fullName" type="text" label="Nama Lengkap" placeholder="" error={groomErrors.fullName?.message} />
-                     <Input name="nickName" type="text" label="Nama Panggilan" placeholder="" error={groomErrors.nickName?.message} />
-                     <Input name="childOrder" className="col-span-2" type="number" label="Anak ke" placeholder="" error={groomErrors.childOrder?.message} />
-                     <Input name="fatherName" type="text" label="Nama Bapak" placeholder="" error={groomErrors.fatherName?.message} />
-                     <Input name="motherName" type="text" label="Nama Ibu" placeholder="" error={groomErrors.motherName?.message} />
-                     <Input className="col-span-2" name="address" type="text" label="Alamat" placeholder="" error={groomErrors.address?.message} />
-                  </Form>
-               </div>
-            </section>
-            <section style={{ borderColor: dashboardThemeStore?.secondaryColor }} className="flex flex-col gap-y-6 p-6 border rounded-[32px]">
-               <div className="flex flex-col gap-y-1">
-                  <h2 className=" text-display-sm font-Lora font-[500]">Profil Pengantin Wanita</h2>
-                  <p>Data acara masih dapat diubah setelah undangan selesai dibuat. </p>
-               </div>
-               <div className=" flex flex-col gap-y-2">
-                  <hr className=" text-primary-100" />
-                  <Form register={brideRegisterForm} handleSubmit={brideHandleSubmitForm} onSubmit={brideOnSubmit} className="grid grid-cols-2 gap-y-4 gap-x-4 w-full">
-                     <h3 className="text-heading-sm font-medium mt-1">Informasi Pribadi</h3>
-                     <SubmitButton isLoading={updateBridePending} className={`${button({ tertiary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} w-fit ml-auto`}>
-                        Simpan
-                     </SubmitButton>
-                     <Input name="fullName" type="text" label="Nama Lengkap" placeholder="" error={brideErrors.fullName?.message} />
-                     <Input name="nickName" type="text" label="Nama Panggilan" placeholder="" error={brideErrors.nickName?.message} />
-                     <Input name="childOrder" className="col-span-2" type="number" label="Anak ke" placeholder="" error={brideErrors.childOrder?.message} />
-                     <Input name="fatherName" type="text" label="Nama Bapak" placeholder="" error={brideErrors.fatherName?.message} />
-                     <Input name="motherName" type="text" label="Nama Ibu" placeholder="" error={brideErrors.motherName?.message} />
-                     <Input className="col-span-2" name="address" type="text" label="Alamat" placeholder="" error={brideErrors.address?.message} />
-                  </Form>
-               </div>
-            </section>
-         </div>
+            </div>
+            <div className="flex flex-col" style={isPreview === true ? { flexBasis: "50%" } : { flexBasis: "16.6%" }}>
+               {!isPreview && (
+                  <button
+                     onClick={() => {
+                        setIsPreview(!isPreview);
+                     }}
+                     className={`${button({ tertiary: invitationSetting?.dashboardTheme as any, size: { initial: "sm", md: "sm", xl: "sm" } })}`}
+                  >
+                     <ArrowLeft />
+                     Live Preview
+                  </button>
+               )}
+               {isPreview && (
+                  <LivePreview>
+                     <button
+                        onClick={() => {
+                           setIsPreview(!isPreview);
+                        }}
+                        className={`${button({ tertiary: invitationSetting?.dashboardTheme as any, size: { initial: "sm", md: "sm", xl: "sm" } })}`}
+                        style={isPreview === true ? { width: "fit-content" } : { width: "100%" }}
+                     >
+                        <ArrowLeft />
+                        Live Preview
+                     </button>
+                  </LivePreview>
+               )}
+            </div>
+         </section>
       );
    }
 };

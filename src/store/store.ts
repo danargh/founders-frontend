@@ -8,7 +8,7 @@ export interface UserSlice {
 }
 
 export interface InvitationSlice {
-   invitation: InvitationSetting;
+   invitationSetting: InvitationSetting;
    setInvitation: (invitation: InvitationSetting) => void;
 }
 
@@ -62,10 +62,11 @@ export const useDashboardThemeSlice = create<DashboardThemeSlice>()(
 export const useInvitationStateSlice = create<InvitationSlice>()(
    persist(
       (set) => ({
-         invitation: {
+         invitationSetting: {
             pricingCategory: "",
+            dashboardTheme: "",
          },
-         setInvitation: (invitation) => set(() => ({ invitation })),
+         setInvitation: (invitationSetting) => set(() => ({ invitationSetting })),
       }),
       {
          name: "invitation",

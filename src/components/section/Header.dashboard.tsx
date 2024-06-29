@@ -25,7 +25,7 @@ const Header: React.FC = () => {
 
    useEffect(() => {
       if (invitationStatus === "success") {
-         setInvitation({ pricingCategory: invitationData?.pricingCategory });
+         let dashboardTheme;
 
          if (invitationData?.pricingCategory === "premium") {
             setPackageType(<PremiumPackageDashboard />);
@@ -36,18 +36,22 @@ const Header: React.FC = () => {
          }
 
          if (invitationData?.pricingCategory === "premium") {
+            dashboardTheme = "orange";
             setPrimaryColor("#701608");
             setSecondaryColor("#EBC5BC");
             setTertiaryColor("#F7EFED");
          } else if (invitationData?.pricingCategory === "eksklusif") {
+            dashboardTheme = "violet";
             setPrimaryColor("#2B0C66");
             setSecondaryColor("#CFCAEB");
             setTertiaryColor("#F3F2F7");
          } else {
+            dashboardTheme = "green";
             setPrimaryColor("#2E4210");
             setSecondaryColor("#D3E5BC");
             setTertiaryColor("#EFF5E6");
          }
+         setInvitation({ pricingCategory: invitationData?.pricingCategory, dashboardTheme: dashboardTheme });
       }
    }, [invitationData, invitationStatus, setInvitation, setPrimaryColor, setSecondaryColor, setTertiaryColor]);
 
