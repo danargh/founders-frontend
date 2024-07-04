@@ -16,6 +16,7 @@ export const postInvitation = async (invitation: Invitation): Promise<Response<I
          headers: {
             Authorization: `Bearer ${cookies.get("userToken")}`,
          },
+         withCredentials: true,
       })
       .then((res) => {
          return res.data;
@@ -42,6 +43,7 @@ export const getInvitations = async (): Promise<Response<Invitation[]>> => {
          headers: {
             Authorization: `Bearer ${cookies.get("userToken")}`,
          },
+         withCredentials: true,
       })
       .then((res) => {
          return res.data;
@@ -67,6 +69,7 @@ export const getInvitationById = async (id: string): Promise<Response<Invitation
          headers: {
             Authorization: `Bearer ${cookies.get("userToken")}`,
          },
+         withCredentials: true,
       })
       .then((res) => {
          return res.data;
@@ -93,6 +96,7 @@ export const getGroomsByInvitationId = async (invitationId: string): Promise<Res
          headers: {
             Authorization: `Bearer ${cookies.get("userToken")}`,
          },
+         withCredentials: true,
       })
       .then((res) => {
          return res.data;
@@ -117,6 +121,7 @@ export const updateGroom = async (invitationId: string, groom: Groom): Promise<R
          headers: {
             Authorization: `Bearer ${cookies.get("userToken")}`,
          },
+         withCredentials: true,
       })
       .then((res) => {
          return res.data;
@@ -145,6 +150,7 @@ export const getBridesByInvitationId = async (invitationId: string): Promise<Res
          headers: {
             Authorization: `Bearer ${cookies.get("userToken")}`,
          },
+         withCredentials: true,
       })
       .then((res) => {
          return res.data;
@@ -169,6 +175,7 @@ export const updateBride = async (invitationId: string, bride: Groom): Promise<R
          headers: {
             Authorization: `Bearer ${cookies.get("userToken")}`,
          },
+         withCredentials: true,
       })
       .then((res) => {
          return res.data;
@@ -197,6 +204,7 @@ export const updateEvent = async (id: string, event: Event): Promise<Response<Ev
          headers: {
             Authorization: `Bearer ${cookies.get("userToken")}`,
          },
+         withCredentials: true,
       })
       .then((res) => {
          return res.data;
@@ -223,6 +231,7 @@ export const createEventByInvitationId = async (invitationId: string, event: Eve
          headers: {
             Authorization: `Bearer ${cookies.get("userToken")}`,
          },
+         withCredentials: true,
       })
       .then((res) => {
          return res.data;
@@ -249,6 +258,7 @@ export const deleteEvent = async (id: string): Promise<ResponseOnly> => {
          headers: {
             Authorization: `Bearer ${cookies.get("userToken")}`,
          },
+         withCredentials: true,
       })
       .then((res) => {
          return res.data;
@@ -275,6 +285,7 @@ export const getEventsByInvitationId = async (invitationId: string): Promise<Res
          headers: {
             Authorization: `Bearer ${cookies.get("userToken")}`,
          },
+         withCredentials: true,
       })
       .then((res) => {
          return res.data;
@@ -301,6 +312,7 @@ export const getGuestsByInvitationId = async (invitationId: string): Promise<Res
          headers: {
             Authorization: `Bearer ${cookies.get("userToken")}`,
          },
+         withCredentials: true,
       })
       .then((res) => {
          return res.data;
@@ -325,6 +337,7 @@ export const updateGuest = async (id: string, guest: Guest): Promise<Response<Gu
          headers: {
             Authorization: `Bearer ${cookies.get("userToken")}`,
          },
+         withCredentials: true,
       })
       .then((res) => {
          return res.data;
@@ -351,6 +364,7 @@ export const createGuestByInvitationId = async (invitationId: string, guest: Gue
          headers: {
             Authorization: `Bearer ${cookies.get("userToken")}`,
          },
+         withCredentials: true,
       })
       .then((res) => {
          return res.data;
@@ -377,6 +391,7 @@ export const deleteGuest = async (id: string): Promise<ResponseOnly> => {
          headers: {
             Authorization: `Bearer ${cookies.get("userToken")}`,
          },
+         withCredentials: true,
       })
       .then((res) => {
          return res.data;

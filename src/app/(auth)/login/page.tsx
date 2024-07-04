@@ -12,11 +12,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Form from "@/components/form/Form";
 import { LinkButton } from "@/components/ui/Button";
 import { LoginUser } from "@/interfaces";
-import { useLogin, useValidateToken } from "@/api/auth";
+import { useLogin, useValidateToken, useLoginGoogle } from "@/api/auth";
 import { useRouter } from "next/navigation";
 import { CenterLoader, FullScreenLoader, Loader } from "@/components/ui/Loader";
 import { Message } from "@/components/ui/Message";
 import AuthHOC from "@/components/hoc/AuthHOC";
+import config from "@/config";
 
 // validation
 const LoginSchema = yup.object().shape({
@@ -27,6 +28,7 @@ const LoginSchema = yup.object().shape({
 const Login: React.FC = () => {
    const router = useRouter();
    const { data: successResponse, mutate: mutateLogin, status: useLoginStatus, isPending, error: errorReponse } = useLogin();
+   const { data: postLoginGoogleData, status: postLoginGoogleStatus, error: postLoginGoogleError, mutateAsync: mutatePostLoginGoogle } = useLoginGoogle();
    const { data, status: useValidateTokenStatus } = useValidateToken();
 
    const {
@@ -38,6 +40,10 @@ const Login: React.FC = () => {
    const onSubmit = (data: LoginUser, event: React.FormEvent) => {
       event.preventDefault();
       mutateLogin(data);
+   };
+
+   const handleLoginGoogle = () => {
+      mutatePostLoginGoogle();
    };
 
    useEffect(() => {
@@ -76,10 +82,12 @@ const Login: React.FC = () => {
                   <p className=" p-2 text-label-sm font-[600] text-primary-600">Atau</p>
                   <hr className="or__line" />
                </div>
-               <LinkButton urlLocation="#" className={`${button({ tertiary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} w-full`}>
-                  <img src="/icons/google.png" alt="google icon" />
-                  Masuk dengan Google
-               </LinkButton>
+               <form className="w-full" action={`${config.BASE_URL}/auth/google`} method="get">
+                  <button type="submit" className={`${button({ tertiary: "gray", size: { initial: "mb_lg", md: "md", xl: "lg" } })} w-full`}>
+                     <img src="/icons/google.png" alt="google icon" />
+                     Masuk dengan Google
+                  </button>
+               </form>
                <p className="font-[400] text-label-lg text-center">
                   Belum punya akun?{" "}
                   <Link href="/register" className="text__link">

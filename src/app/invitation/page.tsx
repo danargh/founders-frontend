@@ -27,6 +27,8 @@ import { useStore } from "@/hooks";
 import { useDashboardThemeSlice } from "@/store/store";
 import { DashboardThemeSlice } from "@/store/store";
 import { StarterPackageDashboard, PremiumPackageDashboard, EksklusifPackageDashboard } from "@/components/ui/Package";
+import { useParams } from "next/navigation";
+import Cookies from "universal-cookie";
 
 type Props = {
    user: UserSetting;
@@ -53,6 +55,9 @@ function InvitationPage({ user }: Props) {
    const { isPending, mutateAsync } = usePostInvitation();
    const { data: invitationData, status: invitationStatus, error: invitationError, isPending: getInvitationLoading, isSuccess, refetch: refetchInvitation } = useGetInvitations();
    const [setPrimaryColor, setSecondaryColor, setTertiaryColor] = useDashboardThemeSlice((state) => [state.setPrimaryColor, state.setSecondaryColor, state.setTertiaryColor]);
+   const params = useParams();
+   const { userToken, refreshToken } = params;
+   const cookies = new Cookies();
 
    const {
       register,
@@ -67,6 +72,11 @@ function InvitationPage({ user }: Props) {
    });
 
    useEffect(() => {
+      if (userToken && refreshToken) {
+         cookies.set("userToken", userToken, { path: "/" });
+         cookies.set("refreshToken", refreshToken, { path: "/" });
+      }
+
       if (invitationStatus === "success" && getInvitationLoading === false && Array.isArray(invitationData)) {
          const newInvitation: NewInvitation[] = addStatePropertyInvitation(invitationData);
          setInvitation(() => [...(newInvitation || [])]);

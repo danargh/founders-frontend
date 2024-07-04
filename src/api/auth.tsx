@@ -7,11 +7,34 @@ import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
 
+// login google
+export const getLoginGoogle = async (): Promise<Response<User>> => {
+   return await axios
+      .get(`${config.BASE_URL}/auth/google`, {
+         withCredentials: true,
+         headers: {
+            "Content-Type": "application/json",
+         },
+      })
+      .then((res) => {
+         return res.data;
+      })
+      .catch((err: AxiosError) => {
+         throw err.response?.data;
+      });
+};
+
+export const useLoginGoogle = () => {
+   return useMutation<Response<User>, AxiosError>({
+      mutationKey: ["googleLogin"],
+      mutationFn: getLoginGoogle,
+   });
+};
+
 // Login
 export const postLogin = async (user: LoginUser): Promise<Response<User>> => {
-   cookies.remove("userToken");
    return await axios
-      .post(`${config.BASE_URL}/auth/login`, user)
+      .post(`${config.BASE_URL}/auth/login`, user, { withCredentials: true })
       .then((res) => {
          return res.data;
       })
@@ -87,7 +110,6 @@ export const postValidateToken = async (): Promise<Response<UserSetting>> => {
          return res.data as Response<UserSetting>;
       })
       .catch((err: AxiosError) => {
-         cookies.remove("userToken");
          throw err.response?.data as ResponseOnly;
       });
 };
