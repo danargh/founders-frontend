@@ -64,6 +64,18 @@ export const useLogin = () => {
    });
 };
 
+// logout
+export const logout = async (): Promise<ResponseOnly> => {
+   return await axios
+      .get(`${config.BASE_URL}/auth/logout`, { withCredentials: true })
+      .then((res) => {
+         return res.data;
+      })
+      .catch((err: AxiosError) => {
+         throw err.response?.data;
+      });
+};
+
 export const postRegister = async (user: User): Promise<Response<User>> => {
    cookies.remove("userToken");
    return await axios

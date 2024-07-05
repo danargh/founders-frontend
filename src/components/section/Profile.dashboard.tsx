@@ -10,18 +10,21 @@ import { useStore } from "@/hooks";
 import { useUserSlice } from "@/store/store";
 import { useDashboardThemeSlice } from "@/store/store";
 import { set } from "react-hook-form";
+import { logout } from "@/api/auth";
 
 const Profile: React.FC = () => {
    const user = useStore(useUserSlice, (state) => state.user);
    const [profileisOpen, setProfileIsOpen] = useState<boolean>(false);
-   const { removeCookie } = useCookies(["userToken"]);
+   const { removeCookie } = useCookies(["userToken", "refreshToken"]);
    const router = useRouter();
 
    // logout
    const logoutHandler = () => {
       removeCookie("userToken", { path: "/" });
-      router.push("/login");
+      removeCookie("refreshToken", { path: "/" });
       window.localStorage.clear();
+      logout();
+      router.push("/login");
    };
 
    return (
