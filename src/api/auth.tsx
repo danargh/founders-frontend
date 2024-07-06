@@ -117,7 +117,7 @@ export const postValidateToken = async (): Promise<Response<UserSetting>> => {
    }
 
    return await axios
-      .get(`${config.BASE_URL}/auth/validate`, { headers: { Authorization: `Bearer ${userToken}`, "Content-Type": "application/json" } })
+      .get(`${config.BASE_URL}/auth/validate`, { headers: { Authorization: `Bearer ${userToken}`, "Content-Type": "application/json" }, withCredentials: true })
       .then((res) => {
          return res.data as Response<UserSetting>;
       })
