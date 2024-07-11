@@ -37,7 +37,7 @@ const Events = () => {
    const { data: getEventData, status: getEventStatus, isPending: getEventPending } = useGetEventsByInvitationId(params.dashboard as string);
    const { data: deleteEventData, status: deleteEventStatus, isPending: deleteEventPending, mutate: mutateDeleteEvent } = useDeleteEvent();
    const { data: updateEventData, status: updateEventStatus, isPending: updateEventPending, mutate: mutateUpdateEvent } = useUpdateEvent();
-   const invitation = useStore(useInvitationStateSlice, (state) => state.invitation);
+   const invitationSetting = useStore(useInvitationStateSlice, (state) => state.invitationSetting);
    const [theme, setTheme] = useState<string>("");
    const [events, setEvents] = useState<Event[]>([]);
    const [updateMode, setUpdateMode] = useState<boolean>(false);
@@ -56,14 +56,14 @@ const Events = () => {
       if (getEventStatus === "success") {
          setEvents(getEventData);
       }
-      if (invitation?.pricingCategory === "premium") {
+      if (invitationSetting?.pricingCategory === "premium") {
          setTheme("orange");
-      } else if (invitation?.pricingCategory === "eksklusif") {
+      } else if (invitationSetting?.pricingCategory === "eksklusif") {
          setTheme("violet");
       } else {
          setTheme("green");
       }
-   }, [getEventStatus, getEventData, invitation?.pricingCategory]);
+   }, [getEventStatus, getEventData, invitationSetting?.pricingCategory]);
 
    const handleEventSubmit = async (newData: Event, event: React.FormEvent) => {
       event.preventDefault();

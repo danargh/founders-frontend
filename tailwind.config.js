@@ -7,6 +7,8 @@ module.exports = withTV({
       fontFamily: {
          Lora: ["Lora", "serif"],
          JakartaSans: ["Plus Jakarta Sans", "sans-serif"],
+         EBGaramond: ["EB Garamond", "serif"],
+         PlayfairDisplay: ["Playfair Display", "serif"],
       },
       fontSize: {
          "link-md": [

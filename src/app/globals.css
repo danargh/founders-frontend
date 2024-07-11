@@ -1,3 +1,5 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"); */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -406,4 +408,41 @@
    transition:
       opacity 300ms,
       transform 300ms;
+}
+
+/* TEMPLATE 1 */
+.bg-pattern__template1 {
+   background-image: url("../../public/template1/bg-pattern.png");
+   background-position: center;
+}
+
+.dancing-leaf__animation {
+   animation: sway 5s cubic-bezier(0.42, 0, 0.58, 1) infinite;
+}
+
+@keyframes sway {
+   0% {
+      transform: rotate(0deg) translateY(0);
+   }
+   20% {
+      transform: rotate(10deg) translateY(-10px);
+   }
+   40% {
+      transform: rotate(-10deg) translateY(10px);
+   }
+   60% {
+      transform: rotate(10deg) translateY(-10px);
+   }
+   80% {
+      transform: rotate(-10deg) translateY(10px);
+   }
+   100% {
+      transform: rotate(0deg) translateY(0);
+   }
+}
+
+.bottom-left__transform {
+   display: inline-block;
+   transform: scaleX(-1) rotate(90deg);
+   -webkit-transform: scaleX(-1) rotate(90deg);
 }

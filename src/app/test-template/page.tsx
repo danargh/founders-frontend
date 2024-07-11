@@ -1,6 +1,6 @@
 import Free1 from "@/components/template/Free1";
 
-const Template: React.FC = () => {
+const page: React.FC = () => {
    return (
       <div>
          <Free1 />
@@ -8,4 +8,4 @@ const Template: React.FC = () => {
    );
 };
 
-export default Template;
+export default page;
